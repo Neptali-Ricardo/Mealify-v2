@@ -5,8 +5,18 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from sqlalchemy.exc import SQLAlchemyError
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+import re
 
 api = Blueprint('api', __name__)
+
+EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
+MSG_MISSING_DATA = "Todos los datos son necesarios"
+MSG_INVALID_DATA = "Datos inválidos"
+MSG_EMAIL_EXISTS = "El correo ya existe!"
+MSG_SUCCESS = "Usuario registrado exitosamente"
 
 # Allow CORS requests to this API
 CORS(api)
@@ -20,3 +30,52 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+# Endpoint para registrar un nuevo usuario.
+@api.route('/register', methods=['POST'])
+def register():
+    """
+    Endpoint para registrar un nuevo usuario.
+    Recibe un JSON con 'user', 'email' y 'password'.
+    Retorna un token JWT si el registro es exitoso.
+    """
+    user = request.json.get('user', None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+
+    # Validar datos faltantes
+    if not user or not email or not password:
+        return jsonify({"msg": MSG_MISSING_DATA}), 400
+
+    if not isinstance(user, str) or not isinstance(email, str) or not isinstance(password, str) or not EMAIL_REGEX.match(email):
+        return jsonify({"msg": MSG_INVALID_DATA}), 400
+
+    # Verificar si el correo o el usuario ya existen
+    existing_user = User.query.filter(
+        (User.email == email) | (User.user == user)
+    ).first()
+    if existing_user:
+        if existing_user.email == email:
+            return jsonify({"msg": "El correo ya existe"}), 409
+        if existing_user.user == user:
+            return jsonify({"msg": "El nombre de usuario ya existe"}), 409
+
+    try:
+        # Crear un nuevo usuario con contraseña encriptada
+        hashed_password = generate_password_hash(password)
+        new_user = User(
+            user=user,
+            email=email,
+            password=hashed_password,
+            is_active=True
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        
+        # Crear y retornar el token JWT
+        token = create_access_token(identity=str(new_user.id))
+        return jsonify({"msg": MSG_SUCCESS, "token": token}), 201
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": str(e)}), 500
