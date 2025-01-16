@@ -19,3 +19,22 @@ class Users(db.Model):
             "user": self.user,
             "email": self.email,
         }
+
+class My_Plans(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    plan = db.Column(db.String, nullable=False)
+    create_at = db.Column(db.Date, nullable=False) 
+    name = db.Column(db.String, nullable=False)
+
+    def __repr__(self):
+        return f'<Plans {self.name}/>'
+        
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "plan": self.plan,
+            "create_at": self.create_at,
+            "name": self.name
+        }
