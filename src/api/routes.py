@@ -127,3 +127,38 @@ def get_users():
             "msg": "Unexpected error",
             "error": str(e)
         }), 500
+    
+
+# Endpoint para obtener usuario por id.
+@api.route('/user/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    """
+    Endpoint para obtener un solo usuario por su ID.
+    Retorna el usuario serializado.
+    """
+    try:
+        # Obtener el usuario por ID
+        user = Users.query.get(user_id)
+        
+         # Si no hay usuarios, retornar un mensaje adecuado
+        if not user:
+            return jsonify({"msg": "User not found"}), 404
+
+        # Serializar el usuario y devolverlo
+        return jsonify({
+            "msg": "Usuario obtenido correctamente",
+            "payload": user.serialize()
+        }), 200
+
+    except SQLAlchemyError as e:
+        # Manejo de errores específicos de la base de datos
+        return jsonify({
+            "msg": "Error al obtener el usuario",
+            "error": f"Database query failed: {str(e)}"
+        }), 500
+    except Exception as e:
+        # Manejo de errores generales
+        return jsonify({
+            "msg": "Unexpected error",
+            "error": str(e)
+        }), 500
