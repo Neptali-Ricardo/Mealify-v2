@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Users
+from api.models import db, Users, My_Plans
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
@@ -162,3 +162,96 @@ def get_user(user_id):
             "msg": "Unexpected error",
             "error": str(e)
         }), 500
+    
+# Endpoint para obtener todos los planes
+@api.route('/plans', methods=['GET'])
+def get_all_plans():
+    """
+    Endpoint para obtener todos los planes.
+    Retorna una lista de planes serializados en formato JSON.
+    """
+    try:
+        plans = My_Plans.query.all()
+        if not plans:
+            return jsonify({"msg": "No plans found"}), 404
+        
+        plans_serialized = [plan.serialize() for plan in plans]
+        return jsonify({
+            "msg": "Planes obtenidos correctamente",
+            "payload": plans_serialized
+        }), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener los planes", "error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+
+
+# Endpoint para obtener un plan por ID
+@api.route('/plan/<int:plan_id>', methods=['GET'])
+def get_plan(plan_id):
+    """
+    Endpoint para obtener un solo plan por su ID.
+    """
+    try:
+        plan = My_Plans.query.get(plan_id)
+        if not plan:
+            return jsonify({"msg": "Plan not found"}), 404
+        
+        return jsonify({
+            "msg": "Plan obtenido correctamente",
+            "payload": plan.serialize()
+        }), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener el plan", "error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+
+
+# Endpoint para actualizar un plan por ID
+@api.route('/plan/<int:plan_id>', methods=['PUT'])
+def update_plan(plan_id):
+    """
+    Endpoint para actualizar un plan por su ID.
+    Recibe un JSON con los campos a actualizar.
+    """
+    try:
+        plan = My_Plans.query.get(plan_id)
+        if not plan:
+            return jsonify({"msg": "Plan not found"}), 404
+        
+        data = request.get_json()
+
+        # Actualizar los campos permitidos
+        plan.user_id = data.get('user_id', plan.user_id)
+        plan.plan = data.get('plan', plan.plan)
+        plan.create_at = data.get('create_at', plan.create_at)
+        plan.name = data.get('name', plan.name)
+
+        db.session.commit()
+        return jsonify({"msg": "Plan actualizado correctamente", "payload": plan.serialize()}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al actualizar el plan", "error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+
+
+# Endpoint para eliminar un plan por ID
+@api.route('/plan/<int:plan_id>', methods=['DELETE'])
+def delete_plan(plan_id):
+    """
+    Endpoint para eliminar un plan por su ID.
+    """
+    try:
+        plan = My_Plans.query.get(plan_id)
+        if not plan:
+            return jsonify({"msg": "Plan not found"}), 404
+        
+        db.session.delete(plan)
+        db.session.commit()
+        return jsonify({"msg": "Plan eliminado correctamente"}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al eliminar el plan", "error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
