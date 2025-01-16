@@ -79,3 +79,51 @@ def register():
     except Exception as e:
         db.session.rollback()
         return jsonify({"msg": str(e)}), 500
+    
+
+# Endpoint para obtener todos los usuarios de la base de datos.
+@api.route('/users', methods=['GET'])
+def get_users():
+    """
+    Endpoint para obtener todos los usuarios.
+    Retorna una lista de usuarios serializados en formato JSON.
+    Ejemplo de respuesta:
+    {
+        "msg": "Usuarios obtenidos correctamente",
+        "payload": [
+            {
+                "id": 1,
+                "user": "user1",
+                "email": "user1@example.com"
+            },
+            ...
+        ]
+    }
+    """
+    try:
+        # Obtener todos los usuarios de la base de datos
+        users = Users.query.all()
+        
+        # Si no hay usuarios, retornar un mensaje adecuado
+        if not users:
+            return jsonify({"msg": "No users found"}), 404
+
+        # Serializar los usuarios y devolverlos
+        users_serialized = [user.serialize() for user in users]
+        return jsonify({
+            "msg": "Usuarios obtenidos correctamente",
+            "payload": users_serialized
+        }), 200
+
+    except SQLAlchemyError as e:
+        # Manejo de errores específicos de la base de datos
+        return jsonify({
+            "msg": "Error al obtener los usuarios",
+            "error": f"Database query failed: {str(e)}"
+        }), 500
+    except Exception as e:
+        # Manejo de errores generales
+        return jsonify({
+            "msg": "Unexpected error",
+            "error": str(e)
+        }), 500
