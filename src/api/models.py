@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class User(db.Model):
+class Users(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.String(120), unique=True, nullable=False)  # Campo obligatorio

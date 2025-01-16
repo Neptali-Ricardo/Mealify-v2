@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, Users
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
@@ -51,8 +51,8 @@ def register():
         return jsonify({"msg": MSG_INVALID_DATA}), 400
 
     # Verificar si el correo o el usuario ya existen
-    existing_user = User.query.filter(
-        (User.email == email) | (User.user == user)
+    existing_user = Users.query.filter(
+        (Users.email == email) | (Users.user == user)
     ).first()
     if existing_user:
         if existing_user.email == email:
@@ -63,7 +63,7 @@ def register():
     try:
         # Crear un nuevo usuario con contraseña encriptada
         hashed_password = generate_password_hash(password)
-        new_user = User(
+        new_user = Users(
             user=user,
             email=email,
             password=hashed_password,
