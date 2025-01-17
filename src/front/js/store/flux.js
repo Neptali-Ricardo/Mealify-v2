@@ -62,6 +62,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			login: async (formData) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/login', {
+						method: 'POST',
+						body: JSON.stringify(formData),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+			
+					if (!resp.ok) throw new Error('Error al autenticar usuario');
+			
+					const data = await resp.json();
+			
+					if (data.token) {
+						// Actualizar el store con el token
+						setStore({ token: data.token });
+			
+						// Guardar el token en localStorage
+						localStorage.setItem('token', data.token);
+			
+						return true; // Login exitoso
+					} else {
+						throw new Error('Token no recibido');
+					}
+				} catch (error) {
+					console.error(error);
+					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
+					return false; // Error en el login
+				}
+			},
 
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
