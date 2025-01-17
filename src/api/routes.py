@@ -163,6 +163,50 @@ def get_user(user_id):
             "error": str(e)
         }), 500
     
+
+# Endpoint para obtener usuario por usuario o email.
+@api.route('/users/search', methods=['GET'])
+def search_user():
+    """
+    Endpoint para buscar un usuario por nombre de usuario o correo electrónico.
+    Recibe parámetros de consulta 'user' o 'email'.
+    """
+    # Obtener el usuario por nombre de usuario o email
+    user = request.args.get('user', None)
+    email = request.args.get('email', None)
+
+    # Si no hay parámetros de búsqueda, retorna mensaje
+    if not user and not email:
+        return jsonify({"msg": "Debe proporcionar un nombre de usuario o un correo electrónico para la búsqueda."}), 400
+
+    try:
+        if user:
+            user_found = Users.query.filter_by(user=user).first()
+        elif email:
+            user_found = Users.query.filter_by(email=email).first()
+
+        if user_found:
+            return jsonify({
+                "msg": "Usuario encontrado",
+                "payload": user_found.serialize()
+            }), 200
+        else:
+            return jsonify({"msg": "Usuario no encontrado"}), 404
+
+    except SQLAlchemyError as e:
+        # Manejo de errores específicos de la base de datos
+        return jsonify({
+            "msg": "Error al buscar el usuario",
+            "error": f"Database query failed: {str(e)}"
+        }), 500
+    except Exception as e:
+        # Manejo de errores generales
+        return jsonify({
+            "msg": "Unexpected error",
+            "error": str(e)
+        }), 500
+    
+    
 # Endpoint para obtener todos los planes
 @api.route('/plans', methods=['GET'])
 def get_all_plans():
