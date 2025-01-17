@@ -22,8 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					console.log("Datos enviados al servidor:", formData);
 
-					const resp = await fetch(
-						"https://fuzzy-space-train-vrxxrwrjq4w3pwrp-3001.app.github.dev/api/register",
+					const resp = await fetch(process.env.BACKEND_URL + '/api/register', 
 						{
 							method: "POST",
 							headers: {
