@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Users, My_Plans
+from api.models import db, Users, My_Plans, Perfil
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
@@ -468,3 +468,80 @@ def delete_plan(plan_id):
         return jsonify({"msg": "Error al eliminar el plan", "error": str(e)}), 500
     except Exception as e:
         return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+
+# Endpoint para obtener todos los perfiles
+@api.route('/perfiles', methods=['GET'])
+def get_perfiles():
+    """
+    Obtiene todos los perfiles en la base de datos.
+    """
+    try:
+        perfiles = Perfil.query.all()
+        if not perfiles:
+            return jsonify({"msg": "No hay perfiles disponibles"}), 404
+        perfiles_serializados = [perfil.serialize() for perfil in perfiles]
+        return jsonify({"msg": "Perfiles obtenidos correctamente", "perfiles": perfiles_serializados}), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener perfiles", "error": str(e)}), 500
+
+# Endpoint para obtener un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['GET'])
+def get_perfil(perfil_id):
+    """
+    Obtiene un perfil por su ID.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+        return jsonify({"msg": "Perfil obtenido correctamente", "perfil": perfil.serialize()}), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener el perfil", "error": str(e)}), 500
+
+# Endpoint para actualizar un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['PUT'])
+def update_perfil(perfil_id):
+    """
+    Actualiza los datos de un perfil existente.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+
+        data = request.json
+        if not data:
+            return jsonify({"msg": "Datos no proporcionados"}), 400
+
+        # Actualizar campos opcionales si están presentes
+        perfil.name = data.get("name", perfil.name)
+        perfil.alergenos = data.get("alergenos", perfil.alergenos)
+        perfil.comensales = data.get("comensales", perfil.comensales)
+        perfil.condicion = data.get("condicion", perfil.condicion)
+
+        db.session.commit()
+        return jsonify({"msg": "Perfil actualizado correctamente", "perfil": perfil.serialize()}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al actualizar el perfil", "error": str(e)}), 500
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
+
+# Endpoint para eliminar un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['DELETE'])
+def delete_perfil(perfil_id):
+    """
+    Elimina un perfil por su ID.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+
+        db.session.delete(perfil)
+        db.session.commit()
+        return jsonify({"msg": "Perfil eliminado correctamente"}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al eliminar el perfil", "error": str(e)}), 500
