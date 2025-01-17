@@ -206,6 +206,77 @@ def search_user():
             "error": str(e)
         }), 500
     
+# Endpoint para editar los datos de usuario.
+@api.route('/user/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    """
+    Endpoint para actualizar los datos de un usuario existente.
+    """
+    # Buscar el usuario en la base de datos por su ID
+    user = Users.query.get(user_id)
+    
+    if user is None:
+        # Retornar error si el usuario no existe
+        return jsonify({"error": "User not found"}), 404
+
+    # Obtener los datos enviados en el cuerpo de la solicitud
+    data = request.get_json()
+
+    if not data:
+        # Retornar error si no se envían datos
+        return jsonify({"error": "No data provided"}), 400
+
+    # Validar y actualizar el nombre de usuario
+    username = data.get("user")
+    if username:
+        if not isinstance(username, str) or len(username) < 3:
+            return jsonify({"error": "Username must be at least 3 characters long"}), 400
+        user.user = username
+
+    # Validar y actualizar el correo electrónico si está presente
+    if "email" in data:
+        if not EMAIL_REGEX.match(data["email"]):
+            # Retornar error si el formato del correo es inválido
+            return jsonify({"error": "Invalid email format"}), 400
+        user.email = data["email"]
+
+    # Validar y actualizar la contraseña si está presente
+    if "password" in data:
+        if not isinstance(data["password"], str) or len(data["password"]) < 8:
+            # Retornar error si la contraseña no cumple con los requisitos mínimos
+            return jsonify({"error": "Password must be at least 8 characters long"}), 400
+        user.password = generate_password_hash(data["password"])  # Hashear la nueva contraseña
+
+    # Validar y actualizar el estado de actividad si está presente
+    if "is_active" in data:
+        if not isinstance(data["is_active"], bool):
+            # Retornar error si el valor de 'is_active' no es un booleano
+            return jsonify({"error": "Invalid value for 'is_active'. Must be a boolean"}), 400
+        user.is_active = data["is_active"]
+
+    # Guardar los cambios en la base de datos
+    try:
+        db.session.commit()
+        # Retornar mensaje de éxito con los datos actualizados del usuario
+        return jsonify({
+            "message": f"User {user.email} updated successfully",
+            "user": user.serialize()
+        }), 200
+    except SQLAlchemyError as e:
+        # Manejo de errores relacionados con la base de datos
+        db.session.rollback()
+        return jsonify({
+            "error": "Database error",
+            "details": str(e)
+        }), 500
+    except Exception as e:
+        # Manejo de errores generales no previstos
+        db.session.rollback()
+        return jsonify({
+            "error": "Unexpected error",
+            "details": str(e)
+        }), 500
+
     
 # Endpoint para obtener todos los planes
 @api.route('/plans', methods=['GET'])
