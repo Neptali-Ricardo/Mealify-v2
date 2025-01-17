@@ -21,6 +21,7 @@ class Users(db.Model):
         }
 
 class My_Plans(db.Model):
+    __table__ = 'my_plans'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
     plan = db.Column(db.String, nullable=False)
