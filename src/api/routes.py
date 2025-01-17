@@ -545,3 +545,58 @@ def delete_perfil(perfil_id):
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({"msg": "Error al eliminar el perfil", "error": str(e)}), 500
+
+@api.route('/perfil', methods=['POST'])
+@jwt_required()  # Requiere autenticación con JWT
+def create_perfil():
+    """
+    Endpoint para crear un nuevo perfil.
+    Recibe un JSON con 'user_id', 'name', 'alergenos', 'comensales', y 'condicion'.
+    Retorna el perfil creado si la operación es exitosa.
+    """
+    # Obtener los datos enviados en el cuerpo de la solicitud
+    data = request.get_json()
+
+    # Validar que los datos requeridos estén presentes
+    if not data:
+        return jsonify({"msg": "No se enviaron datos"}), 400
+
+    user_id = data.get('user_id')
+    name = data.get('name')
+    alergenos = data.get('alergenos', {})
+    comensales = data.get('comensales')
+    condicion = data.get('condicion', {})
+
+    if not user_id or not name or comensales is None:
+        return jsonify({"msg": "Faltan datos obligatorios"}), 400
+
+    try:
+        # Crear el nuevo perfil
+        new_perfil = Perfil(
+            user_id=user_id,
+            name=name,
+            alergenos=alergenos,
+            comensales=comensales,
+            condicion=condicion
+        )
+        db.session.add(new_perfil)
+        db.session.commit()
+
+        # Retornar el perfil creado
+        return jsonify({
+            "msg": "Perfil creado exitosamente",
+            "perfil": new_perfil.serialize()
+        }), 201
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({
+            "msg": "Error al crear el perfil",
+            "error": str(e)
+        }), 500
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "msg": "Error inesperado",
+            "error": str(e)
+        }), 500
