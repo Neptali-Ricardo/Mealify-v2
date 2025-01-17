@@ -259,7 +259,7 @@ def update_user(user_id):
         db.session.commit()
         # Retornar mensaje de éxito con los datos actualizados del usuario
         return jsonify({
-            "message": f"User {user.email} updated successfully",
+            "message": f"User {user.user} and {user.email} updated successfully",
             "user": user.serialize()
         }), 200
     except SQLAlchemyError as e:
