@@ -13,9 +13,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			token: localStorage.getItem("token") || null, // Cargar el token si existe
 		},
 		actions: {
+
+			register: async (formData) => {
+				try {
+					console.log("Datos enviados al servidor:", formData);
+
+					const resp = await fetch(
+						"https://fuzzy-space-train-vrxxrwrjq4w3pwrp-3001.app.github.dev/api/register",
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify(formData),
+						}
+					);
+
+					if (!resp.ok) {
+						const errorMessage = await resp.text();
+						const errorJson = JSON.parse(errorMessage);
+						console.error(`Error del servidor: ${resp.status} - ${resp.statusText}`);
+						console.error("Detalles del error:", errorJson);
+
+						if (resp.status === 409 && errorJson.msg === "El correo ya existe!") {
+							alert("Este correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
+						} else {
+							throw new Error(`Error al registrar usuario: ${errorMessage}`);
+						}
+					} else {
+						const data = await resp.json();
+						console.log("Datos recibidos del servidor:", data);
+						alert("Usuario registrado exitosamente.");
+					}
+				} catch (error) {
+					console.error("Error al registrar usuario:", error.message);
+
+					if (error.message.includes("El correo ya existe")) {
+						alert("El correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
+					} else if (error.message.includes("El nombre de usuario ya existe")) {
+						alert("El nombre de usuario ya está en uso. Por favor, elige otro.");
+					} else {
+						alert("Ocurrió un problema al registrarte. Por favor, intenta de nuevo.");
+					}
+				}
+			},
+
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
