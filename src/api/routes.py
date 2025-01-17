@@ -320,31 +320,35 @@ def delete_user(user_id):
 def login():
     """
     Endpoint para login de usuario.
+    Permite iniciar sesión con nombre de usuario o correo electrónico y contraseña.
     """
-    email = request.json.get('email', None)
+    identifier = request.json.get('identifier', None)  # Puede ser user o email
     password = request.json.get('password', None)
 
-    if not email or not password:
+    if not identifier or not password:
         return jsonify({"msg": "Todos los datos son necesarios"}), 400
 
-    # Validación simple del formato de correo
-    if not isinstance(email, str) or not isinstance(password, str):
+    # Validación de tipo de datos
+    if not isinstance(identifier, str) or not isinstance(password, str):
         return jsonify({"msg": "Datos inválidos"}), 400
 
-    email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-    if not re.match(email_regex, email):
-        return jsonify({"msg": "Correo electrónico no válido"}), 400
-
     try:
-        user = Users.query.filter_by(email=email).first()
+        # Buscar usuario por email o nombre de usuario
+        user = Users.query.filter(
+            (Users.email == identifier) | (Users.user == identifier)
+        ).first()
+
         if not user or not check_password_hash(user.password, password):
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
+        # Generar el token de acceso
         token = create_access_token(identity=str(user.id))
         return jsonify({
             "msg": "Inicio de sesión exitoso",
             "token": token,
-            "user_id": user.id  # Devuelve el ID del usuario
+            "user_id": user.id,  # Devuelve el ID del usuario
+            "user": user.user,  # Devuelve el nombre de usuario
+            "email": user.email  # Devuelve el correo electrónico
         }), 200
 
     except SQLAlchemyError as e:
@@ -357,6 +361,7 @@ def login():
             "msg": "Error interno",
             "error": str(e)
         }), 500
+
 
 @api.route('/user_info', methods=['GET'])
 @jwt_required()
