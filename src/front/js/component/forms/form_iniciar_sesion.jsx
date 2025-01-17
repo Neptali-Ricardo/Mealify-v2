@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../../store/appContext";
 
 export const Form_Inicio = () =>{
+
+    const { actions } = useContext(Context)
+    const [formData, setFormData] = useState({
+        
+    })
+
 
     return(
         <div className="tab-pane fade show active">
