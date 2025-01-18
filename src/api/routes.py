@@ -321,22 +321,16 @@ def login():
     """
     Endpoint para login de usuario.
     """
-    email = request.json.get('email', None)
+    identifier = request.json.get('identifier', None)
     password = request.json.get('password', None)
 
-    if not email or not password:
+    if not identifier or not password:
         return jsonify({"msg": "Todos los datos son necesarios"}), 400
 
-    # Validación simple del formato de correo
-    if not isinstance(email, str) or not isinstance(password, str):
-        return jsonify({"msg": "Datos inválidos"}), 400
-
-    email_regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-    if not re.match(email_regex, email):
-        return jsonify({"msg": "Correo electrónico no válido"}), 400
-
     try:
-        user = Users.query.filter_by(email=email).first()
+        user = Users.query.filter(
+            (Users.email == identifier) | (Users.user == identifier)
+        ).first()
         if not user or not check_password_hash(user.password, password):
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
@@ -344,7 +338,7 @@ def login():
         return jsonify({
             "msg": "Inicio de sesión exitoso",
             "token": token,
-            "user_id": user.id  # Devuelve el ID del usuario
+            "user_id": user.id
         }), 200
 
     except SQLAlchemyError as e:

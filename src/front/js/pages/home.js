@@ -1,37 +1,65 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { UserForm } from "../component/userForm.jsx";
+import { LoginForm } from "../component/loginForm.jsx";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate();
+    const [token, setToken] = useState(localStorage.getItem("token"));
+	const [isLogin, setIsLogin] = useState(true);
+    const [formType, setFormType] = useState("register"); // Controla el formulario que se muestra
 
-	const handleSubmit = async (formData) => {
-		let success;
-		success = await actions.register(formData);
-		console.log("Datos del formulario enviados:", formData);
-	};
+	// Manejar el envío del formulario Register
+    const handleRegister = async (formData) => {
+        let success;
+        success = await actions.register(formData);
+
+        if (success) {
+            setToken(localStorage.getItem("token")); // Actualiza el estado local con el nuevo token
+        } 
+    };
+
+	// Manejar el envío del formulario Login
+    const handleLogin = async (formData) => {
+        let success;
+        success = await actions.login(formData);
+
+        if (success) {
+            setToken(localStorage.getItem("token")); // Actualiza el estado local con el nuevo token
+        } 
+    };
 	
+	// Redirigir al perfil si está logueado
+    const handleClick = () => {
+        if (token) navigate("/profile");
+    };
+
+	useEffect(() => {
+        console.log("isLogin state changed:", isLogin); // Verifica si el estado cambia correctamente
+    }, [isLogin]);
+
 	return (
 		<div className="text-center mt-5">
 
-			{/* Mostrar el formulario */}
-			<UserForm type={"register"} onSubmit={handleSubmit} />
+			{/* Botones para alternar entre registro y login */}
+            <div>
+                <button onClick={() => setFormType("register")}>Registrarse</button>
+                <button onClick={() => setFormType("login")}>Iniciar sesión</button>
+            </div>
+
+            {/* Mostrar el formulario correspondiente */}
+            {formType === "register" ? (
+                <UserForm onSubmit={handleRegister} />
+            ) : (
+                <LoginForm onSubmit={handleLogin} />
+            )}
 			
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+			{/* Mostrar mensaje de bienvenida si el token está presente */}
+			{token && <h2 className="mt-5">Welcome to the home page!</h2>}
 		</div>
 	);
 };

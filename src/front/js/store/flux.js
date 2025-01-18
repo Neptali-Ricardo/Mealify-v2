@@ -70,26 +70,67 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						}
 					});
-			
-					if (!resp.ok) throw new Error('Error al autenticar usuario');
-			
+					if (!resp.ok) {
+						const errorMessage = await resp.text();
+						throw new Error(errorMessage);
+					}
 					const data = await resp.json();
-			
 					if (data.token) {
-						// Actualizar el store con el token
 						setStore({ token: data.token });
-			
-						// Guardar el token en localStorage
 						localStorage.setItem('token', data.token);
-			
-						return true; // Login exitoso
+						return true;
 					} else {
 						throw new Error('Token no recibido');
 					}
 				} catch (error) {
-					console.error(error);
+					console.error("Error en el login:", error.message);
 					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
-					return false; // Error en el login
+					return false;
+				}
+			},
+
+			getUserInfo: async () => {
+				try {
+					console.log("Iniciando solicitud para obtener información del usuario...");
+					
+					const token = localStorage.getItem("token");
+					if (!token) {
+						throw new Error("Token no encontrado en localStorage");
+					}
+				
+					console.log("Token obtenido:", token);
+					
+					const resp = await fetch(process.env.BACKEND_URL + '/api/user_info',
+						{
+						method: "GET",
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+						}
+					);
+			  
+				  	console.log("Respuesta completa:", resp);
+			  
+					if (!resp.ok) {
+						console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
+						if (resp.status === 401) {
+						alert("El token ha expirado o no es válido. Por favor, inicia sesión nuevamente.");
+						} else if (resp.status === 404) {
+						alert("Usuario no encontrado.");
+						} else {
+						alert("Ocurrió un error al obtener la información del usuario.");
+						}
+						throw new Error(`Error al obtener información del usuario: ${resp.status}`);
+					}
+				
+					const data = await resp.json();
+					console.log("Datos obtenidos:", data);
+				
+					setStore({ user: data.payload });
+				} catch (error) {
+					console.error("Error obteniendo la información del usuario:", error.message);
+					alert("No se pudo obtener la información del usuario. Por favor, verifica tu conexión.");
+					return false;
 				}
 			},
 
