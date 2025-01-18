@@ -322,22 +322,16 @@ def login():
     Endpoint para login de usuario.
     Permite iniciar sesión con nombre de usuario o correo electrónico y contraseña.
     """
-    identifier = request.json.get('identifier', None)  # Puede ser user o email
+    identifier = request.json.get('identifier', None)
     password = request.json.get('password', None)
 
     if not identifier or not password:
         return jsonify({"msg": "Todos los datos son necesarios"}), 400
 
-    # Validación de tipo de datos
-    if not isinstance(identifier, str) or not isinstance(password, str):
-        return jsonify({"msg": "Datos inválidos"}), 400
-
     try:
-        # Buscar usuario por email o nombre de usuario
         user = Users.query.filter(
             (Users.email == identifier) | (Users.user == identifier)
         ).first()
-
         if not user or not check_password_hash(user.password, password):
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
@@ -346,9 +340,7 @@ def login():
         return jsonify({
             "msg": "Inicio de sesión exitoso",
             "token": token,
-            "user_id": user.id,  # Devuelve el ID del usuario
-            "user": user.user,  # Devuelve el nombre de usuario
-            "email": user.email  # Devuelve el correo electrónico
+            "user_id": user.id
         }), 200
 
     except SQLAlchemyError as e:
