@@ -21,6 +21,7 @@ class Users(db.Model):
         }
 
 class My_Plans(db.Model):
+    __tablename__ = 'my_plans'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
     plan = db.Column(db.String, nullable=False)
@@ -37,4 +38,28 @@ class My_Plans(db.Model):
             "plan": self.plan,
             "create_at": self.create_at,
             "name": self.name
+        }
+    
+class Perfil(db.Model):
+    __tablename__ = 'perfil'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
+    alergenos = db.Column(db.JSON)
+    comensales = db.Column(db.Integer, nullable=False)
+    condicion = db.Column(db.JSON)
+
+    user = db.relationship('Users', backref='perfiles')  # Relación con Users
+
+    def __repr__(self):
+        return f'<Perfil {self.name}>'
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "alergenos": self.alergenos,
+            "comensales": self.comensales,
+            "condicion": self.condicion,
         }

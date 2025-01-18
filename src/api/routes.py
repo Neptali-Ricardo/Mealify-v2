@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Users, My_Plans
+from api.models import db, Users, My_Plans, Perfil
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
@@ -320,6 +320,7 @@ def delete_user(user_id):
 def login():
     """
     Endpoint para login de usuario.
+    Permite iniciar sesión con nombre de usuario o correo electrónico y contraseña.
     """
     identifier = request.json.get('identifier', None)
     password = request.json.get('password', None)
@@ -334,6 +335,7 @@ def login():
         if not user or not check_password_hash(user.password, password):
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
+        # Generar el token de acceso
         token = create_access_token(identity=str(user.id))
         return jsonify({
             "msg": "Inicio de sesión exitoso",
@@ -351,6 +353,7 @@ def login():
             "msg": "Error interno",
             "error": str(e)
         }), 500
+
 
 @api.route('/user_info', methods=['GET'])
 @jwt_required()
@@ -462,3 +465,135 @@ def delete_plan(plan_id):
         return jsonify({"msg": "Error al eliminar el plan", "error": str(e)}), 500
     except Exception as e:
         return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+
+# Endpoint para obtener todos los perfiles
+@api.route('/perfiles', methods=['GET'])
+def get_perfiles():
+    """
+    Obtiene todos los perfiles en la base de datos.
+    """
+    try:
+        perfiles = Perfil.query.all()
+        if not perfiles:
+            return jsonify({"msg": "No hay perfiles disponibles"}), 404
+        perfiles_serializados = [perfil.serialize() for perfil in perfiles]
+        return jsonify({"msg": "Perfiles obtenidos correctamente", "perfiles": perfiles_serializados}), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener perfiles", "error": str(e)}), 500
+
+# Endpoint para obtener un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['GET'])
+def get_perfil(perfil_id):
+    """
+    Obtiene un perfil por su ID.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+        return jsonify({"msg": "Perfil obtenido correctamente", "perfil": perfil.serialize()}), 200
+    except SQLAlchemyError as e:
+        return jsonify({"msg": "Error al obtener el perfil", "error": str(e)}), 500
+
+# Endpoint para actualizar un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['PUT'])
+def update_perfil(perfil_id):
+    """
+    Actualiza los datos de un perfil existente.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+
+        data = request.json
+        if not data:
+            return jsonify({"msg": "Datos no proporcionados"}), 400
+
+        # Actualizar campos opcionales si están presentes
+        perfil.name = data.get("name", perfil.name)
+        perfil.alergenos = data.get("alergenos", perfil.alergenos)
+        perfil.comensales = data.get("comensales", perfil.comensales)
+        perfil.condicion = data.get("condicion", perfil.condicion)
+
+        db.session.commit()
+        return jsonify({"msg": "Perfil actualizado correctamente", "perfil": perfil.serialize()}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al actualizar el perfil", "error": str(e)}), 500
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
+
+# Endpoint para eliminar un perfil por ID
+@api.route('/perfil/<int:perfil_id>', methods=['DELETE'])
+def delete_perfil(perfil_id):
+    """
+    Elimina un perfil por su ID.
+    """
+    try:
+        perfil = Perfil.query.get(perfil_id)
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado"}), 404
+
+        db.session.delete(perfil)
+        db.session.commit()
+        return jsonify({"msg": "Perfil eliminado correctamente"}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al eliminar el perfil", "error": str(e)}), 500
+
+@api.route('/perfil', methods=['POST'])
+@jwt_required()  # Requiere autenticación con JWT
+def create_perfil():
+    """
+    Endpoint para crear un nuevo perfil.
+    Recibe un JSON con 'user_id', 'name', 'alergenos', 'comensales', y 'condicion'.
+    Retorna el perfil creado si la operación es exitosa.
+    """
+    # Obtener los datos enviados en el cuerpo de la solicitud
+    data = request.get_json()
+
+    # Validar que los datos requeridos estén presentes
+    if not data:
+        return jsonify({"msg": "No se enviaron datos"}), 400
+
+    user_id = data.get('user_id')
+    name = data.get('name')
+    alergenos = data.get('alergenos', {})
+    comensales = data.get('comensales')
+    condicion = data.get('condicion', {})
+
+    if not user_id or not name or comensales is None:
+        return jsonify({"msg": "Faltan datos obligatorios"}), 400
+
+    try:
+        # Crear el nuevo perfil
+        new_perfil = Perfil(
+            user_id=user_id,
+            name=name,
+            alergenos=alergenos,
+            comensales=comensales,
+            condicion=condicion
+        )
+        db.session.add(new_perfil)
+        db.session.commit()
+
+        # Retornar el perfil creado
+        return jsonify({
+            "msg": "Perfil creado exitosamente",
+            "perfil": new_perfil.serialize()
+        }), 201
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({
+            "msg": "Error al crear el perfil",
+            "error": str(e)
+        }), 500
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "msg": "Error inesperado",
+            "error": str(e)
+        }), 500
