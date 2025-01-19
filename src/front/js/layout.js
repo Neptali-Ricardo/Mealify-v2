@@ -12,6 +12,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import SelectAllergiesPage from "./pages/alergias.jsx";
 import LoginForm from "./pages/login.jsx";
+import { File_test } from "./pages/testeo.jsx";
 
 //create your first component
 const Layout = () => {
@@ -32,6 +33,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<LoginForm />} path="/login" />
                         <Route element={<SelectAllergiesPage />} path="/alergias" />
+                        <Route element={<File_test />} path="/test" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
