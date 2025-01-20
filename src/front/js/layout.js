@@ -9,7 +9,7 @@ import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
+import { Footer } from "./component/footer.jsx";
 import SelectAllergiesPage from "./pages/alergias.jsx";
 import LoginForm from "./pages/login.jsx";
 import { File_test } from "./pages/testeo.jsx";
