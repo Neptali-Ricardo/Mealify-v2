@@ -1,0 +1,32 @@
+/* 
+===================================================================================
+⚠️ IMPORTANTE: Archivo de variables CSS 
+- NO modificar las variables existentes sin consultar con el equipo responsable. 
+- Si necesitas agregar nuevas variables, asegúrate de que sean consistentes con 
+  las ya existentes y documenta su propósito.
+===================================================================================
+*/
+
+:root {
+    /* Colores */
+    --primary-color: #8A42FB;
+    --secondary-color: #ebebeb;
+    --text-color: #646464;
+    --background-color: #ffffff;
+  
+    /* Tipografía */
+    --font-family-primary: "Roboto", sans-serif;
+    --font-weight-ligth: 300; /* Peso para regular */
+    --font-weight-regular: 400; /* Peso para regular */
+    --font-weight-medium: 500; /* Peso para Medium */
+    --font-weight-semibold: 600; /* Peso para SemiBold */
+    --font-weight-bold: 700; /* Peso para Bold */
+    --font-size-base: 1rem; /* 16px */
+    --line-height-base: 1.5;
+  
+    /* Espaciados */
+    --spacing-small: 0.5rem; /* 8px */
+    --spacing-medium: 1rem; /* 16px */
+    --spacing-large: 1.5rem; /* 24px */
+  }
+  
