@@ -1,0 +1,45 @@
+/* 
+===================================================================================
+⚠️ IMPORTANTE: Este archivo contiene estilos base del proyecto. 
+- Por favor, NO modificar sin consultar con el equipo responsable. 
+- Cambios en este archivo pueden afectar el diseño general de la aplicación. 
+===================================================================================
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+}
+
+/* Títulos */
+h1 {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: auto; /* Ajusta el line-height a auto para una mayor flexibilidad */
+}
+
+h2 {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semibold);
+  line-height: auto;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: auto;
+}
+
+/* Párrafos */
+p {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: auto;
+}
