@@ -15,6 +15,7 @@ import LoginForm from "./pages/login.jsx";
 import { File_test } from "./pages/testeo.jsx";
 import ChatGPTComponent from "./gpt/gpt_component.jsx";
 import WeeklyMenu from "./gpt/vista_menu_gpt.jsx";
+import LoginRegister from "./pages/loginRegister.jsx";
 
 //create your first component
 const Layout = () => {
@@ -34,6 +35,7 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<LoginForm />} path="/login" />
+                        <Route element={<LoginRegister />} path="/loginRegister" />
                         <Route element={<SelectAllergiesPage />} path="/alergias" />
                         <Route element={<File_test />} path="/test" />
                         <Route element={<ChatGPTComponent />} path="/gpt "/>
