@@ -6,6 +6,7 @@ import "../../styles/index.css";
 import { UserForm } from "../component/userForm.jsx";
 import { LoginForm } from "../component/loginForm.jsx";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Jumbotron } from "../component/jumbotrom.jsx";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -44,23 +45,27 @@ export const Home = () => {
     }, [isLogin]);
 
 	return (
-		<div className="text-center mt-5">
+        <>
+            <Jumbotron />
+            
+            <div className="text-center mt-5">
+                
+                {/* Botones para alternar entre registro y login */}
+                <div>
+                    <button onClick={() => setFormType("register")}>Registrarse</button>
+                    <button onClick={() => setFormType("login")}>Iniciar sesión</button>
+                </div>
 
-			{/* Botones para alternar entre registro y login */}
-            <div>
-                <button onClick={() => setFormType("register")}>Registrarse</button>
-                <button onClick={() => setFormType("login")}>Iniciar sesión</button>
+                {/* Mostrar el formulario correspondiente */}
+                {formType === "register" ? (
+                    <UserForm onSubmit={handleRegister} />
+                ) : (
+                    <LoginForm onSubmit={handleLogin} />
+                )}
+                
+                {/* Mostrar mensaje de bienvenida si el token está presente */}
+                {token && <h2 className="mt-5">Welcome to the home page!</h2>}
             </div>
-
-            {/* Mostrar el formulario correspondiente */}
-            {formType === "register" ? (
-                <UserForm onSubmit={handleRegister} />
-            ) : (
-                <LoginForm onSubmit={handleLogin} />
-            )}
-			
-			{/* Mostrar mensaje de bienvenida si el token está presente */}
-			{token && <h2 className="mt-5">Welcome to the home page!</h2>}
-		</div>
+        </>
 	);
 };
