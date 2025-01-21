@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import "../../styles/index.css";
 import { UserForm } from "../component/userForm.jsx";
 import { LoginForm } from "../component/loginForm.jsx";
 import { Navigate, useNavigate } from "react-router-dom";
