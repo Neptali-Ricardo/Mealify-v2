@@ -8,7 +8,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer.jsx";
 import SelectAllergiesPage from "./pages/alergias.jsx";
 import LoginForm from "./pages/login.jsx";
