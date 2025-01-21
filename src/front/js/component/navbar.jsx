@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export const Navbar = () => {
 	
+	const navigate = useNavigate();
+	
+	// Redirigir al perfil si está logueado
+	const handleClick = () => {
+		navigate ("/loginRegister");
+	};
+
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
@@ -27,7 +34,7 @@ export const Navbar = () => {
 							<a className="nav-link" href="#">Profile</a>
 						</li>
 					</ul>
-					<form className="d-flex" role="search">
+					<form className="d-flex" role="search" onClick={handleClick}>
 						<button className="btn btn-outline-dark" type="submit">Login</button>
 					</form>
 				</div>
