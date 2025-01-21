@@ -164,7 +164,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			fetchMenu: async () => {
+				try {
+					// Realiza la solicitud al backend
+					const resp = await fetch(process.env.BACKEND_URL + "/api/static-data");
+					if (!resp.ok) throw new Error("Error al obtener el menú");
+
+					// Procesa la respuesta del backend
+					const data = await resp.json();
+					console.log("Datos recibidos del servidor:", data);
+
+					// Extrae la información relevante del menú
+					const menu = data.choices[0].message.content;
+
+					// Guarda el menú en el store
+					setStore({ menu });
+				} catch (error) {
+					console.error("Error al obtener el menú:", error.message);
+					alert("No se pudo obtener el menú semanal. Inténtalo más tarde.");
+				}
 			}
+		
+
+
 		}
 	};
 };
