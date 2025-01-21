@@ -21,6 +21,43 @@ MSG_SUCCESS = "Usuario registrado exitosamente"
 # Allow CORS requests to this API
 CORS(api)
 
+data = {
+    "id": "chatcmpl-ArsEiFnCkJklDlFDuGTZL1sGwrbkp",
+  "object": "chat.completion",
+  "created": 1737403232,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "¡Claro! Aquí te dejo un menú semanal que incluye carne y arroz, con las cantidades aproximadas de productos a comprar para realizar las comidas, las recetas de cada una y la cantidad de calorías de cada una de ellas:\n\n**Lunes**\n- Comida: Pollo al horno con arroz blanco\n  - Ingredientes: 500g de pechuga de pollo, 1 taza de arroz\n  - Calorías: Aproximadamente 400 kcal por porción\n\n**Martes**\n- Comida: Bistec a la parrilla con arroz integral y verduras\n  - Ingredientes: 500g de bistec, 1 taza de arroz integral, verduras al gusto\n  - Calorías: Aproximadamente 450 kcal por porción\n\n**Miércoles**\n- Comida: Albóndigas de carne con salsa de tomate y arroz blanco\n  - Ingredientes: 500g de carne molida, 1 taza de arroz, salsa de tomate\n  - Calorías: Aproximadamente 350 kcal por porción\n\n**Jueves**\n- Comida: Chuletas de cerdo a la plancha con arroz blanco y ensalada\n  - Ingredientes: 500g de chuletas de cerdo, 1 taza de arroz, verduras para ensalada\n  - Calorías: Aproximadamente 400 kcal por porción\n\n**Viernes**\n- Comida: Tacos de carne con arroz y frijoles\n  - Ingredientes: 500g de carne para tacos, tortillas de maíz, arroz, frijoles\n  - Calorías: Aproximadamente 500 kcal por porción\n\n**Sábado**\n- Comida: Lomo de res al horno con arroz integral y brócoli al vapor\n  - Ingredientes: 500g de lomo de res, 1 taza de arroz integral, brócoli\n  - Calorías: Aproximadamente 450 kcal por porción\n\n**Domingo**\n- Comida: Estofado de carne con patatas y arroz blanco\n  - Ingredientes: 500g de carne para estofado, patatas, 1 taza de arroz\n  - Calorías: Aproximadamente 400 kcal por porción\n\nPara esta propuesta, puedes anticipar la compra de al menos 3kg de carne (pollo, bistec, carne molida, chuletas, carne para tacos, lomo de res y carne para estofado), 2kg de arroz (blanco e integral) y las verduras y/o frutas que prefieras para las ensaladas y guarniciones. ¡Espero que esta propuesta te sea útil!",
+        "refusal": "null"
+      },
+      "logprobs": "null",
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 80,
+    "completion_tokens": 621,
+    "total_tokens": 701,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "null"
+
+}
+
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -597,3 +634,7 @@ def create_perfil():
             "msg": "Error inesperado",
             "error": str(e)
         }), 500
+
+@api.route('/static-data', methods=['GET'])
+def get_static_data():
+    return jsonify(data), 200
