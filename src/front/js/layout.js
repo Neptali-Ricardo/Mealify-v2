@@ -38,7 +38,8 @@ const Layout = () => {
                         <Route element={<SelectAllergiesPage />} path="/alergias" />
                         <Route element={<File_test />} path="/test" />
                         <Route element={<ChatGPTComponent />} path="/gpt "/>
-                        <Route element={<WeeklyMenu2 />} path="/menu" />
+                        <Route element={<WeeklyMenu />} path="/menu" />
+                        <Route element={<WeeklyMenu2 />} path="/menu2" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
