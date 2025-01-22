@@ -23,8 +23,8 @@ export const LoginForm = ({ onSubmit }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="contact-form__form row">
-			<div className="contact-form__field p-0">
+		<form onSubmit={handleSubmit} className="contact-form__form">
+			<div className="contact-form__field">
 				<label htmlFor="user">User o Email</label>
 				<input
 					type="text"
@@ -36,7 +36,7 @@ export const LoginForm = ({ onSubmit }) => {
 					className="contact-form__input"
 				/>
 			</div>
-			<div className="contact-form__field p-0">
+			<div className="contact-form__field">
 				<label htmlFor="password">Password</label>
 				<input
 					type="password"
