@@ -7,7 +7,6 @@ export const Menu_GPT = () => {
     const [condicionesMedicas, setCondicionesMedicas] = useState([]);
     const [inputAlergenos, setInputAlergenos] = useState("");
     const [inputCondiciones, setInputCondiciones] = useState("");
-    const [inputComensales, setInputComensales] = useState(1); // Número de comensales
     const [consulta, setConsulta] = useState("");
     const [resultado, setResultado] = useState("");
 
@@ -41,23 +40,21 @@ export const Menu_GPT = () => {
 
     const generarConsulta = async () => {
         if (consulta.trim() === "") {
-            alert("Por favor, escribe tus preferencias alimenticias.");
+            alert("Por favor, escribe una consulta.");
             return;
         }
 
-        const fullConsulta = `Hazme un menú semanal.
-Desayuno, comida y cena  
-Preferencias: ${consulta.trim()}.
-Número de comensales: ${inputComensales}.
-Considera estos alérgenos: ${alergenos.join(", ")}.
-Considera estas condiciones médicas: ${condicionesMedicas.join(", ")}.
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
+        const fullConsulta = `
+      ${consulta}.
+      Considera estos alérgenos: ${alergenos.join(", ")}.
+      Considera estas condiciones médicas: ${condicionesMedicas.join(", ")}.
+    `;
 
         try {
             const response = await getChatGPTResponse([
                 { role: "user", content: fullConsulta.trim() },
             ]);
-            setResultado(response.content);
+            setResultado(response.content); // Mostramos el contenido de la respuesta
         } catch (error) {
             console.error("Error al obtener la respuesta de ChatGPT:", error);
             setResultado("Hubo un error al procesar la consulta.");
@@ -71,7 +68,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                 <div className="d-flex flex-column">
                     <input
                         type="text"
-                        placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
+                        placeholder="Start typing to plan your meals"
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}
                     />
@@ -79,17 +76,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                         Generate your meal plan
                     </button>
                 </div>
-                <div className="mt-3">
-                    <label htmlFor="numComensales">Number of diners:</label>
-                    <input
-                        type="number"
-                        id="numComensales"
-                        min="1"
-                        value={inputComensales}
-                        onChange={(e) => setInputComensales(e.target.value)}
-                    />
-                </div>
-                <div className="d-flex justify-content-between mt-4">
+                <div className="d-flex justify-content-between">
                     <h5>Allergens and Medical Conditions</h5>
                     <button type="button" onClick={handleDesplegar}>
                         {desplegar === "Desplegado" ? "Hide" : "Desplegar"}
@@ -156,7 +143,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                 ) : null}
             </form>
 
-            <div className="resultado_GPT mt-4">
+            <div className="resultado_GPT">
                 <h5>Response:</h5>
                 <p>{resultado}</p>
             </div>
