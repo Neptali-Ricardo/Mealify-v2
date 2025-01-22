@@ -36,32 +36,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			
 						if (resp.status === 409 && errorJson.msg === "El correo ya existe!") {
-							alert("Este correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
+							return { success: false, message: "Este correo ya está registrado. Por favor, usa otro correo o inicia sesión." };
 						} else {
-							console.error("Detalles del error:", errorJson);
 							console.error("Detalles del error:", errorJson);
 							throw new Error(`Error al registrar usuario: ${errorMessage}`);
 						}
-						return false; // Registro fallido
 					}
 			
 					const data = await resp.json();
 					console.log("Datos recibidos del servidor:", data);
-					alert("Usuario registrado exitosamente.");
-					return true; // Registro exitoso
+					return { success: true, message: "Usuario registrado exitosamente." };
 
 				} catch (error) {
 					console.error("Error al registrar usuario:", error.message);
 			
-			
 					if (error.message.includes("El correo ya existe")) {
-						alert("El correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
+						return { success: false, message: "El correo ya está registrado. Por favor, usa otro correo o inicia sesión." };
 					} else if (error.message.includes("El nombre de usuario ya existe")) {
-						alert("El nombre de usuario ya está en uso. Por favor, elige otro.");
+						return { success: false, message: "El nombre de usuario ya está en uso. Por favor, elige otro." };
 					} else {
-						alert("Ocurrió un problema al registrarte. Por favor, intenta de nuevo.");
+						return { success: false, message: "Ocurrió un problema al registrarte. Por favor, intenta de nuevo." };
 					}
-					return false; // Registro fallido
 				}
 			},
 			
@@ -75,27 +70,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 			
-			
 					if (!resp.ok) {
 						const errorMessage = await resp.text();
 						console.error("Error en el login:", errorMessage);
-						alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
-						return false; // Login fallido
+						return { success: false, message: errorMessage.message || 'Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.' };
 					}
-			
 			
 					const data = await resp.json();
 					if (data.token) {
 						setStore({ token: data.token });
 						localStorage.setItem('token', data.token);
-						return true; // Login exitoso
+						return { success: true, message: 'Inicio de sesión exitoso.' }; // Login exitoso
 					} else {
-						throw new Error('Token no recibido');
+						return { success: false, message: 'Token no recibido. Por favor, intenta de nuevo.' };
 					}
 				} catch (error) {
 					console.error("Error en el login:", error.message);
-					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
-					return false; // Login fallido
+					return { success: false, message: 'Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.' };
 				}
 			},
 			
