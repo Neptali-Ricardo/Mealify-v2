@@ -30,15 +30,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(formData),
 					});
 			
-			
-					const resp = await fetch(process.env.BACKEND_URL + '/api/register', {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(formData),
-					});
-			
 					if (!resp.ok) {
 						const errorMessage = await resp.text();
 						const errorJson = JSON.parse(errorMessage);
@@ -58,13 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Datos recibidos del servidor:", data);
 					alert("Usuario registrado exitosamente.");
 					return true; // Registro exitoso
-						return false; // Registro fallido
-					}
-			
-					const data = await resp.json();
-					console.log("Datos recibidos del servidor:", data);
-					alert("Usuario registrado exitosamente.");
-					return true; // Registro exitoso
+
 				} catch (error) {
 					console.error("Error al registrar usuario:", error.message);
 			
@@ -76,7 +61,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						alert("Ocurrió un problema al registrarte. Por favor, intenta de nuevo.");
 					}
-					return false; // Registro fallido
 					return false; // Registro fallido
 				}
 			},
@@ -97,9 +81,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error("Error en el login:", errorMessage);
 						alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
 						return false; // Login fallido
-						console.error("Error en el login:", errorMessage);
-						alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
-						return false; // Login fallido
 					}
 			
 			
@@ -107,7 +88,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (data.token) {
 						setStore({ token: data.token });
 						localStorage.setItem('token', data.token);
-						return true; // Login exitoso
 						return true; // Login exitoso
 					} else {
 						throw new Error('Token no recibido');
