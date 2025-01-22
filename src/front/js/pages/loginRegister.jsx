@@ -1,55 +1,91 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LoginForm } from "../component/loginForm.jsx";
 import { UserForm } from "../component/userForm.jsx";
 import { Context } from "../store/appContext.js";
+import loginImage from "../../img/women-banner-2.png";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginRegister() {
 
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
+    const [isLogin, setIsLogin] = useState(true);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const navigate = useNavigate();
 
-    // Manejar el envío del formulario Register
-    const handleRegister = async (formData) => {
+    // Alternar entre Login y Register
+    const toggleForm = () => setIsLogin(!isLogin);
+
+    // Manejar el envío del formulario
+    const handleSubmit = async (formData) => {
         let success;
-        success = await actions.register(formData);
-
+    
+        if (isLogin) {
+            // Intentar iniciar sesión
+            success = await actions.login(formData);
+        } else {
+            // Intentar registrar un nuevo usuario
+            success = await actions.register(formData);
+        }
+    
         if (success) {
-            setToken(localStorage.getItem("token")); // Actualiza el estado local con el nuevo token
-        } 
+            // Actualizar el token si el login o registro fue exitoso
+            setToken(localStorage.getItem("token"));
+    
+            // Si fue un registro exitoso, cambiar automáticamente a login
+            if (!isLogin) {
+                setIsLogin(true);
+                console.log("Registro exitoso. Cambiando a formulario de login.");
+            } else {
+                console.log("Login exitoso.");
+                navigate("/profile");
+            }
+        } else {
+            // Si no fue exitoso, asegurarse de mantenerse en la página de registro
+            if (!isLogin) {
+                console.log("Registro fallido. Permaneciendo en formulario de registro.");
+                setIsLogin(false);
+            } else {
+                console.log("Login fallido. Permaneciendo en formulario de login.");
+            }
+        }
     };
-
-	// Manejar el envío del formulario Login
-    const handleLogin = async (formData) => {
-        let success;
-        success = await actions.login(formData);
-
-        if (success) {
-            setToken(localStorage.getItem("token")); // Actualiza el estado local con el nuevo token
-        } 
-    };
-
+    
+    useEffect(() => {
+        console.log("Token actual:", token);
+    }, [token]);
+    
     return (
-        <div className="container">
-
-            <div className="row" >
-                <div className="col-6 col-md-6">
-                    
-                </div>
-
-                <div className="col-6 col-md-6">
-                    <UserForm onSubmit={handleRegister} />
-                </div>      
+        <section className="banner__login" aria-labelledby="banner__title">
+            <div className="banner__image-container">
+                <img src={loginImage} alt="Fondo del banner mostrando un paisaje" className="banner__image-login" />
             </div>
 
-            <div className="row mt-5 mb-5">
-                <div className="col-6 col-md-6">
-                    
+            {/* Mostrar el formulario con la lógica de tipo login/register */}
+            {isLogin ? 
+                <div className="banner__login-content container">
+                    <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
+                        <div className="login__text">
+                            <h2 className="login__heading">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                        </div>
+                        <LoginForm onSubmit={handleSubmit}/>
+                        <p className="login-form__text" onClick={toggleForm}>
+                            Don't have an account? Register
+                        </p>
+                    </div> 
                 </div>
-
-                <div className="col-6 col-md-6">
-                    <LoginForm onSubmit={handleLogin}/>
-                </div>      
-            </div>
-
-        </div>
+            : 
+                <div className="banner__login-content container">
+                    <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
+                        <div className="login__text">
+                            <h2 className="login__heading">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                        </div>
+                        <UserForm onSubmit={handleSubmit} />
+                        <p className="login-form__text" onClick={toggleForm}>
+                            Already have an account? Login
+                        </p>
+                    </div> 
+                </div>
+            }
+        </section>
     );
 }

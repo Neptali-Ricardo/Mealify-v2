@@ -25,8 +25,8 @@ export const UserForm = ({ type, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="contact-form__form row">
-            <div className="contact-form__field p-0">
+        <form onSubmit={handleSubmit} className="contact-form__form">
+            <div className="contact-form__field">
                 <label htmlFor="user">User</label>
                 <input
                     id="user"
@@ -38,7 +38,7 @@ export const UserForm = ({ type, onSubmit }) => {
                     className="contact-form__input"
                 />
             </div>
-            <div className="contact-form__field p-0">
+            <div className="contact-form__field">
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
@@ -50,7 +50,7 @@ export const UserForm = ({ type, onSubmit }) => {
                     className="contact-form__input"
                 />
             </div>
-            <div className="contact-form__field p-0">
+            <div className="contact-form__field">
                 <label htmlFor="password">Password</label>
                 <input
                     id="password"

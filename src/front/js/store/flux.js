@@ -21,36 +21,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 			register: async (formData) => {
 				try {
 					console.log("Datos enviados al servidor:", formData);
-
-					const resp = await fetch(process.env.BACKEND_URL + '/api/register', 
-						{
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify(formData),
-						}
-					);
-
+			
+					const resp = await fetch(process.env.BACKEND_URL + '/api/register', {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(formData),
+					});
+			
 					if (!resp.ok) {
 						const errorMessage = await resp.text();
 						const errorJson = JSON.parse(errorMessage);
-						console.error(`Error del servidor: ${resp.status} - ${resp.statusText}`);
-						console.error("Detalles del error:", errorJson);
-
+			
 						if (resp.status === 409 && errorJson.msg === "El correo ya existe!") {
 							alert("Este correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
 						} else {
+							console.error("Detalles del error:", errorJson);
 							throw new Error(`Error al registrar usuario: ${errorMessage}`);
 						}
-					} else {
-						const data = await resp.json();
-						console.log("Datos recibidos del servidor:", data);
-						alert("Usuario registrado exitosamente.");
+						return false; // Registro fallido
 					}
+			
+					const data = await resp.json();
+					console.log("Datos recibidos del servidor:", data);
+					alert("Usuario registrado exitosamente.");
+					return true; // Registro exitoso
 				} catch (error) {
 					console.error("Error al registrar usuario:", error.message);
-
+			
 					if (error.message.includes("El correo ya existe")) {
 						alert("El correo ya está registrado. Por favor, usa otro correo o inicia sesión.");
 					} else if (error.message.includes("El nombre de usuario ya existe")) {
@@ -58,9 +57,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						alert("Ocurrió un problema al registrarte. Por favor, intenta de nuevo.");
 					}
+					return false; // Registro fallido
 				}
 			},
-
+			
 			login: async (formData) => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + '/api/login', {
@@ -70,36 +70,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						}
 					});
+			
 					if (!resp.ok) {
 						const errorMessage = await resp.text();
-						throw new Error(errorMessage);
+						console.error("Error en el login:", errorMessage);
+						alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
+						return false; // Login fallido
 					}
+			
 					const data = await resp.json();
 					if (data.token) {
 						setStore({ token: data.token });
 						localStorage.setItem('token', data.token);
-						return true;
+						return true; // Login exitoso
 					} else {
 						throw new Error('Token no recibido');
 					}
 				} catch (error) {
 					console.error("Error en el login:", error.message);
 					alert('Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.');
-					return false;
+					return false; // Login fallido
 				}
 			},
-
+			
 			getUserInfo: async () => {
 				try {
 					console.log("Iniciando solicitud para obtener información del usuario...");
-					
+
 					const token = localStorage.getItem("token");
 					if (!token) {
 						throw new Error("Token no encontrado en localStorage");
 					}
-				
+
 					console.log("Token obtenido:", token);
-					
+
 					const resp = await fetch(process.env.BACKEND_URL + '/api/user_info',
 						{
 						method: "GET",
@@ -108,9 +112,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						}
 					);
-			  
+
 				  	console.log("Respuesta completa:", resp);
-			  
+
 					if (!resp.ok) {
 						console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
 						if (resp.status === 401) {
@@ -122,10 +126,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 						throw new Error(`Error al obtener información del usuario: ${resp.status}`);
 					}
-				
+
 					const data = await resp.json();
 					console.log("Datos obtenidos:", data);
-				
+
 					setStore({ user: data.payload });
 				} catch (error) {
 					console.error("Error obteniendo la información del usuario:", error.message);
