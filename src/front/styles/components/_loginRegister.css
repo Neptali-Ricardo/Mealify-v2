@@ -5,14 +5,14 @@
     background-color: var(--banner-background-color);
     width: 100%;
     max-height: 48rem;
-    margin-top: -64px;
+    margin-top: -4rem;
     position: relative;
     overflow: hidden;
 }
 
 .login__row {
-  margin-top: 2.5rem;
-}
+    margin-top: var(--spacing-large);
+  }
 
 .banner__login-content {
     position: absolute;
@@ -25,23 +25,23 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: var(--gap-large);
     text-align: center;
 }
 
 .banner__column-login {
     text-align: left;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    max-width: 600px;
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+    max-width: 37.5rem;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: var(--gap-medium);
 }
 
 .login__heading {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 1rem;
   color: var(--primary-color);
 }
@@ -54,12 +54,18 @@
 }
 
 .login-form__text{
-    font-weight: 400;
+    font-weight: var(--font-weight-regular);
+}
+
+.login-form__highlight {
+    font-weight: var(--font-weight-medium);
+    color: var(--primary-color); /* Cambia esto al color que desees */
+    cursor: pointer; /* Opcional, para indicar que es clickeable */
 }
 
 @media (max-width: 1200px) {
     .banner__image-login {
-        min-height: 800px;
+        min-height: 50rem; /* 800px convertido a rem */
     }
 }
 

@@ -69,7 +69,7 @@ export default function LoginRegister() {
                         </div>
                         <LoginForm onSubmit={handleSubmit}/>
                         <p className="login-form__text" onClick={toggleForm}>
-                            Don't have an account? Register
+                            Don't have an account? <span className="login-form__highlight">Register</span>
                         </p>
                     </div> 
                 </div>
@@ -81,7 +81,7 @@ export default function LoginRegister() {
                         </div>
                         <UserForm onSubmit={handleSubmit} />
                         <p className="login-form__text" onClick={toggleForm}>
-                            Already have an account? Login
+                            Already have an account? <span className="login-form__highlight">Login</span>
                         </p>
                     </div> 
                 </div>
