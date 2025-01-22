@@ -36,14 +36,13 @@
     max-width: 37.5rem;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-medium);
+    gap: 1rem;
 }
 
 .login__heading {
-  font-size: 3rem;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: 1rem;
-  color: var(--primary-color);
+    font-size: 2.625rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
 }
 
 .banner__image-login {
@@ -62,6 +61,19 @@
     color: var(--primary-color); /* Cambia esto al color que desees */
     cursor: pointer; /* Opcional, para indicar que es clickeable */
 }
+
+.alert-success {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    padding: 0;
+    margin: 0;
+}
+
+.alert-error {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
 
 @media (max-width: 1200px) {
     .banner__image-login {

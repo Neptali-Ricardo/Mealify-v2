@@ -11,6 +11,7 @@ export default function LoginRegister() {
     const [isLogin, setIsLogin] = useState(true);
     const [token, setToken] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
+    const [message, setMessage] = useState(null);
 
     // Alternar entre Login y Register
     const toggleForm = () => setIsLogin(!isLogin);
@@ -42,9 +43,11 @@ export default function LoginRegister() {
         } else {
             // Si no fue exitoso, asegurarse de mantenerse en la página de registro
             if (!isLogin) {
+                setMessage({ type: "success", text: response.message });
                 console.log("Registro fallido. Permaneciendo en formulario de registro.");
                 setIsLogin(false);
             } else {
+                setMessage({ type: "error", text: response.message });
                 console.log("Login fallido. Permaneciendo en formulario de login.");
             }
         }
@@ -65,7 +68,7 @@ export default function LoginRegister() {
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                            <h2 className="login__heading m-0">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
                         </div>
                         <LoginForm onSubmit={handleSubmit}/>
                         <p className="login-form__text" onClick={toggleForm}>
@@ -77,7 +80,7 @@ export default function LoginRegister() {
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                            <h2 className="login__heading m-0">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
                         </div>
                         <UserForm onSubmit={handleSubmit} />
                         <p className="login-form__text" onClick={toggleForm}>
