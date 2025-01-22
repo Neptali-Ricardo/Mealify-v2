@@ -51,6 +51,7 @@ Preferencias: ${consulta.trim()}.
 Número de comensales: ${inputComensales}.
 Considera estos alérgenos: ${alergenos.join(", ")}.
 Considera estas condiciones médicas: ${condicionesMedicas.join(", ")}.
+De lunes a domingo
 Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
 
         try {
