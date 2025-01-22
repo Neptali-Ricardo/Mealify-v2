@@ -5,4 +5,5 @@
 
 .button-custon svg{
     margin-left: 0.5rem;
+    color: var(--text-color);
 }
