@@ -64,6 +64,22 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
         }
     };
 
+    const parseResult = (result) => {
+        const rows = result.split("\n").filter((row) => row.trim() !== "");
+        return rows.map((row) => {
+            const [dayAndMeal, ingredients, calories] = row.split("|").map((item) => item.trim());
+            const [day, mealType] = dayAndMeal.split(":").map((item) => item.trim());
+            return {
+                day,
+                mealType,
+                ingredients,
+                calories,
+            };
+        });
+    };
+
+    const parsedData = parseResult(resultado);
+
     return (
         <div>
             <h1>What are cooking today</h1>
@@ -158,7 +174,30 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
             <div className="resultado_GPT mt-4">
                 <h5>Response:</h5>
-                <p>{resultado}</p>
+                {parsedData.length > 0 ? (
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Meal Type</th>
+                                <th>Ingredients</th>
+                                <th>Calories</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {parsedData.map((row, index) => (
+                                <tr key={index}>
+                                    <td>{row.day}</td>
+                                    <td>{row.mealType}</td>
+                                    <td>{row.ingredients}</td>
+                                    <td>{row.calories}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>{resultado}</p>
+                )}
             </div>
         </div>
     );

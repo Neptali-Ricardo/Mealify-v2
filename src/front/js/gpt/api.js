@@ -12,7 +12,7 @@ export const getChatGPTResponse = async (messages) => {
       body: JSON.stringify({
         model: 'gpt-3.5-turbo', // Cambia a otro modelo si es necesario
         messages: messages, // Mensajes para la conversación
-        max_tokens: 1000, // Ajusta los tokens según tus necesidades
+        max_tokens: 2000, // Ajusta los tokens según tus necesidades
       }),
     });
 
