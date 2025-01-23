@@ -10,10 +10,17 @@
     gap: 0.5rem;
 }
 
-.contact-form__input{
+.contact-form__input {
     min-height: 3.25rem;
     padding: 1rem;
     border-radius: 12px;
     border: 1px solid #EBEBEB;
     background: #F7F7F7;
+    transition: all 0.3s ease; /* Transición suave para el cambio */
+}
+
+.contact-form__input:focus {
+    background: #FFFFFF; /* Cambia el color de fondo al hacer clic */
+    border: 1px solid var(--primary-color); /* Cambia el color del borde (por ejemplo, azul) */
+    outline: none; /* Elimina el borde predeterminado del navegador */
 }
