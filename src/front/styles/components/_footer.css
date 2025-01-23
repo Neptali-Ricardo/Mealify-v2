@@ -43,6 +43,9 @@ footer.footer {
     flex: 1 1 50%;
   }
   
+  .footer__nav h5{
+    font-weight: 400;
+  }
   .footer__columns {
     display: flex;
     flex-direction: column;
