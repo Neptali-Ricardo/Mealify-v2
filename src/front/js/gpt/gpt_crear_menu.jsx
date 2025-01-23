@@ -12,16 +12,41 @@ export const Menu_GPT = () => {
     const [inputComensales, setInputComensales] = useState(1); // Número de comensales
     const [consulta, setConsulta] = useState("");
     const [resultado, setResultado] = useState("");
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const navigate = useNavigate();
 
-    const handleGuardar = () => {
+    const handleGuardar = async () => {
         if (!store.token) {
             alert("Tienes que iniciar sesión para guardar esta receta");
             navigate("/loginRegister");
         } else {
-            // Lógica para guardar la receta
             console.log("Receta guardada:", resultado);
+
+            // Crea el JSON con todos los datos del formulario
+            const recetaData = {
+                "alergenos": alergenos,
+                "comensales": inputComensales,
+                "condicion": condicionesMedicas,
+            };
+
+            console.log("Datos del formulario en formato JSON:", recetaData);
+
+            // Asegúrate de esperar a que la información del usuario sea cargada
+            await actions.getUserInfo();
+
+            // Accede al objeto user en el store
+            const user = store.user;
+
+            if (user && user.id) {
+                console.log("El id de usuario es:", user.id);
+
+                // Si necesitas incluir el ID del usuario en el JSON
+                recetaData.userId = user.id;
+            } else {
+                console.log("No se encontró el id de usuario en la información del usuario:", user);
+            }
+
+            await actions.uploadProfile(user.id, recetaData);
         }
     };
 

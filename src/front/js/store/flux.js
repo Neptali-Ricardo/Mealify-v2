@@ -140,6 +140,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			uploadProfile: async (id, formData) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + '/api/perfil/' + id, {
+						method: 'PUT',
+						body: JSON.stringify(formData),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+			
+					if (!resp.ok) {
+						const errorData = await resp.json();
+						console.error("Error response from server:", errorData);
+						return { success: false, message: errorData.msg || "Failed to update profile." };
+					}
+			
+					const data = await resp.json();
+					console.log("Data received from the server:", data);
+					return { success: true, message: data.msg || "Profile successfully updated.", data: data.perfil };
+				} catch (error) {
+					console.error("Error while updating profile:", error);
+					return { success: false, message: "An unexpected error occurred. Please try again later." };
+				}
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
