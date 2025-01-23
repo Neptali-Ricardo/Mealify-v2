@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 
 export const LoginForm = ({ onSubmit }) => {
+	const { actions } = useContext(Context);
+	const [message, setMessage] = useState(null);
+
 	const [formData, setFormData] = useState({
 		identifier: "", // Puede ser usuario o email
 		password: "",
@@ -14,13 +18,18 @@ export const LoginForm = ({ onSubmit }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (!formData.identifier || !formData.password) {
-			alert("Todos los campos son obligatorios.");
-			return;
-		}
-		await onSubmit(formData);
-	};
+        e.preventDefault();
+		const response = await actions.login(formData);
+
+        if (response.success) {
+            setMessage({ type: "success", text: response.message });
+            setTimeout(() => {
+                onSubmit(formData); // Redirige al formulario de login
+            }, 2000); // Espera 2 segundos para mostrar el mensaje de éxito
+        } else {
+            setMessage({ type: "error", text: response.message });
+        } 
+    };
 
 	return (
 		<form onSubmit={handleSubmit} className="contact-form__form">
@@ -61,6 +70,11 @@ export const LoginForm = ({ onSubmit }) => {
                     </defs>
                 </svg>
 			</button>
+			{message && (
+                <div className={`${message.type === "success" ? "alert-success" : "alert-error"}`}>
+                    {message.text}
+                </div>
+            )}
 		</form>
 	);
 };
