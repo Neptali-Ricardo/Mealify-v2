@@ -20,7 +20,6 @@
 }
 
 .contact-form__input:focus {
-    background: #FFFFFF; /* Cambia el color de fondo al hacer clic */
-    border: 1px solid var(--primary-color); /* Cambia el color del borde (por ejemplo, azul) */
+    border: 1px solid var(--primary-color); /* Cambia el color del borde */
     outline: none; /* Elimina el borde predeterminado del navegador */
 }

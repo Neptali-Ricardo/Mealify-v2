@@ -35,27 +35,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorJson = JSON.parse(errorMessage);
 			
 			
-						if (resp.status === 409 && errorJson.msg === "El correo ya existe!") {
-							return { success: false, message: "Este correo ya está registrado. Por favor, usa otro correo o inicia sesión." };
+						if (resp.status === 409 && errorJson.msg === "The email already exists!") {
+							return { success: false, message: "This email is already registered. Please use another email or log in." };
 						} else {
-							console.error("Detalles del error:", errorJson);
-							throw new Error(`Error al registrar usuario: ${errorMessage}`);
+							console.error("Error details:", errorJson);
+							throw new Error(`Error registering user: ${errorMessage}`);
 						}
 					}
 			
 					const data = await resp.json();
-					console.log("Datos recibidos del servidor:", data);
-					return { success: true, message: "Usuario registrado exitosamente." };
+					console.log("Data received from the server:", data);
+					return { success: true, message: "User successfully registered." };
 
 				} catch (error) {
-					console.error("Error al registrar usuario:", error.message);
+					console.error("Error registering user:", error.message);
 			
-					if (error.message.includes("El correo ya existe")) {
-						return { success: false, message: "El correo ya está registrado. Por favor, usa otro correo o inicia sesión." };
-					} else if (error.message.includes("El nombre de usuario ya existe")) {
-						return { success: false, message: "El nombre de usuario ya está en uso. Por favor, elige otro." };
+					if (error.message.includes("The email already exists.")) {
+						return { success: false, message: "The email is already registered. Please use another email or log in." };
+					} else if (error.message.includes("The username already exists.")) {
+						return { success: false, message: "The username is already in use. Please choose another one." };
 					} else {
-						return { success: false, message: "Ocurrió un problema al registrarte. Por favor, intenta de nuevo." };
+						return { success: false, message: "There was a problem registering you. Please try again." };
 					}
 				}
 			},
@@ -73,33 +73,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!resp.ok) {
 						const errorMessage = await resp.text();
 						console.error("Error en el login:", errorMessage);
-						return { success: false, message: errorMessage.message || 'Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.' };
+						return { success: false, message: errorMessage.message || 'There was a problem logging in. Please try again.' };
 					}
 			
 					const data = await resp.json();
 					if (data.token) {
 						setStore({ token: data.token });
 						localStorage.setItem('token', data.token);
-						return { success: true, message: 'Inicio de sesión exitoso.' }; // Login exitoso
+						return { success: true, message: 'Login successful.' }; // Login exitoso
 					} else {
-						return { success: false, message: 'Token no recibido. Por favor, intenta de nuevo.' };
+						return { success: false, message: 'Token not received. Please try again.' };
 					}
 				} catch (error) {
-					console.error("Error en el login:", error.message);
-					return { success: false, message: 'Ocurrió un problema al iniciar sesión. Por favor, intenta de nuevo.' };
+					console.error("Login error:", error.message);
+					return { success: false, message: 'There was a problem logging in. Please try again.' };
 				}
 			},
 			
 			getUserInfo: async () => {
 				try {
-					console.log("Iniciando solicitud para obtener información del usuario...");
+					console.log("Initiating request to retrieve user information...");
 
 					const token = localStorage.getItem("token");
 					if (!token) {
-						throw new Error("Token no encontrado en localStorage");
+						throw new Error("Token not found in localStorage.");
 					}
 
-					console.log("Token obtenido:", token);
+					console.log("Token obtained:", token);
 
 					const resp = await fetch(process.env.BACKEND_URL + '/api/user_info',
 						{
@@ -110,27 +110,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-				  	console.log("Respuesta completa:", resp);
+				  	console.log("Complete response:", resp);
 
 					if (!resp.ok) {
-						console.error("Error en la respuesta del servidor:", resp.status, resp.statusText);
+						console.error("Server response error:", resp.status, resp.statusText);
 						if (resp.status === 401) {
-						alert("El token ha expirado o no es válido. Por favor, inicia sesión nuevamente.");
+						alert("The token has expired or is invalid. Please log in again.");
 						} else if (resp.status === 404) {
-						alert("Usuario no encontrado.");
+						alert("User not found.");
 						} else {
-						alert("Ocurrió un error al obtener la información del usuario.");
+						alert("An error occurred while retrieving the user information.");
 						}
-						throw new Error(`Error al obtener información del usuario: ${resp.status}`);
+						throw new Error(`Error retrieving user information: ${resp.status}`);
 					}
 
 					const data = await resp.json();
-					console.log("Datos obtenidos:", data);
+					console.log("Data retrieved:", data);
 
 					setStore({ user: data.payload });
 				} catch (error) {
-					console.error("Error obteniendo la información del usuario:", error.message);
-					alert("No se pudo obtener la información del usuario. Por favor, verifica tu conexión.");
+					console.error("Error retrieving user information:", error.message);
+					alert("Could not retrieve user information. Please check your connection.");
 					return false;
 				}
 			},
@@ -170,11 +170,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					// Realiza la solicitud al backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/static-data");
-					if (!resp.ok) throw new Error("Error al obtener el menú");
+					if (!resp.ok) throw new Error("Error retrieving the menu.");
 
 					// Procesa la respuesta del backend
 					const data = await resp.json();
-					console.log("Datos recibidos del servidor:", data);
+					console.log("Data received from the server:", data);
 
 					// Extrae la información relevante del menú
 					const menu = data.choices[0].message.content;
@@ -182,8 +182,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// Guarda el menú en el store
 					setStore({ menu });
 				} catch (error) {
-					console.error("Error al obtener el menú:", error.message);
-					alert("No se pudo obtener el menú semanal. Inténtalo más tarde.");
+					console.error("Error retrieving the menu:", error.message);
+					alert("Could not retrieve the weekly menu. Please try again later.");
 				}
 			}
 		
