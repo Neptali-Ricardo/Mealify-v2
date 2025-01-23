@@ -17,8 +17,10 @@ import ChatGPTComponent from "./gpt/gpt_component.jsx";
 import WeeklyMenu from "./gpt/vista_menu_gpt.jsx";
 import WeeklyMenu2 from "./gpt/vista_menu_gpt2.jsx";
 import LoginRegister from "./pages/loginRegister.jsx";
+import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
 import { Profile } from "./component/profile.jsx";
 import { MealPlan } from "./component/mealplan.jsx";
+
 
 
 //create your first component
@@ -47,6 +49,7 @@ const Layout = () => {
                         <Route element={<ChatGPTComponent />} path="/gpt "/>
                         <Route element={<WeeklyMenu />} path="/menu" />
                         <Route element={<WeeklyMenu2 />} path="/menu2" />
+                        <Route element={<Menu_GPT />} path="/menu3" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
