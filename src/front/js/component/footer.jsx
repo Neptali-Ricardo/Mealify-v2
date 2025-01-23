@@ -16,10 +16,7 @@ export const Footer = () => (
         {/* Texto informativo del footer */}
         <section className="footer__text" aria-labelledby="footer-info">
           <p id="footer-info">
-            Cursus pretium a vel neque gravida eros mauris aliquam senectus. Cum
-            volutpat arcu fames maecenas tortor ac. Suspendisse quis in duis
-            curabitur sit sed porttitor a. Nec aliquet enim at enim tincidunt
-            eget sed gravida. Egestas fermentum urna sed etiam aliquam.
+          Simplify your life and eat better every day. With Mealify, meal planning has never been easier. Discover personalized recipes, organize your shopping list, and embrace a healthier lifestyle effortlessly. Because your time and well-being matter.
           </p>
         </section>
 
@@ -35,6 +32,7 @@ export const Footer = () => (
 
         <section className="footer__links">
           <nav className="footer__nav" aria-label="Enlaces de interés">
+            <h5>About</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
                 <a href="#" className="footer__link">
@@ -46,7 +44,7 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">About</span>
                 </a>
               </li>
               <li className="footer__list-item">
@@ -59,7 +57,7 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Privacy Policy</span>
                 </a>
               </li>
               <li className="footer__list-item">
@@ -72,42 +70,17 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Terms & Conditions</span>
                 </a>
               </li>
             </ul>
           </nav>
 
           <nav className="footer__nav" aria-label="Enlaces de interés">
+            <h5>GitHub & LinkedIn</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <a href="#" className="footer__link">
+                <a href="https://github.com/4GeeksAcademy/Final-Project-User-Stories-Wireframes-Mealify" className="footer__link" target="_blank">
                   <svg
                     className="footer__icon"
                     width="16"
@@ -116,11 +89,11 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">GitHub Repository</span>
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="#" className="footer__link">
+                <a href="https://www.linkedin.com/in/nepta/" className="footer__link" target="_blank">
                   <svg
                     className="footer__icon"
                     width="16"
@@ -129,11 +102,11 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Neptali Castejón LinkedIn</span>
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="#" className="footer__link">
+                <a href="https://www.linkedin.com/in/jose-antonio-llorens-padilla/" className="footer__link" target="_blank">
                   <svg
                     className="footer__icon"
                     width="16"
@@ -142,38 +115,13 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Jose Llorens LinkedIn</span>
                 </a>
               </li>
             </ul>
           </nav>
           <nav className="footer__nav" aria-label="Enlaces de interés">
+            <h5>Support</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
                 <a href="#" className="footer__link">
@@ -185,7 +133,7 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Feedback Form</span>
                 </a>
               </li>
               <li className="footer__list-item">
@@ -198,7 +146,7 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">Social Media Links</span>
                 </a>
               </li>
               <li className="footer__list-item">
@@ -211,33 +159,7 @@ export const Footer = () => (
                   >
                     <use href="#icon-arrow-right"></use>
                   </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
-                </a>
-              </li>
-              <li className="footer__list-item">
-                <a href="#" className="footer__link">
-                  <svg
-                    className="footer__icon"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use href="#icon-arrow-right"></use>
-                  </svg>
-                  <span className="footer__link-text">Lorem ipsum dolor</span>
+                  <span className="footer__link-text">FAQ</span>
                 </a>
               </li>
             </ul>
