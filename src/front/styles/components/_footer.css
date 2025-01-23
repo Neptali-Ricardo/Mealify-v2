@@ -131,7 +131,6 @@ footer.footer {
     }
   
     .footer__text p {
-      font-size: var(--font-size-m);
       line-height: 1.5rem; /* 24px */
     }
   
