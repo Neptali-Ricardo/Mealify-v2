@@ -34,11 +34,11 @@ export const LoginForm = ({ onSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit} className="contact-form__form">
 			<div className="contact-form__field">
-				<label htmlFor="user">User o Email</label>
+				<label htmlFor="user">Username or Email</label>
 				<input
 					type="text"
 					name="identifier"
-					placeholder="Usuario o Email"
+					placeholder="Username or Email"
 					value={formData.identifier}
 					onChange={handleChange}
 					required
@@ -50,7 +50,7 @@ export const LoginForm = ({ onSubmit }) => {
 				<input
 					type="password"
 					name="password"
-					placeholder="Contraseña"
+					placeholder="Password"
 					value={formData.password}
 					onChange={handleChange}
 					required
