@@ -20,7 +20,6 @@ import LoginRegister from "./pages/loginRegister.jsx";
 import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
 import { Profile } from "./component/profile.jsx";
 import { MealPlan } from "./component/mealplan.jsx";
-import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
 
 
 //create your first component
