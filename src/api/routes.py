@@ -108,6 +108,15 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
+        new_profile = Perfil(
+            user_id=new_user.id,
+            name="",
+            alergenos={},
+            comensales=0,
+            condicion={}
+        )
+        db.session.add(new_profile)
+        db.session.commit()
         
         # Crear y retornar el token JWT
         token = create_access_token(identity=str(new_user.id))
