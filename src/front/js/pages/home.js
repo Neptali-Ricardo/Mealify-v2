@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import "../../styles/home.css";
 import "../../styles/index.css";
-import { Navigate, useNavigate } from "react-router-dom";
 import { Jumbotron } from "../component/jumbotron.jsx";
 
 export const Home = () => {
 
-	return (
+    return (
         <>
             <Jumbotron />
             
-            <div className="text-center mt-5 mb-5">
-                <h1 className="display-4">Bienvenido a nuestro sitio</h1>
-                <p className="lead">Por favor, inicia sesión o regístrate para continuar.</p>          
-            </div>
+            <section id="MenuCreator" className="text-center mt-5 mb-5">
+                <h2>MenuCreator</h2>
+                {/* Contenido de la sección */}
+                
+            </section>
         </>
-	);
+    );
 };
+
