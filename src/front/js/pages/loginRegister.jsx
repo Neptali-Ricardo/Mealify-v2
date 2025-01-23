@@ -19,7 +19,7 @@ export default function LoginRegister() {
     // Manejar el envío del formulario
     const handleSubmit = async (formData) => {
         let success;
-    
+
         if (isLogin) {
             // Intentar iniciar sesión
             success = await actions.login(formData);
@@ -27,11 +27,11 @@ export default function LoginRegister() {
             // Intentar registrar un nuevo usuario
             success = await actions.register(formData);
         }
-    
+
         if (success) {
             // Actualizar el token si el login o registro fue exitoso
             setToken(localStorage.getItem("token"));
-    
+
             // Si fue un registro exitoso, cambiar automáticamente a login
             if (!isLogin) {
                 setIsLogin(true);
@@ -52,11 +52,11 @@ export default function LoginRegister() {
             }
         }
     };
-    
+
     useEffect(() => {
         console.log("Token actual:", token);
     }, [token]);
-    
+
     return (
         <section className="banner__login" aria-labelledby="banner__title">
             <div className="banner__image-container">
@@ -64,29 +64,29 @@ export default function LoginRegister() {
             </div>
 
             {/* Mostrar el formulario con la lógica de tipo login/register */}
-            {isLogin ? 
+            {isLogin ?
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading m-0">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                            <h2 className="login__heading m-0">Join Us and Start Planning!</h2>
                         </div>
-                        <LoginForm onSubmit={handleSubmit}/>
+                        <LoginForm onSubmit={handleSubmit} />
                         <p className="login-form__text" onClick={toggleForm}>
                             Don't have an account? <span className="login-form__highlight">Register</span>
                         </p>
-                    </div> 
+                    </div>
                 </div>
-            : 
+                :
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading m-0">Welcome Back! <br/> Ready to Plan Your Next Meal?</h2>
+                            <h2 className="login__heading m-0">Welcome Back! <br /> Ready to Plan Your Next Meal?</h2>
                         </div>
                         <UserForm onSubmit={handleSubmit} />
                         <p className="login-form__text" onClick={toggleForm}>
                             Already have an account? <span className="login-form__highlight">Login</span>
                         </p>
-                    </div> 
+                    </div>
                 </div>
             }
         </section>
