@@ -33,7 +33,7 @@
     color: var(--color-neutral-white);
     width: 100%;
     max-width: 700px;
-    border-radius: 50px;
+    border-radius: 3.125rem;
 }
 
 .button--secondary {
@@ -41,7 +41,15 @@
     color: var(--colors-neutral-white);
 }
 
-.button--jumbotron {
+.button--small {
+    padding: 0.25rem 0.75rem;
+    border-radius: 3.125rem;
+    background-color: var(--color-neutral-gray-50);
+    color: var(--color-neutral-gray-800);
+    gap: var(--button-jumbotron-gap);
+}
+
+.button--medium {
     background-color: var(--primary-color);
     color: var(--color-neutral-white);
     gap: var(--button-jumbotron-gap);
