@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../store/appContext";
 
 export const LoginForm = ({ onSubmit }) => {
+	const { actions } = useContext(Context);
+	const [message, setMessage] = useState(null);
+
 	const [formData, setFormData] = useState({
 		identifier: "", // Puede ser usuario o email
 		password: "",
@@ -14,17 +18,22 @@ export const LoginForm = ({ onSubmit }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (!formData.identifier || !formData.password) {
-			alert("Todos los campos son obligatorios.");
-			return;
-		}
-		await onSubmit(formData);
-	};
+        e.preventDefault();
+		const response = await actions.login(formData);
+
+        if (response.success) {
+            setMessage({ type: "success", text: response.message });
+            setTimeout(() => {
+                onSubmit(formData); // Redirige al formulario de login
+            }, 2000); // Espera 2 segundos para mostrar el mensaje de éxito
+        } else {
+            setMessage({ type: "error", text: response.message });
+        } 
+    };
 
 	return (
-		<form onSubmit={handleSubmit} className="contact-form__form row">
-			<div className="contact-form__field p-0">
+		<form onSubmit={handleSubmit} className="contact-form__form">
+			<div className="contact-form__field">
 				<label htmlFor="user">User o Email</label>
 				<input
 					type="text"
@@ -36,7 +45,7 @@ export const LoginForm = ({ onSubmit }) => {
 					className="contact-form__input"
 				/>
 			</div>
-			<div className="contact-form__field p-0">
+			<div className="contact-form__field">
 				<label htmlFor="password">Password</label>
 				<input
 					type="password"
@@ -61,6 +70,11 @@ export const LoginForm = ({ onSubmit }) => {
                     </defs>
                 </svg>
 			</button>
+			{message && (
+                <div className={`${message.type === "success" ? "alert-success" : "alert-error"}`}>
+                    {message.text}
+                </div>
+            )}
 		</form>
 	);
 };

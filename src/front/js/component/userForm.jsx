@@ -2,6 +2,9 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 
 export const UserForm = ({ type, onSubmit }) => {
+    const { actions } = useContext(Context);
+    const [message, setMessage] = useState(null);
+
     const [formData, setFormData] = useState({
         user: "",
         email: "",
@@ -15,18 +18,23 @@ export const UserForm = ({ type, onSubmit }) => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.user || !formData.email || !formData.password) {
-            alert("Todos los campos son obligatorios.");
-            return;
-        }
-        onSubmit(formData);
+        const response = await actions.register(formData);
+
+        if (response.success) {
+            setMessage({ type: "success", text: response.message });
+            setTimeout(() => {
+                onSubmit(formData); // Redirige al formulario de login
+            }, 2000); // Espera 2 segundos para mostrar el mensaje de éxito
+        } else {
+            setMessage({ type: "error", text: response.message });
+        } 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="contact-form__form row">
-            <div className="contact-form__field p-0">
+        <form onSubmit={handleSubmit} className="contact-form__form">
+            <div className="contact-form__field">
                 <label htmlFor="user">User</label>
                 <input
                     id="user"
@@ -38,7 +46,7 @@ export const UserForm = ({ type, onSubmit }) => {
                     className="contact-form__input"
                 />
             </div>
-            <div className="contact-form__field p-0">
+            <div className="contact-form__field">
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
@@ -50,7 +58,7 @@ export const UserForm = ({ type, onSubmit }) => {
                     className="contact-form__input"
                 />
             </div>
-            <div className="contact-form__field p-0">
+            <div className="contact-form__field">
                 <label htmlFor="password">Password</label>
                 <input
                     id="password"
@@ -74,7 +82,12 @@ export const UserForm = ({ type, onSubmit }) => {
                     </clipPath>
                     </defs>
                 </svg>
-        </button>
+            </button>
+            {message && (
+                <div className={`${message.type === "success" ? "alert-success" : "alert-error"}`}>
+                    {message.text}
+                </div>
+            )}
         </form>
     );
 };

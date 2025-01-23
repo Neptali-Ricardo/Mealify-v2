@@ -1,4 +1,6 @@
 .contact-form__form{
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
 }
 
@@ -8,10 +10,16 @@
     gap: 0.5rem;
 }
 
-.contact-form__input{
-    min-height: 52px;
+.contact-form__input {
+    min-height: 3.25rem;
     padding: 1rem;
     border-radius: 12px;
     border: 1px solid #EBEBEB;
     background: #F7F7F7;
+    transition: all 0.3s ease; /* Transición suave para el cambio */
+}
+
+.contact-form__input:focus {
+    border: 1px solid var(--primary-color); /* Cambia el color del borde */
+    outline: none; /* Elimina el borde predeterminado del navegador */
 }
