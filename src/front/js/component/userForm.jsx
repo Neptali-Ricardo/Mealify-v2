@@ -35,12 +35,12 @@ export const UserForm = ({ type, onSubmit }) => {
     return (
         <form onSubmit={handleSubmit} className="contact-form__form">
             <div className="contact-form__field">
-                <label htmlFor="user">User</label>
+                <label htmlFor="user">Username</label>
                 <input
                     id="user"
                     type="text"
                     name="user"
-                    placeholder="User"
+                    placeholder="Username"
                     value={formData.user}
                     onChange={handleChange}
                     className="contact-form__input"
