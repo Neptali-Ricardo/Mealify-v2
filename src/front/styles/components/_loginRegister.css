@@ -53,6 +53,7 @@
 }
 
 .login-form__text{
+    text-align: center;
     font-weight: var(--font-weight-regular);
 }
 
@@ -70,6 +71,7 @@
 }
 
 .alert-error {
+    text-align: center;
     color: var(--primary-color);
     background-color: var(--background-color);
 }
