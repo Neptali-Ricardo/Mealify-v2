@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { getChatGPTResponse } from "./api"; // Asegúrate de ajustar la ruta según tu estructura
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Menu_GPT = () => {
     const [desplegar, setDesplegar] = useState("");
@@ -10,6 +12,18 @@ export const Menu_GPT = () => {
     const [inputComensales, setInputComensales] = useState(1); // Número de comensales
     const [consulta, setConsulta] = useState("");
     const [resultado, setResultado] = useState("");
+    const { store } = useContext(Context);
+    const navigate = useNavigate();
+
+    const handleGuardar = () => {
+        if (!store.token) {
+            alert("Tienes que iniciar sesión para guardar esta receta");
+            navigate("/loginRegister");
+        } else {
+            // Lógica para guardar la receta
+            console.log("Receta guardada:", resultado);
+        }
+    };
 
     const handleDesplegar = () => {
         setDesplegar(desplegar === "Desplegado" ? "" : "Desplegado");
@@ -176,26 +190,30 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
             <div className="resultado_GPT mt-4">
                 <h5>Response:</h5>
                 {parsedData.length > 0 ? (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Day</th>
-                                <th>Meal Type</th>
-                                <th>Ingredients</th>
-                                <th>Calories</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {parsedData.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.day}</td>
-                                    <td>{row.mealType}</td>
-                                    <td>{row.ingredients}</td>
-                                    <td>{row.calories}</td>
+                    <div>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Meal Type</th>
+                                    <th>Ingredients</th>
+                                    <th>Calories</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {parsedData.map((row, index) => (
+                                    <tr key={index}>
+                                        <td>{row.day}</td>
+                                        <td>{row.mealType}</td>
+                                        <td>{row.ingredients}</td>
+                                        <td>{row.calories}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <button type="button" onClick={handleGuardar}>Guardar receta</button>
+                    </div>
+
                 ) : (
                     <p>{resultado}</p>
                 )}
