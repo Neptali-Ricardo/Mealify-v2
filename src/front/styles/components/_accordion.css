@@ -1,0 +1,47 @@
+.accordion-button {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 0;
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    outline: none;
+    text-decoration: none;
+    border-color: var(--color-neutral-gray-50);
+  }
+  
+  .accordion-button:focus {
+      outline: none; /* Elimina el borde por defecto */
+      box-shadow: none; /* Elimina la sombra del focus */
+      border-color: var(--color-neutral-gray-50); 
+  }
+  
+  .accordion-button:not(.collapsed) {
+      background-color: transparent; /* Elimina el color de fondo */
+      box-shadow: none; /* Elimina cualquier sombra */
+      outline: none;
+      text-decoration: none;
+  }
+  
+  .accordion-button:focus-visible {
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Sombra accesible */
+      outline: none;
+  }
+
+  .contact-form__input-acoordion {
+    gap: 0.5rem;
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #EBEBEB;
+    background: #F7F7F7;
+    transition: all 0.3s ease; /* Transición suave para el cambio */
+    text-align: center;
+}
