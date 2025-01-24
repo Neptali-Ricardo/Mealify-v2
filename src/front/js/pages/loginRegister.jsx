@@ -38,7 +38,7 @@ export default function LoginRegister() {
                 console.log("Registro exitoso. Cambiando a formulario de login.");
             } else {
                 console.log("Login exitoso.");
-                navigate("/profile");
+                navigate("/");
             }
         } else {
             // Si no fue exitoso, asegurarse de mantenerse en la página de registro
