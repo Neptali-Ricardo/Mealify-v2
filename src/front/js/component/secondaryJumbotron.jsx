@@ -28,7 +28,7 @@ export const SecondaryJumbotron = () => {
                 <div className="banner__overlay" aria-hidden="true"></div>
             </div>
 
-            <div className="banner__content container">
+            <div className="banner__content container gap-3">
                 <h2 className="banner__secondary--title">{title}</h2>
                 <Separator />
                 <p className="banner__description">{description}</p>
