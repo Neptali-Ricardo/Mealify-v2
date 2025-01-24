@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { SecondaryJumbotron } from "./secondaryJumbotron.jsx";
+import { EditProfile } from "./editProfile.jsx";
 
 export const Profile = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const Profile = () => {
         <>
             <SecondaryJumbotron />
 
+            <EditProfile />
             <div className="separator">
                 <h1>Perfil</h1>
             </div>
