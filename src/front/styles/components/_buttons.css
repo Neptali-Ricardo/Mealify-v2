@@ -18,7 +18,6 @@
 
 .button:hover {
     color: var(--color-neutral-white);
-    transform: scale(1.05); /* Efecto de agrandamiento opcional */
 }
 
 .button:active {

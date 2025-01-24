@@ -20,9 +20,6 @@ export const Profile = () => {
             <SecondaryJumbotron />
 
             <EditProfile />
-            <div className="separator">
-                <h1>Perfil</h1>
-            </div>
         </>
     );
 };
