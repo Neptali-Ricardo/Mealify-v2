@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { SecondaryJumbotron } from "./secondaryJumbotron.jsx";
 
 export const MealPlan = () => {
     const navigate = useNavigate();
@@ -14,8 +15,12 @@ export const MealPlan = () => {
     }, [store.token, navigate]); // Asegura que se ejecute cuando cambie el token o navigate
 
     return (
-        <div className="separator">
-            <h1>Meal Plan</h1>
-        </div>
+        <>
+            <SecondaryJumbotron />
+
+            <div className="separator">
+                <h2>Meal Plan</h2>
+            </div>
+        </>
     );
 };
