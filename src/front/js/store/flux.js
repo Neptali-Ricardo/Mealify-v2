@@ -142,7 +142,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			uploadProfile: async (id, formData) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + '/api/perfil/' + id, {
+					const resp = await fetch(process.env.BACKEND_URL + 'api/perfil/edit/' + id, {
 						method: 'PUT',
 						body: JSON.stringify(formData),
 						headers: {
@@ -162,6 +162,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error while updating profile:", error);
 					return { success: false, message: "An unexpected error occurred. Please try again later." };
+				}
+			},
+
+			uploadPlan: async (user_id, formData) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/plans`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							user_id: user_id,
+							plan: formData.plan,
+							create_at: formData.create_at,
+							name: formData.name
+						}),
+					});
+			
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error al subir el plan:", errorData);
+						return { success: false, error: errorData.msg || "Error desconocido" };
+					}
+			
+					const data = await response.json();
+					console.log("Plan subido correctamente:", data);
+					return { success: true, data: data };
+				} catch (error) {
+					console.error("Error en la solicitud:", error);
+					return { success: false, error: "Error en la conexión con el servidor" };
 				}
 			},
 

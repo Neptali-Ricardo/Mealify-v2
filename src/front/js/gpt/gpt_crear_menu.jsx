@@ -46,7 +46,17 @@ export const Menu_GPT = () => {
                 console.log("No se encontró el id de usuario en la información del usuario:", user);
             }
 
+            const today = new Date();
+            const formattedDate = `${today.getFullYear()}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}`;
+
+            const plan = {
+                "plan": parsedData,
+                "create_at": formattedDate,
+                "name": consulta
+            }
+
             await actions.uploadProfile(user.id, recetaData);
+            await actions.uploadPlan(user.id, plan);
         }
     };
 
