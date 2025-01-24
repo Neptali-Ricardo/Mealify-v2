@@ -33,7 +33,6 @@
     color: var(--color-neutral-white);
     width: 100%;
     max-width: 700px;
-    border-radius: 3.125rem;
 }
 
 .button--secondary {

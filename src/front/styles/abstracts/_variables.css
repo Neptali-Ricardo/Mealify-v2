@@ -34,7 +34,7 @@
     --spacing-large: 1.5rem; /* 24px */
 
     /* Buttons */
-    --button-border-radius: 8px; /* 5px */
+    --button-border-radius: 0.75rem; /* 12px */
     --button-font-size: 1rem; /* 16px */
     --button-line-height: 1.5rem; /* 24px */
     --button-padding: 1rem; /* 16px */
@@ -61,7 +61,6 @@
     --font-weight-bold: 700;
 
     /* SCSS Variables */
-    --container-inner-width: 84rem;  /* 1344px */
     --gap-large: 2rem;
     --gap-medium: 1.5rem;
     --gap-small: 1rem;
