@@ -195,6 +195,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			editProfile: async (id, formData) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(formData),
+					});
+			
+					if (!response.ok) {
+						const errorData = await response.json();
+						return { success: false, message: errorData.error || "Failed to update profile." };
+					}
+			
+					const data = await response.json();
+					return { success: true, message: data.message, data };
+				} catch (error) {
+					return { success: false, message: "An error occurred. Please try again later." };
+				}
+			},
+			
+			
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
