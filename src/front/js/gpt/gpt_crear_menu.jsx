@@ -132,31 +132,28 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
     return (
         <div>
-            <h1>What are cooking today</h1>
+
             <form onSubmit={(e) => e.preventDefault()}>
-                <div className="d-flex flex-column">
-                    <input
-                        type="text"
-                        placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
-                        value={consulta}
-                        onChange={(e) => setConsulta(e.target.value)}
-                    />
-                    <button type="button" onClick={generarConsulta}>
-                        Generate your meal plan
-                    </button>
-                </div>
-                <div className="mt-3">
-                    <label htmlFor="numComensales">Number of diners:</label>
-                    <input
-                        type="number"
-                        id="numComensales"
-                        min="1"
-                        value={inputComensales}
-                        onChange={(e) => setInputComensales(e.target.value)}
-                    />
+                <div className="d-flex flex-column align-items-center">
+                    <h1>What are cooking today</h1>
+                    <div className="d-flex flex-column">
+                        <input
+                            type="text"
+                            placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
+                            value={consulta}
+                            onChange={(e) => setConsulta(e.target.value)}
+                        />
+                        <button type="button" onClick={generarConsulta}>
+                            Generate your meal plan
+                        </button>
+                    </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
-                    <h5>Allergens and Medical Conditions</h5>
+                    <div className="d-flex gap-3">
+                        <div className="gap-2"><span>Number of guest: </span><input type="number" value={0} style={{ width: 'fit-content' }} /></div>
+                        <div className="gap-2"><span>Alergens: </span><input type="number" value={0} style={{ width: 'fit-content' }} /></div>
+                        <div className="gap-2"><span>Medical Conditions: </span><input size={2} type="number" value={0} /></div>
+                    </div>
                     <button type="button" onClick={handleDesplegar}>
                         {desplegar === "Desplegado" ? "Hide" : "Desplegar"}
                     </button>
@@ -165,6 +162,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                 {desplegar === "Desplegado" ? (
                     <>
                         <div>
+                            <div className="mt-3">
+                                <label htmlFor="numComensales">Number of diners:</label>
+                                <input
+                                    type="number"
+                                    id="numComensales"
+                                    min="1"
+                                    value={inputComensales}
+                                    onChange={(e) => setInputComensales(e.target.value)}
+                                />
+                            </div>
                             <h5>Manage your Allergens</h5>
                             <p>
                                 Add your allergens to the list by typing them below. Click on
