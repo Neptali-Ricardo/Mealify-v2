@@ -461,7 +461,42 @@ def get_plan(plan_id):
         return jsonify({"msg": "Error al obtener el plan", "error": str(e)}), 500
     except Exception as e:
         return jsonify({"msg": "Unexpected error", "error": str(e)}), 500
+    
 
+@api.route('/plans', methods=['POST'])
+def create_plan():
+    """
+    Crea un nuevo plan y lo guarda en la base de datos.
+    """
+    try:
+        data = request.json
+        if not data:
+            return jsonify({"msg": "Datos no proporcionados"}), 400
+
+        # Validar los campos necesarios
+        required_fields = ["user_id", "plan", "create_at", "name"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"msg": f"El campo {field} es obligatorio"}), 400
+
+        # Crear una nueva instancia de My_Plans
+        new_plan = My_Plans(
+            user_id=data["user_id"],
+            plan=data["plan"],
+            create_at=data["create_at"],  # Asegúrate de enviar la fecha en formato válido (YYYY-MM-DD)
+            name=data["name"]
+        )
+
+        # Guardar en la base de datos
+        db.session.add(new_plan)
+        db.session.commit()
+
+        return jsonify({"msg": "Plan creado correctamente", "plan": new_plan.serialize()}), 201
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al guardar el plan", "error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
 
 # Endpoint para actualizar un plan por ID
 @api.route('/plan/<int:plan_id>', methods=['PUT'])
@@ -570,6 +605,38 @@ def update_perfil(perfil_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
+    
+
+@api.route('/perfil/edit/<int:user_id>', methods=['PUT'])
+def update_perfil_user(user_id):
+    """
+    Actualiza los datos de un perfil existente basado únicamente en user_id.
+    """
+    try:
+        # Buscar el perfil por user_id
+        perfil = Perfil.query.filter_by(user_id=user_id).first()
+        if not perfil:
+            return jsonify({"msg": "Perfil no encontrado para este usuario"}), 404
+
+        data = request.json
+        if not data:
+            return jsonify({"msg": "Datos no proporcionados"}), 400
+
+        # Actualizar campos opcionales si están presentes
+        perfil.name = data.get("name", perfil.name)
+        perfil.alergenos = data.get("alergenos", perfil.alergenos)
+        perfil.comensales = data.get("comensales", perfil.comensales)
+        perfil.condicion = data.get("condicion", perfil.condicion)
+
+        db.session.commit()
+        return jsonify({"msg": "Perfil actualizado correctamente", "perfil": perfil.serialize()}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error al actualizar el perfil", "error": str(e)}), 500
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
+
 
 # Endpoint para eliminar un perfil por ID
 @api.route('/perfil/<int:perfil_id>', methods=['DELETE'])
