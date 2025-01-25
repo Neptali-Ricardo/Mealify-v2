@@ -385,6 +385,9 @@ def login():
         user = Users.query.filter(
             (Users.email == identifier) | (Users.user == identifier)
         ).first()
+        if not user:
+            return jsonify({"msg": "User not found"}), 404
+        
         if not user or not check_password_hash(user.password, password):
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
