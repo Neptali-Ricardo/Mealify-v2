@@ -17,10 +17,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: localStorage.getItem("token") || null, // Cargar el token si existe
 		},
 		actions: {
-
+			
 			register: async (formData) => {
 				try {
 					console.log("Datos enviados al servidor:", formData);
+			
+					// Validación previa de los datos del formulario
+					if (!formData.user || !formData.email || !formData.password) {
+						return { success: false, message: "All fields are required!" };
+					}
+			
+					// Validar que el campo user no esté vacío y tenga al menos 3 caracteres
+					if (!formData.user) {
+						return { success: false, message: "Username is required." };
+					} else if (formData.user.length < 3) {
+						return { success: false, message: "Username must be at least 3 characters long." };
+					}
+			
+					// Validar que el campo 'email' no esté vacío y tenga el formato correcto
+					const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			
+					if (!formData.email) {
+						return { success: false, message: "Email is required." };
+					} else if (!emailRegex.test(formData.email)) {
+						return { success: false, message: "Invalid email format." };
+					}
+			
+					// Validar que el campo 'password' no esté vacío y tenga al menos 8 caracteres
+					if (!formData.password) {
+						return { success: false, message: "Password is required." };
+					} else if (formData.password.length < 8) {
+						return { success: false, message: "Password must be at least 8 characters long." };
+					}
 			
 					const resp = await fetch(process.env.BACKEND_URL + '/api/register', {
 						method: "POST",
@@ -34,9 +62,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const errorMessage = await resp.text();
 						const errorJson = JSON.parse(errorMessage);
 			
-			
-						if (resp.status === 409 && errorJson.msg === "The email already exists!") {
-							return { success: false, message: "This email is already registered. Please use another email or log in." };
+						if (resp.status === 409) {
+							if (errorJson.msg.includes("email")) {
+								return { success: false, message: "This email is already registered. Please use another email or log in." };
+							} else if (errorJson.msg.includes("username")) {
+								return { success: false, message: "The username is already in use. Please choose another one." };
+							}
 						} else {
 							console.error("Error details:", errorJson);
 							throw new Error(`Error registering user: ${errorMessage}`);
@@ -46,13 +77,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json();
 					console.log("Data received from the server:", data);
 					return { success: true, message: "User successfully registered." };
-
+			
 				} catch (error) {
 					console.error("Error registering user:", error.message);
 			
-					if (error.message.includes("The email already exists.")) {
-						return { success: false, message: "The email is already registered. Please use another email or log in." };
-					} else if (error.message.includes("The username already exists.")) {
+					if (error.message.includes("email")) {
+						return { success: false, message: "This email is already registered. Please use another email or log in." };
+					} else if (error.message.includes("username")) {
 						return { success: false, message: "The username is already in use. Please choose another one." };
 					} else {
 						return { success: false, message: "There was a problem registering you. Please try again." };
@@ -62,6 +93,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			login: async (formData) => {
 				try {
+					// Validar que el campo 'identifier' no esté vacío
+                    if (!formData.identifier) {
+                        return { success: false, message: "Username or email is required." };
+                    }
+
+                    // Validar que el campo 'password' no esté vacío
+                    if (!formData.password) {
+                        return { success: false, message: "Password is required." };
+                    }
+
 					const resp = await fetch(process.env.BACKEND_URL + '/api/login', {
 						method: 'POST',
 						body: JSON.stringify(formData),
@@ -84,6 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						return { success: false, message: 'Token not received. Please try again.' };
 					}
+
 				} catch (error) {
 					console.error("Login error:", error.message);
 					return { success: false, message: 'There was a problem logging in. Please try again.' };
