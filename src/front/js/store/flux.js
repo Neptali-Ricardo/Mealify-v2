@@ -93,15 +93,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			login: async (formData) => {
 				try {
+
+					// Validación previa de los datos del formulario
+					if (!formData.identifier || !formData.password) {
+						return { success: false, message: "All fields are required!" };
+					}
+
 					// Validar que el campo 'identifier' no esté vacío
                     if (!formData.identifier) {
                         return { success: false, message: "Username or email is required." };
-                    }
+                    } else if (formData.identifier.length < 3) {
+						return { success: false, message: "Username must be at least 3 characters long." };
+					}
 
-                    // Validar que el campo 'password' no esté vacío
-                    if (!formData.password) {
-                        return { success: false, message: "Password is required." };
-                    }
+					// Validar que el campo 'password' no esté vacío y tenga al menos 8 caracteres
+					if (!formData.password) {
+						return { success: false, message: "Password is required." };
+					} else if (formData.password.length < 8) {
+						return { success: false, message: "Password must be at least 8 characters long." };
+					}
 
 					const resp = await fetch(process.env.BACKEND_URL + '/api/login', {
 						method: 'POST',
@@ -131,6 +141,47 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return { success: false, message: 'There was a problem logging in. Please try again.' };
 				}
 			},
+
+			// login: async (formData) => {
+			// 	try {
+			// 		// Validar que el campo 'identifier' no esté vacío
+            //         if (!formData.identifier) {
+            //             return { success: false, message: "Username or email is required." };
+            //         }
+
+            //         // Validar que el campo 'password' no esté vacío
+            //         if (!formData.password) {
+            //             return { success: false, message: "Password is required." };
+            //         }
+
+			// 		const resp = await fetch(process.env.BACKEND_URL + '/api/login', {
+			// 			method: 'POST',
+			// 			body: JSON.stringify(formData),
+			// 			headers: {
+			// 				'Content-Type': 'application/json'
+			// 			}
+			// 		});
+			
+			// 		if (!resp.ok) {
+			// 			const errorMessage = await resp.text();
+			// 			console.error("Error en el login:", errorMessage);
+			// 			return { success: false, message: errorMessage.message || 'There was a problem logging in. Please try again.' };
+			// 		}
+			
+			// 		const data = await resp.json();
+			// 		if (data.token) {
+			// 			setStore({ token: data.token });
+			// 			localStorage.setItem('token', data.token);
+			// 			return { success: true, message: 'Login successful.' }; // Login exitoso
+			// 		} else {
+			// 			return { success: false, message: 'Token not received. Please try again.' };
+			// 		}
+
+			// 	} catch (error) {
+			// 		console.error("Login error:", error.message);
+			// 		return { success: false, message: 'There was a problem logging in. Please try again.' };
+			// 	}
+			// },
 			
 			getUserInfo: async () => {
 				try {
