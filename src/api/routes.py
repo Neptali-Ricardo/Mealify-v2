@@ -13,10 +13,10 @@ import re
 api = Blueprint('api', __name__)
 
 EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
-MSG_MISSING_DATA = "Todos los datos son necesarios"
-MSG_INVALID_DATA = "Datos inválidos"
-MSG_EMAIL_EXISTS = "El correo ya existe!"
-MSG_SUCCESS = "Usuario registrado exitosamente"
+MSG_MISSING_DATA = "All data is required"
+MSG_INVALID_DATA = "Invalid data"
+MSG_EMAIL_EXISTS = "The email already exists!"
+MSG_SUCCESS = "User registered successfully"
 
 # Allow CORS requests to this API
 CORS(api)
@@ -84,18 +84,25 @@ def register():
     if not user or not email or not password:
         return jsonify({"msg": MSG_MISSING_DATA}), 400
 
+    # Validar formato de datos
     if not isinstance(user, str) or not isinstance(email, str) or not isinstance(password, str) or not EMAIL_REGEX.match(email):
         return jsonify({"msg": MSG_INVALID_DATA}), 400
 
+     # Validar la longitud de la contraseña
+    if len(password) < 8:
+        return jsonify({"error": "Password must be at least 8 characters long"}), 400
+    
     # Verificar si el correo o el usuario ya existen
     existing_user = Users.query.filter(
         (Users.email == email) | (Users.user == user)
     ).first()
     if existing_user:
-        if existing_user.email == email:
-            return jsonify({"msg": "El correo ya existe"}), 409
-        if existing_user.user == user:
-            return jsonify({"msg": "El nombre de usuario ya existe"}), 409
+        if existing_user.email == email and existing_user.user == user:
+            return jsonify({"msg": "The email and username already exist. Please use another email and username."}), 409
+        elif existing_user.email == email:
+            return jsonify({"msg": "The email already exists. Please use another email."}), 409
+        elif existing_user.user == user:
+            return jsonify({"msg": "The username already exists. Please use another username."}), 409
 
     try:
         # Crear un nuevo usuario con contraseña encriptada
