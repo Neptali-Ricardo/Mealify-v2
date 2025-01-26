@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Separator } from "./separator.jsx";
-import jumbotronImage from "../../img/jumbotron.jpg";
 import { Context } from "../store/appContext.js";
 
 export const SecondaryJumbotron = () => {
@@ -24,7 +23,7 @@ export const SecondaryJumbotron = () => {
     return (
         <section className="banner__secondary" aria-labelledby="banner__title">
             <div className="banner__image-container">
-                <img src={jumbotronImage} alt="Fondo del banner mostrando un paisaje" className="banner__image" />
+                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888507/jumbotrom_p74p1h.png" alt="Fondo del banner mostrando un paisaje" className="banner__image" />
                 <div className="banner__overlay" aria-hidden="true"></div>
             </div>
 

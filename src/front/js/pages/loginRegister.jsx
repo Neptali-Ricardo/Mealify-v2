@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { LoginForm } from "../component/loginForm.jsx";
 import { UserForm } from "../component/userForm.jsx";
 import { Context } from "../store/appContext.js";
-import loginImage from "../../img/women-banner-2.png";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../component/spinner.jsx";
 
@@ -66,7 +65,7 @@ export default function LoginRegister() {
             {loading && <Spinner />}
 
             <div className="banner__image-container">
-                <img src={loginImage} alt="Fondo del banner mostrando un paisaje" className="banner__image-login" />
+                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888561/women-banner-2_aqfefy.png" alt="Fondo del banner mostrando un paisaje" className="banner__image-login" />
             </div>
 
             {/* Mostrar el formulario con la lógica de tipo login/register */}
