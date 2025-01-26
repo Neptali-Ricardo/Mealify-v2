@@ -132,23 +132,24 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
     const parsedData = parseResult(resultado);
 
     return (
-        <div>
+        <div className="container">
 
             <form onSubmit={(e) => e.preventDefault()}>
-                <div className="d-flex flex-column align-items-center">
-                    <h1>What are cooking today</h1>
-                    <div className="d-flex flex-column">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
-                            value={consulta}
-                            onChange={(e) => setConsulta(e.target.value)}
-                        />
-                        <button type="button" className="button button--primary" onClick={generarConsulta}>
-                            Generate your meal plan
-                        </button>
+                <div className="d-flex flex-column align-items-center gap-3">
+                    <div className="text-center">
+                        <h1>What are cooking today</h1>
+                        <h3>Tell us what you need, and let AI create the perfect weekly menu for you.</h3>
                     </div>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
+                        value={consulta}
+                        onChange={(e) => setConsulta(e.target.value)}
+                    />
+                    <button type="button" className="button button--primary" onClick={generarConsulta}>
+                        Generate your meal plan
+                    </button>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                     <Filtro_Preferencias />

@@ -13,8 +13,7 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
 
     useEffect(() => {
         if (Objectx && Objectx.length > 0) {
-            // Suponemos que `Objectx` es un array de perfiles
-            const [perfil] = Objectx; // Tomar el primer perfil (puedes ajustar si es necesario)
+            const [perfil] = Objectx;
             setAlergenos(perfil.alergenos || []);
             setCondicionesMedicas(perfil.condicion || []);
             setInputComensales(perfil.comensales || 1);
