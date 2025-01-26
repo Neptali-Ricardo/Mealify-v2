@@ -4,6 +4,7 @@ import { UserForm } from "../component/userForm.jsx";
 import { Context } from "../store/appContext.js";
 import loginImage from "../../img/women-banner-2.png";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../component/spinner.jsx";
 
 export default function LoginRegister() {
 
@@ -12,6 +13,7 @@ export default function LoginRegister() {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
     const [message, setMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     // Alternar entre Login y Register
     const toggleForm = () => setIsLogin(!isLogin);
@@ -19,7 +21,7 @@ export default function LoginRegister() {
     // Manejar el envío del formulario
     const handleSubmit = async (formData) => {
         let success;
-
+        setLoading(true);
         if (isLogin) {
             // Intentar iniciar sesión
             success = await actions.login(formData);
@@ -51,6 +53,7 @@ export default function LoginRegister() {
                 console.log("Login fallido. Permaneciendo en formulario de login.");
             }
         }
+        setLoading(false); // Detener el spinner al finalizar
     };
 
     useEffect(() => {
@@ -59,6 +62,9 @@ export default function LoginRegister() {
 
     return (
         <section className="banner__login" aria-labelledby="banner__title">
+
+            {loading && <Spinner />}
+
             <div className="banner__image-container">
                 <img src={loginImage} alt="Fondo del banner mostrando un paisaje" className="banner__image-login" />
             </div>
