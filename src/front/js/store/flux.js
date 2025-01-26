@@ -193,6 +193,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			getUserProfile: async (userId) => {
+				try {
+					// Construimos la URL del endpoint
+					const url = `${process.env.BACKEND_URL}api/perfil/pf/${userId}`;
+					
+					// Realizamos la solicitud GET al backend
+					const response = await fetch(url, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json"
+						}
+					});
+			
+					// Validamos la respuesta
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error al obtener el perfil:", errorData);
+						return { error: errorData.message || "Error desconocido" };
+					}
+			
+					// Parseamos el cuerpo de la respuesta como JSON
+					const data = await response.json();
+					
+					// Opcional: guarda el perfil en el store si necesitas usarlo en otros lugares
+					const store = getStore();
+					setStore({ ...store, userProfile: data });
+			
+					// Devuelve los datos obtenidos
+					return data;
+			
+				} catch (error) {
+					console.error("Error de conexión con el backend:", error);
+					return { error: "Error de conexión con el servidor" };
+				}
+			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

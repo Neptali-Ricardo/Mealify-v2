@@ -585,6 +585,22 @@ def get_perfil(perfil_id):
         return jsonify({"msg": "Perfil obtenido correctamente", "perfil": perfil.serialize()}), 200
     except SQLAlchemyError as e:
         return jsonify({"msg": "Error al obtener el perfil", "error": str(e)}), 500
+    
+@api.route('/perfil/pf/<int:user_id>', methods=['GET'])
+def get_perfiles_by_user_id(user_id):
+    try:
+        # Consulta los perfiles asociados al user_id
+        perfiles = Perfil.query.filter_by(user_id=user_id).all()
+        
+        # Si no se encuentran resultados
+        if not perfiles:
+            return jsonify({"message": f"No se encontraron perfiles para el user_id {user_id}"}), 404
+
+        # Serializa los perfiles y envía la respuesta
+        return jsonify([perfil.serialize() for perfil in perfiles]), 200
+    except Exception as e:
+        return jsonify({"error": f"Ocurrió un error: {str(e)}"}), 500
+
 
 # Endpoint para actualizar un perfil por ID
 @api.route('/perfil/<int:perfil_id>', methods=['PUT'])
