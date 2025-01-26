@@ -23,7 +23,7 @@ export const SecondaryJumbotron = () => {
     return (
         <section className="banner__secondary" aria-labelledby="banner__title">
             <div className="banner__image-container">
-                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888507/jumbotrom_p74p1h.png" alt="Fondo del banner mostrando un paisaje" className="banner__image" />
+                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737899711/2151201963_voda1n.jpg" alt="Fondo del banner mostrando un paisaje" className="banner__image" />
                 <div className="banner__overlay" aria-hidden="true"></div>
             </div>
 
