@@ -158,7 +158,6 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                         </svg>
                     </div>
                 </div>
-
                 {desplegar === "Desplegado" ? (
                     <div className="border border-rounded gap-2">
                         <div className="d-flex flex-column justify-content-center align-items-center text-center">
@@ -187,7 +186,6 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                                     />
                                                 </div>
                                             </form>
-
                                             {/* Input para número de comensales */}
                                             <div className="mb-3 w-100">
                                                 <label htmlFor="numComensales" className="form-label">Number of diners:</label>
