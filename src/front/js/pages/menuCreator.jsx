@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
+import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext";
-import { SecondaryJumbotron } from "./secondaryJumbotron.jsx";
+import { Context } from "../store/appContext.js";
 
-export const MealPlan = () => {
+export const MenuCreator = () => {
     const navigate = useNavigate();
     const { store } = useContext(Context);
 
@@ -19,7 +19,7 @@ export const MealPlan = () => {
             <SecondaryJumbotron />
 
             <div className="separator">
-                <h2>Meal Plan</h2>
+                <h2>Menu Creator</h2>
             </div>
         </>
     );
