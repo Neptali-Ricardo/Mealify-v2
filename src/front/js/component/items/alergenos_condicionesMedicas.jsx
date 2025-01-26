@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 // Asegúrate de ajustar la ruta según tu estructura
 
@@ -10,6 +10,16 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
     const [inputAlergenos, setInputAlergenos] = useState("");
     const [inputCondiciones, setInputCondiciones] = useState("");
     const [inputComensales, setInputComensales] = useState(1);
+
+    useEffect(() => {
+        if (Objectx && Objectx.length > 0) {
+            // Suponemos que `Objectx` es un array de perfiles
+            const [perfil] = Objectx; // Tomar el primer perfil (puedes ajustar si es necesario)
+            setAlergenos(perfil.alergenos || []);
+            setCondicionesMedicas(perfil.condicion || []);
+            setInputComensales(perfil.comensales || 1);
+        }
+    }, [Objectx]);
 
     const guardar_Alergenos_Condiciones = async () => {
         const recetaData = {
