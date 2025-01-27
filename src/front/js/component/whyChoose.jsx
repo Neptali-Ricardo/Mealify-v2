@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const WhyChoose = () => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/menuCreator');
+    };
 
     return (
         <section className="why-choose container text-center mt-5 mb-5">
@@ -37,6 +44,14 @@ export const WhyChoose = () => {
                     </div>
                 </div>
             </div>
+            <div className="why-choose__header mt-5 mb-5">
+                <h2 className="why-choose__title--footer">Ready to Transform  <strong>Your Meal Planning?</strong></h2>
+                <p className="why-choose__description">Join Mealify today and start enjoying healthy, easy-to-plan weekly menus. Begin your journey to smarter, more delicious eating!</p>
+            </div>
+            <button href="#" onClick={handleClick} className="button button--medium">
+                Start Your Journey Now
+                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+            </button>
         </section>
     );
 };
