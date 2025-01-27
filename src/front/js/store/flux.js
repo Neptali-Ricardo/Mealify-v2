@@ -193,16 +193,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getUserProfile: async (userId) => {
+			getUserProfile: async () => {
 				try {
 					// Construimos la URL del endpoint
-					const url = `${process.env.BACKEND_URL}api/perfil/pf/${userId}`;
+					const url = `${process.env.BACKEND_URL}api/perfil/pf`;
 					
 					// Realizamos la solicitud GET al backend
 					const response = await fetch(url, {
 						method: "GET",
 						headers: {
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
+							"Authorization": "Bearer "+ localStorage.getItem("token")
 						}
 					});
 			
@@ -234,13 +235,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			uploadProfile: async (id, formData) => {
+			uploadProfile: async (formData) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + 'api/perfil/edit/' + id, {
+					const resp = await fetch(process.env.BACKEND_URL + 'api/perfil/edit', {
 						method: 'PUT',
 						body: JSON.stringify(formData),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${localStorage.getItem('token')}`
 						}
 					});
 			

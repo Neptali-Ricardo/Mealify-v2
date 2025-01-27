@@ -12,11 +12,14 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
     const [inputComensales, setInputComensales] = useState(1);
 
     useEffect(() => {
-        if (Objectx && Objectx.length > 0) {
-            const [perfil] = Objectx;
-            setAlergenos(perfil.alergenos || []);
-            setCondicionesMedicas(perfil.condicion || []);
-            setInputComensales(perfil.comensales || 1);
+        if (Objectx.length > 0) {
+            const newAlergenos = Objectx.flatMap(profile => profile.alergenos)|| [];
+            const newCondiciones = Objectx.flatMap(profile => profile.condicion)|| [];
+            const totalComensales = Objectx.reduce((acc, profile) => acc + (profile.comensales || 0), 0);
+
+            setAlergenos(newAlergenos);
+            setCondicionesMedicas(newCondiciones);
+            setInputComensales(totalComensales);
         }
     }, [Objectx]);
 
@@ -40,7 +43,7 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
         } else {
             console.log("No se encontró el id de usuario en la información del usuario:", user);
         }
-        await actions.uploadProfile(user.id, recetaData);
+        await actions.uploadProfile(recetaData);
     }
 
     const addAlergenos = (e) => {

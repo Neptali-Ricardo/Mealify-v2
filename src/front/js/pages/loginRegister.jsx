@@ -7,7 +7,7 @@ import { Spinner } from "../component/spinner.jsx";
 
 export default function LoginRegister() {
 
-    const { actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const [isLogin, setIsLogin] = useState(true);
     const [token, setToken] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
@@ -24,6 +24,10 @@ export default function LoginRegister() {
         if (isLogin) {
             // Intentar iniciar sesión
             success = await actions.login(formData);
+            await actions.getUserInfo()
+            const user_id = store.user.id;
+            console.log("El usuario que acaba de iniciar sesión tiene el id de: " + user_id)
+
         } else {
             // Intentar registrar un nuevo usuario
             success = await actions.register(formData);

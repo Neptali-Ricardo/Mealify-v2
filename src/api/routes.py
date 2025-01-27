@@ -118,9 +118,9 @@ def register():
         new_profile = Perfil(
             user_id=new_user.id,
             name="",
-            alergenos={},
+            alergenos=[],
             comensales=0,
-            condicion={}
+            condicion=[]
         )
         db.session.add(new_profile)
         db.session.commit()
@@ -591,10 +591,12 @@ def get_perfil(perfil_id):
     except SQLAlchemyError as e:
         return jsonify({"msg": "Error al obtener el perfil", "error": str(e)}), 500
     
-@api.route('/perfil/pf/<int:user_id>', methods=['GET'])
-def get_perfiles_by_user_id(user_id):
+@api.route('/perfil/pf', methods=['GET'])
+@jwt_required()
+def get_perfiles_by_user_id():
     try:
         # Consulta los perfiles asociados al user_id
+        user_id = get_jwt_identity()
         perfiles = Perfil.query.filter_by(user_id=user_id).all()
         
         # Si no se encuentran resultados
@@ -638,14 +640,16 @@ def update_perfil(perfil_id):
         return jsonify({"msg": "Error inesperado", "error": str(e)}), 500
     
 
-@api.route('/perfil/edit/<int:user_id>', methods=['PUT'])
-def update_perfil_user(user_id):
+@api.route('/perfil/edit', methods=['PUT'])
+@jwt_required()
+def update_perfil_user():
     """
     Actualiza los datos de un perfil existente basado únicamente en user_id.
     """
     try:
+        id = get_jwt_identity()
         # Buscar el perfil por user_id
-        perfil = Perfil.query.filter_by(user_id=user_id).first()
+        perfil = Perfil.query.filter_by(user_id=id).first()
         if not perfil:
             return jsonify({"msg": "Perfil no encontrado para este usuario"}), 404
 
