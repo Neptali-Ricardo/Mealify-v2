@@ -5,7 +5,7 @@ import { Separator } from "./separator.jsx";
 export const Jumbotron = () => {
 
     const handleClick = () => {
-        const section = document.getElementById("MenuCreator");
+        const section = document.getElementById("WhyChoose");
         if (section) {
             section.scrollIntoView({ behavior: "smooth" });
         }
