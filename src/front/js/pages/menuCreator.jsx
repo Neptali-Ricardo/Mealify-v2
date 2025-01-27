@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext.js";
+import { Menu_GPT } from "../gpt/gpt_crear_menu.jsx";
 
 export const MenuCreator = () => {
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ export const MenuCreator = () => {
             <div className="separator">
                 <h2>Menu Creator</h2>
             </div>
+
+            <Menu_GPT />
         </>
     );
 };

@@ -144,7 +144,7 @@ export const Menu_GPT = () => {
 Desayuno, comida y cena  
 Preferencias: ${consulta.trim()}.
 Número de comensales: ${inputComensales}.
-Sin que tenga estos alérgenos: ${alergenos.join(", ")}.
+Que no tenga estos alimentos: ${alergenos.join(", ")}.
 Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
 De lunes a domingo
 Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
@@ -205,7 +205,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                     </div>
                 </div>
                 {desplegar === "Desplegado" ? (
-                    <Algerenos_Condiciones_Medicas Objectx={datosPerfil}/>
+                    <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
             </form>
 
