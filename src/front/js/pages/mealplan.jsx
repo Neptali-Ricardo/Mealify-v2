@@ -6,45 +6,32 @@ import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
 export const MealPlan = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
-    const [userPlans, setUserPlans] = useState(null); // Variable para guardar los planes
+    const [userPlans, setUserPlans] = useState([]); // Estado inicial como array vacío
 
     useEffect(() => {
-        // Redirige al login si no hay un token válido
         if (!store.token) {
             navigate("/loginRegister");
-        }
-        Obtener_planes();
-    }, [store.token, navigate]);
-
-    const Obtener_planes = async () => {
-        await actions.getUserInfo();
-
-        // Accede al objeto user en el store
-        const user = store.user;
-
-        if (user && user.id) {
-            console.log("El id de usuario es (profile):", user.id);
         } else {
-            console.log("No se encontró el id de usuario en la información del usuario:", user);
+            obtenerPlanes();
         }
+    }, [store.token]);
 
+    const obtenerPlanes = async () => {
+        await actions.getUserInfo();
         await actions.getPlans();
 
-        // Accedemos a los datos del store
-        const store_obtained = store.userPlans;
+        // Verifica si store.userPlans contiene datos válidos
+        const planes = store.userPlans || []; // Si es undefined, usa un array vacío
+        console.log("Datos obtenidos en userPlans:", planes);
 
-        console.log("Planes obtenidos:", JSON.stringify(store_obtained, null, 2));
-
-        // Guardar los datos en el estado local
-        setUserPlans(store_obtained);
+        setUserPlans(planes); // Actualiza el estado local con los datos
     };
 
     const eliminarPlan = async (planId) => {
         const success = await actions.deletePlans(planId);
         if (success) {
-            // Si la eliminación fue exitosa, actualiza la lista local de planes
             const planesActualizados = userPlans.filter((plan) => plan.id !== planId);
-            setUserPlans(planesActualizados);
+            setUserPlans(planesActualizados); // Actualiza el estado después de eliminar
         } else {
             console.error("Error al eliminar el plan");
         }
@@ -59,31 +46,34 @@ export const MealPlan = () => {
             </div>
 
             <div className="accordion" id="mealPlanAccordion">
-                {userPlans ? (
-                    userPlans.map((plan, index) => (
-                        <div key={index} className="accordion-item">
-                            <h2 className="accordion-header" id={`heading${index}`}>
+                {userPlans.length > 0 ? ( // Muestra los planes si hay datos
+                    userPlans.map((plan) => (
+                        <div key={plan.id} className="accordion-item">
+                            <h2 className="accordion-header" id={`heading${plan.id}`}>
                                 <button
                                     className="accordion-button d-flex justify-content-between align-items-center"
                                     type="button"
                                     data-bs-toggle="collapse"
-                                    data-bs-target={`#collapse${index}`}
+                                    data-bs-target={`#collapse${plan.id}`}
                                     aria-expanded="true"
-                                    aria-controls={`collapse${index}`}
+                                    aria-controls={`collapse${plan.id}`}
                                 >
                                     {plan.name}
                                     <button
                                         className="btn btn-danger btn-sm rounded-circle ms-3"
-                                        onClick={() => eliminarPlan(plan.id)} // Llama a la función eliminarPlan con el ID del plan
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Evita que se active el toggle del accordion
+                                            eliminarPlan(plan.id);
+                                        }}
                                     >
                                         X
                                     </button>
                                 </button>
                             </h2>
                             <div
-                                id={`collapse${index}`}
+                                id={`collapse${plan.id}`}
                                 className="accordion-collapse collapse"
-                                aria-labelledby={`heading${index}`}
+                                aria-labelledby={`heading${plan.id}`}
                                 data-bs-parent="#mealPlanAccordion"
                             >
                                 <div className="accordion-body">
@@ -100,7 +90,7 @@ export const MealPlan = () => {
                         </div>
                     ))
                 ) : (
-                    <p>Cargando planes...</p>
+                    <p>No hay planes disponibles.</p> // Mensaje si no hay planes
                 )}
             </div>
         </>
