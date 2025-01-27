@@ -28,10 +28,10 @@ export const MealPlan = () => {
             console.log("No se encontró el id de usuario en la información del usuario:", user);
         }
 
-        await actions.getPlans(user.id);
+        await actions.getPlans();
 
         // Accedemos a los datos del store
-        const store_obtained = store.userPlans.data;
+        const store_obtained = store.userPlans;
 
         console.log("Planes obtenidos:", JSON.stringify(store_obtained, null, 2));
 
