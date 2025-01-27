@@ -28,12 +28,18 @@ export const MealPlan = () => {
     };
 
     const eliminarPlan = async (planId) => {
-        const success = await actions.deletePlans(planId);
-        if (success) {
-            const planesActualizados = userPlans.filter((plan) => plan.id !== planId);
-            setUserPlans(planesActualizados); // Actualiza el estado después de eliminar
-        } else {
-            console.error("Error al eliminar el plan");
+        try {
+            const success = await actions.deletePlans(planId); // Acción para eliminar el plan
+            if (success) {
+                // Filtrar los planes eliminando el que tenga el ID indicado
+                const planesActualizados = userPlans.filter((plan) => plan.id !== planId);
+                setUserPlans(planesActualizados); // Actualiza el estado local
+                console.log("Planes actualizados después de eliminar:", planesActualizados);
+            } else {
+                console.error("Error al eliminar el plan en el servidor.");
+            }
+        } catch (error) {
+            console.error("Error al eliminar el plan:", error);
         }
     };
 
