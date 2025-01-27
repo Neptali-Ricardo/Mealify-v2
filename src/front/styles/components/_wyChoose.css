@@ -1,43 +1,71 @@
-.why-choose {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #f7f7f7;
-  }
-  
-  .why-choose h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .benefits {
+.why-choose__image img {
+    width: 100%;
+    max-width: 700px;
+    max-height: 700px;
+}
+
+.why-choose__title {
+    font-size: var(--font-size-xl);
+    line-height: 64px;
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+}
+
+.why-choose__subtitle {
+    font-size: 56px;
+    line-height: 64px;
+    font-weight: var(--font-weight-regular);
+    color: var(--color-neutral-gray-800);
+}
+
+.why-choose__text {
+    margin: 0;
+}
+
+.why-choose__benefit {
+    align-items: center;
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  
-  .benefit {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
+    flex-direction: row;
+}
+
+.why-choose__content--personalized,
+.why-choose__content--shopping-lists {
     text-align: left;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .benefit img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-  }
-  
-  .benefit h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .benefit p {
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
+}
+
+.why-choose__content--weekly-meals {
+    text-align: right;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 1000px) {
+    .why-choose__title {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .why-choose__subtitle {
+        font-size: 24px;
+        line-height: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .why-choose__benefit {
+        flex-direction: column;
+    }
+
+    .why-choose__content--personalized,
+    .why-choose__content--shopping-lists,
+    .why-choose__content--weekly-meals {
+        text-align: center;
+    }
+
+    .why-choose__benefit--weekly-meals {
+        flex-direction: column-reverse;
+    }
+
+    .why-choose__image img {
+        max-width: 100%;
+    }
+}
