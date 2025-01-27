@@ -193,16 +193,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getUserProfile: async (userId) => {
+			getUserProfile: async () => {
 				try {
 					// Construimos la URL del endpoint
-					const url = `${process.env.BACKEND_URL}api/perfil/pf/${userId}`;
+					const url = `${process.env.BACKEND_URL}api/perfil/pf`;
 					
 					// Realizamos la solicitud GET al backend
 					const response = await fetch(url, {
 						method: "GET",
 						headers: {
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
+							"Authorization": "Bearer "+ localStorage.getItem("token")
 						}
 					});
 			
@@ -234,13 +235,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			uploadProfile: async (id, formData) => {
+			uploadProfile: async (formData) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + 'api/perfil/edit/' + id, {
+					const resp = await fetch(process.env.BACKEND_URL + 'api/perfil/edit', {
 						method: 'PUT',
 						body: JSON.stringify(formData),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${localStorage.getItem('token')}`
 						}
 					});
 			
@@ -286,6 +288,80 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error en la solicitud:", error);
 					return { success: false, error: "Error en la conexión con el servidor" };
+				}
+			},
+
+			getPlans: async () => {
+				try {
+					// Construimos la URL del endpoint
+					const url = `${process.env.BACKEND_URL}api/plans/`;
+					
+					// Realizamos la solicitud GET al backend
+					const response = await fetch(url, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer "+ localStorage.getItem("token")
+						}
+					});
+			
+					// Validamos la respuesta
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error al obtener los planes:", errorData);
+						return { error: errorData.message || "Error desconocido" };
+					}
+			
+					// Parseamos el cuerpo de la respuesta como JSON
+					const data = await response.json();
+
+					// Almacena solo los planes en el store
+					const store = getStore();
+					setStore({ ...store, userPlans: data.payload });
+			
+					// Devuelve los datos obtenidos
+					return data;
+			
+				} catch (error) {
+					console.error("Error de conexión con el backend:", error);
+					return { error: "Error de conexión con el servidor" };
+				}
+			},
+
+			deletePlans: async (planId) => {
+				try {
+					const token = localStorage.getItem("token"); // Obtén el token si es necesario
+					if (!token) {
+						console.error("No token found. User might not be logged in.");
+						return;
+					}
+			
+					const response = await fetch(`${process.env.BACKEND_URL}/api/plan/${planId}`, {
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}` // Si tu API requiere un token de autorización
+						}
+					});
+			
+					if (!response.ok) {
+						const errorData = await response.json();
+						console.error("Error eliminando el plan:", errorData.msg || "Unknown error");
+						return false;
+					}
+			
+					const data = await response.json();
+					console.log("Plan eliminado correctamente:", data.msg);
+			
+					// Opcional: actualiza el estado global de planes en el store
+					const store = getStore();
+					const updatedPlans = store.userPlans.data.filter(plan => plan.id !== planId);
+					setStore({ ...store, userPlans: { ...store.userPlans, data: updatedPlans } });
+			
+					return true; // Retorna true si la eliminación fue exitosa
+				} catch (error) {
+					console.error("Unexpected error while deleting the plan:", error);
+					return false;
 				}
 			},
 
