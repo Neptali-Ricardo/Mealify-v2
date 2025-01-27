@@ -9,12 +9,6 @@ export const Home = () => {
     return (
         <>
             <Jumbotron />
-            
-            <section id="MenuCreator" className="text-center mt-5 mb-5">
-                <h2>MenuCreator</h2>
-                {/* Contenido de la sección */}
-                
-            </section>
 
             <WhyChoose />
         </>
