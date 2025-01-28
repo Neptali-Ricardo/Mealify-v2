@@ -14,6 +14,7 @@ export const SecondaryJumbotron = () => {
        // Determina el contenido en función de la ruta actual
        const isProfile = location.pathname === "/profile";
        const isMenuCreator = location.pathname === "/menucreator";
+       const isAbout = location.pathname === "/about";
 
        const title = isProfile
            ? `Welcome Back, ${store.user?.user || "Guest"}! Let’s Craft Your Perfect Plate.`
@@ -34,9 +35,19 @@ export const SecondaryJumbotron = () => {
             </div>
 
             <div className="banner__content container gap-3">
-                <h2 className="banner__secondary--title">{title}</h2>
-                <Separator />
-                <p className="banner__description">{description}</p>
+            {isAbout ? (
+                    <>
+                        <h2 className="banner__secondary--title">Discover Our Story</h2>
+                        <Separator />
+                        <p className="banner__description">Behind every dish is a team passionate about technology and innovation.</p>
+                    </>
+                ) : (
+                    <>
+                        <h2 className="banner__secondary--title">{title}</h2>
+                        <Separator />
+                        <p className="banner__description">{description}</p>
+                    </>
+                )}
             </div>
         </section>
     );
