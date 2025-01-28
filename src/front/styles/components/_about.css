@@ -1,54 +1,61 @@
-.why-choose{
+.about{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.why-choose__description{
-    font-size: 32px;
+.about__content--member,
+.about__content--member{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.why-choose__image img {
+.about__description{
+    font-size: 16px;
+    font-weight: var(--font-weight-regular);
+}
+
+.about__image img {
     width: 100%;
     max-width: 43.75rem;
     max-height: 43.75rem;
 }
 
-.why-choose__title {
+.about__title {
     font-size: var(--font-size-xl);
     line-height: 4rem;
     font-weight: var(--font-weight-regular);
     color: var(--primary-color);
 }
 
-.why-choose__subtitle {
+.about__subtitle {
     font-size: 3.5rem;
     line-height: 4rem;
     font-weight: var(--font-weight-regular);
     color: var(--color-neutral-gray-800);
 }
 
-.why-choose__text {
+.about__text {
     margin: 0;
     font-weight: var(--font-weight-regular);
 }
 
-.why-choose__benefit {
+.about__member {
     align-items: center;
     display: flex;
     flex-direction: row;
 }
 
-.why-choose__content--personalized,
-.why-choose__content--shopping-lists {
+.about__member--one{
     text-align: left;
 }
 
-.why-choose__content--weekly-meals {
+.about__member--two {
     text-align: right;
 }
 
-.why-choose__title--footer {
+.about__title--footer {
     font-size: 4rem;
     color: var(--color-neutral-gray-800);
     font-weight: var(--font-weight-regular);
@@ -56,43 +63,41 @@
 
 /* Media queries para dispositivos móviles */
 @media (max-width: 1000px) {
-    .why-choose__title,
-    .why-choose__title--footer {
+    .about__title,
+    .about__title--footer {
         font-size: 2rem;
         line-height: 2.5rem;
     }
 
-    .why-choose__subtitle {
+    .about__subtitle {
         font-size: 1.5rem;
         line-height: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .why-choose__benefit {
+    .about__member {
         flex-direction: column;
     }
 
-    .why-choose__description {
+    .about__description {
         font-size: 18px;
     }
 
-    .why-choose__content--personalized,
-    .why-choose__content--shopping-lists,
-    .why-choose__content--weekly-meals {
+    .about__content--member {
         text-align: center;
     }
 
-    .why-choose__benefit--weekly-meals {
+    .about__member--two {
         flex-direction: column-reverse;
     }
 
-    .why-choose__image img {
+    .about__image img {
         max-width: 100%;
     }
 
-    .why-choose__description,
-    .why-choose__text{
+    .about__description,
+    .about__text{
         font-size: var(--font-size-xs);
         font-weight: var(--font-weight-regular);
     }

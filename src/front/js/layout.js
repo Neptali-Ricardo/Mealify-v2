@@ -21,6 +21,7 @@ import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
 import { Profile } from "./component/profile.jsx";
 import { MealPlan } from "./pages/mealplan.jsx";
 import { MenuCreator } from "./pages/menuCreator.jsx";
+import { About } from "./pages/about.jsx";
 
 
 
@@ -45,6 +46,7 @@ const Layout = () => {
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<MenuCreator />} path="/menuCreator" />
                         <Route element={<MealPlan />} path="/mealplan" />
+                        <Route element={<About />} path="/about" />
                         <Route element={<LoginRegister />} path="/loginRegister" />
                         <Route element={<SelectAllergiesPage />} path="/alergias" />
                         <Route element={<File_test />} path="/test" />
