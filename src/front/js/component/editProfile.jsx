@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "./spinner.jsx";
+import { Modal } from "bootstrap";
 
 
 export const EditProfile = () => {
@@ -102,6 +103,10 @@ export const EditProfile = () => {
 
         if (response.success) {
             setMessage({ type: "success", text: response.message });
+            // Cerrar el modal
+            const modalElement = document.getElementById('exampleModal');
+            const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+            modal.hide();
             setTimeout(() => {
                 setLoading(true); // Mostrar el spinner
                 setTimeout(() => {
@@ -176,7 +181,25 @@ export const EditProfile = () => {
                     Save Changes
                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                 </button>
-                <button type="button" className="button button--secondary" onClick={handleDelete}>
+                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h2 className="profile__subtitle">Are you sure?</h2>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                <p>This action is irreversible. Once your account is deleted, all your history, settings, and associated data will be lost.</p>
+                            </div>
+                            <div className="modal-footer modal-custom">
+                                <button type="button" className="button button--secondary w-100" onClick={handleDelete}>
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" className="button button--secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete Account
                 </button>
                 {message && (
