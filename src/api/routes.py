@@ -8,6 +8,7 @@ from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from datetime import timedelta
 import re
 
 api = Blueprint('api', __name__)
@@ -126,7 +127,8 @@ def register():
         db.session.commit()
         
         # Crear y retornar el token JWT
-        token = create_access_token(identity=str(new_user.id))
+        expires = timedelta(days=1)
+        token = create_access_token(identity=str(new_user.id), expires_delta=expires)
         return jsonify({"msg": MSG_SUCCESS, "token": token}), 201
     
     except Exception as e:
@@ -284,6 +286,11 @@ def update_user(user_id):
     if username:
         if not isinstance(username, str) or len(username) < 3:
             return jsonify({"error": "Username must be at least 3 characters long"}), 400
+        check_user = Users.query.filter_by(user=username).first()
+    
+        if check_user and check_user.id != user_id: 
+            return jsonify({"error": "Username already exists"}), 409 # Verificar si existe el usuario con el mismo nombre
+        
         user.user = username
 
     # Validar y actualizar el correo electrónico si está presente
@@ -291,6 +298,12 @@ def update_user(user_id):
         if not EMAIL_REGEX.match(data["email"]):
             # Retornar error si el formato del correo es inválido
             return jsonify({"error": "Invalid email format"}), 400
+        
+        check_user = Users.query.filter_by(email=data["email"]).first()
+    
+        if check_user and check_user.id != user_id: 
+            return jsonify({"error": "Email already exists"}), 409 # Verificar si existe un usuario con ese email
+        
         user.email = data["email"]
 
     # Validar y actualizar la contraseña si está presente
@@ -298,6 +311,10 @@ def update_user(user_id):
         if not isinstance(data["password"], str) or len(data["password"]) < 8:
             # Retornar error si la contraseña no cumple con los requisitos mínimos
             return jsonify({"error": "Password must be at least 8 characters long"}), 400
+        
+        if check_password_hash(user.password, data["password"]):
+            return jsonify({"msg": "New password is not different from old password"}), 401
+        
         user.password = generate_password_hash(data["password"])  # Hashear la nueva contraseña
 
     # Validar y actualizar el estado de actividad si está presente
@@ -397,7 +414,8 @@ def login():
             return jsonify({"msg": "Credenciales inválidas"}), 401
 
         # Generar el token de acceso
-        token = create_access_token(identity=str(user.id))
+        expires = timedelta(days=1)
+        token = create_access_token(identity=str(user.id), expires_delta=expires)
         return jsonify({
             "msg": "Inicio de sesión exitoso",
             "token": token,

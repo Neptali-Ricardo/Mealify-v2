@@ -15,6 +15,7 @@ export const EditProfile = () => {
         user: "",
         email: "",
         password: "",
+        repeat_password: "",
     });
 
     useEffect(() => {
@@ -54,6 +55,11 @@ export const EditProfile = () => {
         }
         if (formData.email && formData.email !== store.user.email) {
             updatedFields.email = formData.email;
+        }
+        if (formData.password !== formData.repeat_password) {
+            setMessage({ type: "error", text: "Passwords do not match. Please try again." });
+            setLoading(false);
+            return;
         }
         if (formData.password) {
             updatedFields.password = formData.password;
@@ -113,7 +119,8 @@ export const EditProfile = () => {
 
             {loading && <Spinner />}
 
-            <form onSubmit={handleSubmit} className="edit-form__form">
+            <form onSubmit={handleSubmit} className="edit-form__form mb-5 mt-5">
+                <h2 className="text-center profile__subtitle">Basic Profile Information</h2>
                 <div className="contact-form__field">
                     <label htmlFor="user">Username</label>
                     <input
@@ -138,17 +145,32 @@ export const EditProfile = () => {
                         className="contact-form__input"
                     />
                 </div>
-                <div className="contact-form__field">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="contact-form__input"
-                    />
+                <div className="edit-form__form--password">
+                    <h2 className="text-center profile__subtitle">Update password</h2>
+                    <div className="contact-form__field">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="contact-form__input"
+                        />
+                    </div>
+                    <div className="contact-form__field">
+                        <label htmlFor="password">Repeat Password</label>
+                        <input
+                            id="repeat_password"
+                            type="password"
+                            name="repeat_password"
+                            placeholder="Repeat Password"
+                            value={formData.repeat_password}
+                            onChange={handleChange}
+                            className="contact-form__input"
+                        />
+                    </div>
                 </div>
                 <button className="button button--primary" type="submit">
                     Save Changes

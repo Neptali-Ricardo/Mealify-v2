@@ -64,13 +64,7 @@ export const Profile = () => {
         <>
             <SecondaryJumbotron />
 
-            <div class="container mt-5 mb-5">
-
-                <h2 className="text-center profile__subtitle">Basic Profile Information</h2>
-
-                <EditProfile />
-
-            </div>
+            <EditProfile />
         </>
     );
 };
