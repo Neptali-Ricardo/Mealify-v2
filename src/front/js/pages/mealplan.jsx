@@ -31,10 +31,12 @@ export const MealPlan = () => {
         try {
             const success = await actions.deletePlans(planId); // Acción para eliminar el plan
             if (success) {
+                console.log(userPlans)
                 // Filtrar los planes eliminando el que tenga el ID indicado
                 const planesActualizados = userPlans.filter((plan) => plan.id !== planId);
                 setUserPlans(planesActualizados); // Actualiza el estado local
                 console.log("Planes actualizados después de eliminar:", planesActualizados);
+
             } else {
                 console.error("Error al eliminar el plan en el servidor.");
             }
@@ -65,7 +67,8 @@ export const MealPlan = () => {
                                     aria-controls={`collapse${plan.id}`}
                                 >
                                     {plan.name}
-                                    <button
+                                </button>
+                                <button
                                         className="btn btn-danger btn-sm rounded-circle ms-3"
                                         onClick={(e) => {
                                             e.stopPropagation(); // Evita que se active el toggle del accordion
@@ -74,7 +77,6 @@ export const MealPlan = () => {
                                     >
                                         X
                                     </button>
-                                </button>
                             </h2>
                             <div
                                 id={`collapse${plan.id}`}
