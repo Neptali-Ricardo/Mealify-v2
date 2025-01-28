@@ -173,11 +173,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (!resp.ok) {
 						console.error("Server response error:", resp.status, resp.statusText);
 						if (resp.status === 401) {
-						alert("The token has expired or is invalid. Please log in again.");
+						console.log("The token has expired or is invalid. Please log in again.");
 						} else if (resp.status === 404) {
-						alert("User not found.");
+						console.log("User not found.");
 						} else {
-						alert("An error occurred while retrieving the user information.");
+						console.log("An error occurred while retrieving the user information.");
 						}
 						throw new Error(`Error retrieving user information: ${resp.status}`);
 					}
@@ -188,7 +188,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ user: data.payload });
 				} catch (error) {
 					console.error("Error retrieving user information:", error.message);
-					alert("Could not retrieve user information. Please check your connection.");
+					// alert("Could not retrieve user information. Please check your connection.");
 					return false;
 				}
 			},
@@ -431,7 +431,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ menu });
 				} catch (error) {
 					console.error("Error retrieving the menu:", error.message);
-					alert("Could not retrieve the weekly menu. Please try again later.");
+					// alert("Could not retrieve the weekly menu. Please try again later.");
 				}
 			},
 			
