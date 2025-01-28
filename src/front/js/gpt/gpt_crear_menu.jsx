@@ -96,6 +96,16 @@ export const Menu_GPT = () => {
                 personas += profile.comensales || 0;
             });
 
+            if (profile_obtained.length > 0) {
+                const newAlergenos = profile_obtained.flatMap(profile => profile.alergenos) || [];
+                const newCondiciones = profile_obtained.flatMap(profile => profile.condicion) || [];
+                const totalComensales = profile_obtained.reduce((acc, profile) => acc + (profile.comensales || 0), 0);
+
+                setAlergenos(newAlergenos);
+                setCondicionesMedicas(newCondiciones);
+                setInputComensales(totalComensales);
+            }
+
             // Actualización de estados
             setDatosPerfil(profile_obtained);
             setCantidadPersonas(personas || 0);
