@@ -186,6 +186,10 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
     const parsedData = parseResult(resultado);
 
+    const mealPlans = () => {
+        navigate('/mealplan')
+    }
+
     return (
         <div className="container">
 
@@ -243,7 +247,10 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                 ))}
                             </tbody>
                         </table>
-                        <button type="button" onClick={handleGuardar}>Guardar receta</button>
+                        <div className="d-flex justify-content-between">
+                            <button className="button button--secondary" type="button" onClick={handleGuardar}>Save recipe</button>
+                            <button className="button button--secondary" type="button">Go to MealPlans</button>
+                        </div>
                     </div>
 
                 ) : (
