@@ -4,6 +4,9 @@
     align-items: center;
 }
 
+.why-choose__description{
+    font-size: 32px;
+}
 .why-choose__image img {
     width: 100%;
     max-width: 43.75rem;
@@ -13,7 +16,7 @@
 .why-choose__title {
     font-size: var(--font-size-xl);
     line-height: 4rem;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-regular);
     color: var(--primary-color);
 }
 
@@ -66,6 +69,10 @@
 @media (max-width: 768px) {
     .why-choose__benefit {
         flex-direction: column;
+    }
+
+    .why-choose__description {
+        font-size: 18px;
     }
 
     .why-choose__content--personalized,
