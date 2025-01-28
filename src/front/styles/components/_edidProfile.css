@@ -24,3 +24,14 @@
 .container-edit-form h2{
     margin: 0;
 }
+
+.profile__title--modal{
+    margin: 0;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+}
+
+.modal-body p{
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-regular);
+}
