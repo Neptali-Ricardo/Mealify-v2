@@ -1,5 +1,6 @@
 import React from "react";
 import { Separator } from "./separator.jsx";
+import { Link } from "react-router-dom";
 
 export const Footer = () => (
   <footer className="footer" role="contentinfo">
@@ -33,10 +34,10 @@ export const Footer = () => (
             <h5>About</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <a href="#" className="footer__link">
+                <Link to="/about" className="footer__link">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">About</span>
-                </a>
+                </Link>
               </li>
               <li className="footer__list-item">
                 <a href="#" className="footer__link">
