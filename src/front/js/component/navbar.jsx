@@ -13,6 +13,7 @@ export const Navbar = () => {
     const goToLogin = () => navigate("/loginRegister");
     const goToMealPlan = () => navigate("/mealplan");
     const goToMenuCreator = () => navigate("/menucreator");
+    const goToAbout = () => navigate("/about");
 
     // Redirigir al perfil si está logueado
     const goToProfile = () => {
@@ -51,11 +52,14 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <a class="nav-link" aria-current="page" href="#" onClick={goToHome}>Home</a>
                         </li>
+                        <li className="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" onClick={goToMenuCreator}>MenuCreator</a>
+                        </li>
+                        <li className="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" onClick={goToAbout}>About</a>
+                        </li>
                         {token ? (
                             <>
-                                <li className="nav-item">
-                                    <a class="nav-link" aria-current="page" href="#" onClick={goToMenuCreator}>MenuCreator</a>
-                                </li>
                                 <li className="nav-item">
                                     <a class="nav-link" aria-current="page" href="#" onClick={goToMealPlan}>Mealplan</a>
                                 </li>
