@@ -12,8 +12,8 @@ export const WhyChoose = () => {
     return (
         <section className="why-choose container text-center mt-5 mb-5" id='WhyChoose'>
             <div className="why-choose__header mt-5 mb-5">
-                <h2 className="why-choose__title">Why Choose Mealify?</h2>
-                <p className="why-choose__description">Mealify is your AI-powered personal meal planning assistant, designed to help you eat better without the hassle. <br /> Here are the main benefits:</p>
+                <h2 className="why-choose__title">Why Choose <strong>Mealify?</strong></h2>
+                <p className="why-choose__description">Mealify is your AI-powered personal meal planning assistant, designed to help you eat better without the hassle. Here are the main benefits:</p>
             </div>
             <div className="why-choose__benefits">
                 <div className="why-choose__benefit why-choose__benefit--personalized row ">
