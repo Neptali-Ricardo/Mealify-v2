@@ -7,7 +7,9 @@ export const Footer = () => (
     <div className="footer__content">
       {/* Logo del footer */}
       <div className="footer__logo" aria-label="Logo principal del sitio">
-        <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888385/Mealify-logo-white_krffqk.svg" alt="Mealify logotipo" className="button__icon" />
+        <Link to="/" className="footer__link">
+          <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888385/Mealify-logo-white_krffqk.svg" alt="Mealify logotipo" className="button__icon" />
+        </Link>
       </div>
 
       {/* Contenido superior del footer */}
