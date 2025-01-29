@@ -32,39 +32,41 @@ export const LoginForm = ({ onSubmit }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="contact-form__form">
-			<div className="contact-form__field">
-				<label htmlFor="user">Username or Email</label>
-				<input
-					type="text"
-					name="identifier"
-					placeholder="Username or Email"
-					value={formData.identifier}
-					onChange={handleChange}
-					className="contact-form__input"
-				/>
-			</div>
-			<div className="contact-form__field">
-				<label htmlFor="password">Password</label>
-				<input
-					type="password"
-					name="password"
-					placeholder="Password"
-					value={formData.password}
-					onChange={handleChange}
-					className="contact-form__input"
-				/>
-			</div>
-			<button className="button button--primary" type="submit">
-				Login
-				<img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-			</button>
-			{message && (
-				<div className={`${message.type === "success" ? "alert-success" : "alert-error"}`}>
-					{message.text}
+		<div className="container">
+			<form onSubmit={handleSubmit} className="contact-form__form">
+				<div className="contact-form__field">
+					<label htmlFor="user">Username or Email</label>
+					<input
+						type="text"
+						name="identifier"
+						placeholder="Username or Email"
+						value={formData.identifier}
+						onChange={handleChange}
+						className="contact-form__input"
+					/>
 				</div>
-			)}
-		</form>
+				<div className="contact-form__field">
+					<label htmlFor="password">Password</label>
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+						value={formData.password}
+						onChange={handleChange}
+						className="contact-form__input"
+					/>
+				</div>
+				<button className="button button--primary" type="submit">
+					Login
+					<img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+				</button>
+				{message && (
+					<div className={`${message.type === "success" ? "alert-success" : "alert-error"}`}>
+						{message.text}
+					</div>
+				)}
+			</form>
+		</div>
 	);
 };
 

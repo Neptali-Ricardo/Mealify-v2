@@ -206,13 +206,13 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
     }
 
     return (
-        <div className="container">
+        <div className="menu__container container text-center mt-5 mb-5">
             <div className="text-center">
-                <h1>What are cooking today</h1>
-                <h3>Tell us what you need, and let AI create the perfect weekly menu for you.</h3>
+                <h2 className="menu__title">What are cooking today</h2>
+                <p className="menu__description">Tell us what you need, and let AI create the perfect weekly menu for you.</p>
             </div>
             <form onSubmit={(e) => e.preventDefault()} className="contact-form__form">
-                <div className="contact-form__field">
+                <div className="menu-form__field">
                     <input
                         type="text"
                         className="contact-form__input"
@@ -221,37 +221,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                         onChange={(e) => setConsulta(e.target.value)}
                     />
                     <div class="btn-group button-groupe--primary" role="group" aria-label="Large button group">
-
-
-
-                        <button type="button" class="button button--primary__left" onClick=
-
-                            {generarConsulta}>
-
+                        <button type="button" class="button button--primary__left" onClick={generarConsulta}>
                             Generate Your Meal Plan
-                            <img
-
-                                src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-
-
+                            <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                         </button>
-                        <button type="button" class="button button--primary__right" onClick=
-
-                            {handleDesplegar}>
-                            <img
-
-                                src="https://res.cloudinary.com/dfhhq651o/image/upload/v1738087672/filter-icon-
-white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
-
+                        <button type="button" class="button button--primary__right" onClick={handleDesplegar}>
+                            <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1738087672/filter-icon-white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                         </button>
                     </div>
                 </div>
-                <div className="d-flex align-items-center justify-content-center">
-                    <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos
-
-                        || 0} medical={cantidadCondiciones || 0} />
-
-                </div>
+                <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
                 {desplegar === "Desplegado" ? (
                     <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
@@ -270,7 +249,6 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {parsedData.map((row, index) => (
                                     <tr key={index} onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
                                         <td>{row.day}</td>
@@ -284,19 +262,18 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                         <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-xl">
                                 <div className="modal-content">
-
                                     <div className="modal-body">
                                         {selectedRow ? (
-                                            < >
-                                                <div className="modal-header">
-                                                    <div className="d-flex flex-column">
-                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                        <h5>{selectedRow.day}</h5>
-                                                    </div>
-                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <>
+                                            <div className="modal-header">
+                                                <div className="d-flex flex-column">
+                                                    <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                    <h5>{selectedRow.day}</h5>
                                                 </div>
-                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
-                                            </>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                        </>
                                         ) : (
                                             <p>Selecciona una fila para ver los detalles.</p>
                                         )}
@@ -308,13 +285,12 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                             </div>
                         </div>
                         <div className="d-flex justify-content-between">
-                            <button className="button button--secondary" type="button" onClick=
-
-                                {handleGuardar}>Save recipe</button>
-
-                            <button onClick={mealPlans} className="button button--secondary" type="button">Go to
-
-                                MealPlans</button>
+                            <button className="button button--secondary" type="button" onClick={handleGuardar}>
+                                Save recipe
+                            </button>
+                            <button className="button button--secondary" type="button">
+                                Go to MealPlans
+                            </button>
                         </div>
                     </div>
                 ) : (
