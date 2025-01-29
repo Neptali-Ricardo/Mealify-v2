@@ -168,7 +168,8 @@ Número de comensales: ${inputComensales}.
 Que no tenga estos alimentos: ${alergenos.join(", ")}.
 Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
 De lunes a domingo
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
+Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.
+Incluya las cantidad de ingredientes`;
 
         try {
             const response = await getChatGPTResponse([
@@ -203,37 +204,55 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
     return (
         <div className="container">
-
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div className="d-flex flex-column align-items-center gap-3">
-                    <div className="text-center">
-                        <h1>What are cooking today</h1>
-                        <h3>Tell us what you need, and let AI create the perfect weekly menu for you.</h3>
-                    </div>
+            <div className="text-center">
+                <h1>What are cooking today</h1>
+                <h3>Tell us what you need, and let AI create the perfect weekly menu for you.</h3>
+            </div>
+            <form onSubmit={(e) => e.preventDefault()} className="contact-form__form">
+                <div className="contact-form__field">
                     <input
                         type="text"
-                        className="form-control"
+                        className="contact-form__input"
                         placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}
                     />
-                    <button type="button" className="button button--primary" onClick={generarConsulta}>
-                        Generate your meal plan
-                    </button>
-                </div>
-                <div className="d-flex justify-content-between align-items-center">
-                    <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
-                    <div onClick={handleDesplegar}>
-                        <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25 12.4994H8.97189M3.31438 12.4994H1M3.31438 12.4994C3.31438 11.7494 3.61234 11.03 4.14271 10.4997C4.67309 9.9693 5.39243 9.67134 6.14249 9.67134C6.89255 9.67134 7.61189 9.9693 8.14226 10.4997C8.67263 11.03 8.97059 11.7494 8.97059 12.4994C8.97059 13.2495 8.67263 13.9689 8.14226 14.4992C7.61189 15.0296 6.89255 15.3276 6.14249 15.3276C5.39243 15.3276 4.67309 15.0296 4.14271 14.4992C3.61234 13.9689 3.31438 13.2495 3.31438 12.4994ZM25 21.0707H17.5431M17.5431 21.0707C17.5431 21.8209 17.2445 22.5411 16.714 23.0716C16.1835 23.6021 15.464 23.9001 14.7137 23.9001C13.9637 23.9001 13.2443 23.6008 12.714 23.0705C12.1836 22.5401 11.8856 21.8208 11.8856 21.0707M17.5431 21.0707C17.5431 20.3205 17.2445 19.6016 16.714 19.0711C16.1835 18.5406 15.464 18.2426 14.7137 18.2426C13.9637 18.2426 13.2443 18.5405 12.714 19.0709C12.1836 19.6013 11.8856 20.3206 11.8856 21.0707M11.8856 21.0707H1M25 3.92821H20.9719M15.3144 3.92821H1M15.3144 3.92821C15.3144 3.17815 15.6123 2.4588 16.1427 1.92843C16.6731 1.39806 17.3924 1.1001 18.1425 1.1001C18.5139 1.1001 18.8816 1.17325 19.2248 1.31537C19.5679 1.4575 19.8796 1.66582 20.1423 1.92843C20.4049 2.19105 20.6132 2.50281 20.7553 2.84594C20.8974 3.18906 20.9706 3.55681 20.9706 3.92821C20.9706 4.2996 20.8974 4.66735 20.7553 5.01048C20.6132 5.3536 20.4049 5.66537 20.1423 5.92798C19.8796 6.19059 19.5679 6.39891 19.2248 6.54104C18.8816 6.68316 18.5139 6.75631 18.1425 6.75631C17.3924 6.75631 16.6731 6.45835 16.1427 5.92798C15.6123 5.39761 15.3144 4.67827 15.3144 3.92821Z" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" />
-                        </svg>
+                    <div class="btn-group button-groupe--primary" role="group" aria-label="Large button group">
+
+
+
+                        <button type="button" class="button button--primary__left" onClick=
+
+                            {generarConsulta}>
+
+                            Generate Your Meal Plan
+                            <img
+
+                                src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+
+
+                        </button>
+                        <button type="button" class="button button--primary__right" onClick=
+
+                            {handleDesplegar}>
+                            <img
+
+                                src="https://res.cloudinary.com/dfhhq651o/image/upload/v1738087672/filter-icon-
+white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
+
+                        </button>
                     </div>
+                </div>
+                <div className="d-flex align-items-center justify-content-center">
+                    <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos
+
+                        || 0} medical={cantidadCondiciones || 0} />
+
                 </div>
                 {desplegar === "Desplegado" ? (
                     <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
             </form>
-
             <div className="resultado_GPT mt-4">
                 <h5>Response:</h5>
                 {parsedData.length > 0 ? (
@@ -248,6 +267,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                 </tr>
                             </thead>
                             <tbody>
+
                                 {parsedData.map((row, index) => (
                                     <tr key={index}>
                                         <td>{row.day}</td>
@@ -259,11 +279,15 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                             </tbody>
                         </table>
                         <div className="d-flex justify-content-between">
-                            <button className="button button--secondary" type="button" onClick={handleGuardar}>Save recipe</button>
-                            <button className="button button--secondary" type="button">Go to MealPlans</button>
+                            <button className="button button--secondary" type="button" onClick=
+
+                                {handleGuardar}>Save recipe</button>
+
+                            <button className="button button--secondary" type="button">Go to
+
+                                MealPlans</button>
                         </div>
                     </div>
-
                 ) : (
                     <p>{resultado}</p>
                 )}
