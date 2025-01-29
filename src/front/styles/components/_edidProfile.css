@@ -35,3 +35,13 @@
     font-size: var(--font-size-s);
     font-weight: var(--font-weight-regular);
 }
+
+@media (max-width: 768px) {
+    .edit-form__form{
+       gap: 1rem;
+   }
+
+    .container-edit-form h2 {
+        font-size: 1.5rem;;
+    }
+}
