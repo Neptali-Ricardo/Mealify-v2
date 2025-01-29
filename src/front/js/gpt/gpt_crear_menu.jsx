@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Filtro_Preferencias } from "../component/items/filtro.jsx";
 import { Algerenos_Condiciones_Medicas } from "../component/items/alergenos_condicionesMedicas.jsx";
+import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
 
 export const Menu_GPT = () => {
     const [desplegar, setDesplegar] = useState("");
@@ -169,8 +170,7 @@ Número de comensales: ${inputComensales}.
 Que no tenga estos alimentos: ${alergenos.join(", ")}.
 Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
 De lunes a domingo
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.
-Incluya el número total de ingredientes de cada desayuno, comida y cena de cada día`;
+Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
 
         try {
             const response = await getChatGPTResponse([
@@ -282,22 +282,20 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                             </tbody>
                         </table>
                         <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                            <div className="modal-dialog">
+                            <div className="modal-dialog modal-xl">
                                 <div className="modal-content">
 
                                     <div className="modal-body">
                                         {selectedRow ? (
                                             < >
                                                 <div className="modal-header">
-                                                    <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                    <h5>{selectedRow.day}</h5>
+                                                    <div className="d-flex flex-column">
+                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                        <h5>{selectedRow.day}</h5>
+                                                    </div>
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <ul>
-                                                    <li><strong>Ingredientes:</strong> {selectedRow.ingredients}</li>
-                                                    <li><strong>Calorías:</strong> {selectedRow.calories}</li>
-
-                                                </ul>
+                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
                                             </>
                                         ) : (
                                             <p>Selecciona una fila para ver los detalles.</p>
