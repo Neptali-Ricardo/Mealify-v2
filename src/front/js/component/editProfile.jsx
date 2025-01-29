@@ -25,6 +25,7 @@ export const EditProfile = () => {
                 user: store.user.user || "",
                 email: store.user.email || "",
                 password: "",
+                repeat_password: "",
             });
         }
     }, [store.user]);
@@ -46,29 +47,30 @@ export const EditProfile = () => {
         const userId = store?.user?.id;
         if (!userId) {
             setMessage({ type: "error", text: "User ID not found. Please log in again." });
+            setLoading(false);
             return;
         }
 
         // Filtrar los campos modificados
         const updatedFields = {};
-        if (formData.user && formData.user !== store.user.username) {
+        if (formData.user && formData.user !== store.user.user) {
             updatedFields.user = formData.user;
         }
         if (formData.email && formData.email !== store.user.email) {
             updatedFields.email = formData.email;
         }
-        if (formData.password !== formData.repeat_password) {
+        if (formData.password && formData.password === formData.repeat_password) {
+            updatedFields.password = formData.password;
+        } else if (formData.password && formData.password !== formData.repeat_password) {
             setMessage({ type: "error", text: "Passwords do not match. Please try again." });
             setLoading(false);
             return;
-        }
-        if (formData.password) {
-            updatedFields.password = formData.password;
         }
 
         // Validar que haya al menos un campo modificado
         if (Object.keys(updatedFields).length === 0) {
             setMessage({ type: "error", text: "No changes detected. Please modify at least one field." });
+            setLoading(false);
             return;
         }
 
@@ -77,6 +79,14 @@ export const EditProfile = () => {
 
         if (response.success) {
             setMessage({ type: "success", text: response.message });
+            // Recargar la vista
+            await actions.getUserInfo();
+            setFormData({
+                user: store.user.user || "",
+                email: store.user.email || "",
+                password: "",
+                repeat_password: "",
+            });
         } else {
             setMessage({ type: "error", text: response.message });
         }
@@ -108,10 +118,13 @@ export const EditProfile = () => {
             const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
             modal.hide();
             setTimeout(() => {
-                setLoading(true); // Mostrar el spinner
-                setTimeout(() => {
-                    handleLogout(); // Llamar a handleLogout para desconectar al usuario
-                }, 2000); // Mostrar el spinner durante 2 segundos
+                setLoading(false); // Ocultar el spinner
+                document.body.classList.remove('modal-open'); // Eliminar la clase 'modal-open' del body
+                const modalBackdrop = document.querySelector('.modal-backdrop');
+                if (modalBackdrop) {
+                    modalBackdrop.remove(); // Eliminar la capa oscura
+                }
+                handleLogout(); // Llamar a handleLogout para desconectar al usuario
             }, 2000); // Mostrar el mensaje durante 2 segundos
         } else {
             setMessage({ type: "error", text: response.message });
