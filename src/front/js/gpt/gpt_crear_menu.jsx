@@ -312,7 +312,7 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
 
                                 {handleGuardar}>Save recipe</button>
 
-                            <button className="button button--secondary" type="button">Go to
+                            <button onClick={mealPlans} className="button button--secondary" type="button">Go to
 
                                 MealPlans</button>
                         </div>

@@ -1,13 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
-
 
 export const MealPlan = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [userPlans, setUserPlans] = useState(null); // Variable para guardar los planes
+    const [desplegado, setDesplegado] = useState({});
+
+    const desplegar = (index) => {
+        setDesplegado((prevState) => ({
+            ...prevState,
+            [index]: !prevState[index],
+        }));
+    };
 
     useEffect(() => {
         // Redirige al login si no hay un token válido
@@ -60,45 +67,49 @@ export const MealPlan = () => {
                 <h2>Meal Plan</h2>
             </div>
 
-            <div className="accordion" id="mealPlanAccordion">
+            <div id="mealPlanAccordion">
                 {userPlans ? (
                     userPlans.map((plan, index) => (
-                        <div key={index} className="accordion-item">
-                            <h2 className="accordion-header" id={`heading${index}`}>
-                                <button
-                                    className="accordion-button d-flex justify-content-between align-items-center"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target={`#collapse${index}`}
-                                    aria-expanded="true"
-                                    aria-controls={`collapse${index}`}
-                                >
-                                    {plan.name}
+                        <div key={index} className="card mb-3">
+                            <div className="card-header" onClick={() => desplegar(index)}>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <h3>{plan.name}</h3>
                                     <button
                                         className="btn btn-danger btn-sm rounded-circle ms-3"
-                                        onClick={() => eliminarPlan(plan.id)} // Llama a la función eliminarPlan con el ID del plan
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Evita que el evento de clic se propague al contenedor padre
+                                            eliminarPlan(plan.id);
+                                        }}
                                     >
                                         X
                                     </button>
-                                </button>
-                            </h2>
-                            <div
-                                id={`collapse${index}`}
-                                className="accordion-collapse collapse"
-                                aria-labelledby={`heading${index}`}
-                                data-bs-parent="#mealPlanAccordion"
-                            >
-                                <div className="accordion-body">
-                                    <p><strong>Creado en:</strong> {plan.create_at}</p>
-                                    <ul>
-                                        {plan.plan.map((detalle, idx) => (
-                                            <li key={idx}>
-                                                <strong>{detalle.day}:</strong> {detalle.calories || detalle.ingredients || detalle.mealType}
-                                            </li>
-                                        ))}
-                                    </ul>
                                 </div>
                             </div>
+                            {desplegado[index] && (
+                                <div className="card-body">
+                                    <p><strong>Creado en:</strong> {plan.create_at}</p>
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Day</th>
+                                                <th>Meal Type</th>
+                                                <th>Ingredients</th>
+                                                <th>Calories</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {plan.plan.map((detalle, idx) => (
+                                                <tr key={idx}>
+                                                    <td>{detalle.day}</td>
+                                                    <td>{detalle.mealType}</td>
+                                                    <td>{detalle.ingredients}</td>
+                                                    <td>{detalle.calories}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
                         </div>
                     ))
                 ) : (
