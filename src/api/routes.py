@@ -281,6 +281,9 @@ def update_user(user_id):
         # Retornar error si no se envían datos
         return jsonify({"error": "No data provided"}), 400
 
+    # Variables para construir el mensaje de éxito
+    updated_fields = []
+
     # Validar y actualizar el nombre de usuario
     username = data.get("user")
     if username:
@@ -292,6 +295,7 @@ def update_user(user_id):
             return jsonify({"error": "Username already exists"}), 409 # Verificar si existe el usuario con el mismo nombre
         
         user.user = username
+        updated_fields.append("User")
 
     # Validar y actualizar el correo electrónico si está presente
     if "email" in data:
@@ -305,6 +309,7 @@ def update_user(user_id):
             return jsonify({"error": "Email already exists"}), 409 # Verificar si existe un usuario con ese email
         
         user.email = data["email"]
+        updated_fields.append("Email")
 
     # Validar y actualizar la contraseña si está presente
     if "password" in data:
@@ -316,6 +321,7 @@ def update_user(user_id):
             return jsonify({"msg": "New password is not different from old password"}), 401
         
         user.password = generate_password_hash(data["password"])  # Hashear la nueva contraseña
+        updated_fields.append("Password")
 
     # Validar y actualizar el estado de actividad si está presente
     if "is_active" in data:
@@ -327,9 +333,10 @@ def update_user(user_id):
     # Guardar los cambios en la base de datos
     try:
         db.session.commit()
-        # Retornar mensaje de éxito con los datos actualizados del usuario
+        # Construir el mensaje de éxito basado en los campos actualizados
+        success_message = " and ".join(updated_fields) + " updated successfully"
         return jsonify({
-            "message": f"User {user.user} and {user.email} updated successfully",
+            "message": success_message,
             "user": user.serialize()
         }), 200
     except SQLAlchemyError as e:
