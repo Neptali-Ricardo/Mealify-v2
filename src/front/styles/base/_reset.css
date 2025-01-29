@@ -1,0 +1,16 @@
+/* 
+===================================================================================
+⚠️ IMPORTANTE: Archivo de reset CSS
+- Este archivo contiene reglas básicas para reiniciar los estilos por defecto de 
+  los navegadores.
+- NO modificar sin consultar al equipo, ya que los cambios aquí impactan en todos 
+  los estilos del proyecto.
+===================================================================================
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  

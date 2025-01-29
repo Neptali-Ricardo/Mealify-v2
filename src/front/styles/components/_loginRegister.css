@@ -1,0 +1,91 @@
+.banner__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--banner-background-color);
+    width: 100%;
+    max-height: 48rem;
+    margin-top: -4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login__row {
+    margin-top: var(--spacing-large);
+  }
+
+.banner__login-content {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    max-width: var(--container-inner-width);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-large);
+    text-align: center;
+}
+
+.banner__column-login {
+    text-align: left;
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+    max-width: 37.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login__heading {
+    font-size: 2.625rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+}
+
+.banner__image-login {
+    width: 100%;
+    height: auto;
+    min-height: 48rem;
+    object-fit: cover;
+}
+
+.login-form__text{
+    text-align: center;
+    font-weight: var(--font-weight-regular);
+}
+
+.login-form__highlight {
+    font-weight: var(--font-weight-medium);
+    color: var(--primary-color); /* Cambia esto al color que desees */
+    cursor: pointer; /* Opcional, para indicar que es clickeable */
+}
+
+.alert-success {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.alert-error {
+    text-align: center;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
+
+@media (max-width: 1200px) {
+    .banner__image-login {
+        min-height: 50rem; /* 800px convertido a rem */
+    }
+}
+
+@media (max-width: 430px) {
+    .banner__login {
+        min-height: 48rem;
+    }
+}

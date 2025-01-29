@@ -1,0 +1,17 @@
+.separator__line {
+    flex-grow: 1;
+    height: 0.0625rem; /* 1px */
+    background-color: var(--background-color);
+    border: none;
+}
+  
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+  
+.separator__icon{
+    margin: 0.5rem;
+}

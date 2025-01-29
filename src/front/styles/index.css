@@ -1,3 +1,21 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+@import "./abstracts/_variables.css";
+@import "./abstracts/_typography.css";
+@import "./base/_reset.css";
+@import "./base/_base.css";
+@import "./components/_buttons.css";
+@import "../styles/components/_footer.css";
+@import "../styles/components/_separator.css";
+@import "../styles/components/_jumbotrom.css";
+@import "../styles/components/_navbar.css";
+@import "../styles/components/_form.css";
+@import "../styles/components/_loginRegister.css";
+@import "../styles/components/_secondaryJumbotron.css";
+@import "../styles/components/_edidProfile.css";
+@import "../styles/components/_profile.css";
+@import "../styles/components/_accordion.css";
+@import "../styles/components/_spinner.css";
+@import "../styles/components/_wyChoose.css";
+@import "../styles/components/_about.css";

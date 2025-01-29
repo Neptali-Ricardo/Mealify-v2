@@ -73,6 +73,11 @@
 		]
 	},
 	"dependencies": {
+		"@cloudinary/react": "^1.13.1",
+		"@cloudinary/url-gen": "^1.21.0",
+		"axios": "^1.7.9",
+		"bootstrap": "^5.3.3",
+		"openai": "^4.79.1",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",

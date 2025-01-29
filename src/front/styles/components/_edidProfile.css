@@ -1,0 +1,37 @@
+
+.container-edit-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-form__form{
+     width: 37.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-neutral-gray-50);
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.edit-form__form--password{
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+.container-edit-form h2{
+    margin: 0;
+}
+
+.profile__title--modal{
+    margin: 0;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+}
+
+.modal-body p{
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-regular);
+}

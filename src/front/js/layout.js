@@ -8,8 +8,22 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
+import { Navbar } from "./component/navbar.jsx";
+import { Footer } from "./component/footer.jsx";
+import SelectAllergiesPage from "./pages/alergias.jsx";
+import LoginForm from "./pages/login.jsx";
+import { File_test } from "./pages/testeo.jsx";
+import ChatGPTComponent from "./gpt/gpt_component.jsx";
+import WeeklyMenu from "./gpt/vista_menu_gpt.jsx";
+import WeeklyMenu2 from "./gpt/vista_menu_gpt2.jsx";
+import LoginRegister from "./pages/loginRegister.jsx";
+import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
+import { Profile } from "./component/profile.jsx";
+import { MealPlan } from "./pages/mealplan.jsx";
+import { MenuCreator } from "./pages/menuCreator.jsx";
+import { About } from "./pages/about.jsx";
+
+
 
 //create your first component
 const Layout = () => {
@@ -28,6 +42,15 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<LoginForm />} path="/login" />
+                        <Route element={<Profile />} path="/profile" />
+                        <Route element={<MenuCreator />} path="/menuCreator" />
+                        <Route element={<MealPlan />} path="/mealplan" />
+                        <Route element={<About />} path="/about" />
+                        <Route element={<LoginRegister />} path="/loginRegister" />
+                        <Route element={<SelectAllergiesPage />} path="/alergias" />
+                        <Route element={<File_test />} path="/test" />
+                        <Route element={<Menu_GPT />} path="/generador-menu" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
