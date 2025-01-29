@@ -102,7 +102,7 @@ export const MealPlan = () => {
                         </div>
                     ))
                 ) : (
-                    <p>Cargando planes...</p>
+                    <p>Cargando planess...</p>
                 )}
             </div>
         </>
