@@ -22,6 +22,7 @@ export const Menu_GPT = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     useEffect(() => {
         Obtener_Datos_Profile()
@@ -169,12 +170,13 @@ Que no tenga estos alimentos: ${alergenos.join(", ")}.
 Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
 De lunes a domingo
 Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.
-Incluya las cantidad de ingredientes`;
+Incluya el número total de ingredientes de cada desayuno, comida y cena de cada día`;
 
         try {
             const response = await getChatGPTResponse([
                 { role: "user", content: fullConsulta.trim() },
             ]);
+            console.log(response.content)
             setResultado(response.content);
         } catch (error) {
             console.error("Error al obtener la respuesta de ChatGPT:", error);
@@ -197,6 +199,7 @@ Incluya las cantidad de ingredientes`;
     };
 
     const parsedData = parseResult(resultado);
+    console.log(parsedData)
 
     const mealPlans = () => {
         navigate('/mealplan')
@@ -269,7 +272,7 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                             <tbody>
 
                                 {parsedData.map((row, index) => (
-                                    <tr key={index}>
+                                    <tr key={index} onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
                                         <td>{row.day}</td>
                                         <td>{row.mealType}</td>
                                         <td>{row.ingredients}</td>
@@ -278,6 +281,34 @@ white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                                 ))}
                             </tbody>
                         </table>
+                        <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+
+                                    <div className="modal-body">
+                                        {selectedRow ? (
+                                            < >
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                    <h5>{selectedRow.day}</h5>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <ul>
+                                                    <li><strong>Ingredientes:</strong> {selectedRow.ingredients}</li>
+                                                    <li><strong>Calorías:</strong> {selectedRow.calories}</li>
+
+                                                </ul>
+                                            </>
+                                        ) : (
+                                            <p>Selecciona una fila para ver los detalles.</p>
+                                        )}
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="d-flex justify-content-between">
                             <button className="button button--secondary" type="button" onClick=
 
