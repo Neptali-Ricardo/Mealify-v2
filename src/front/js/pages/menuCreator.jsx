@@ -19,10 +19,6 @@ export const MenuCreator = () => {
         <>
             <SecondaryJumbotron />
 
-            <div className="separator">
-                <h2>Menu Creator</h2>
-            </div>
-
             <Menu_GPT />
         </>
     );

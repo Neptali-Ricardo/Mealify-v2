@@ -381,7 +381,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 			
 					const data = await response.json();
-					return { success: true, message: data.message, data };
+					
+					// Variables para construir el mensaje de éxito
+					const updatedFields = [];
+					if (formData.user) updatedFields.push("User");
+					if (formData.email) updatedFields.push("Email");
+					if (formData.password) updatedFields.push("Password");
+
+					let successMessage = updatedFields.join(", ") + " updated successfully.";
+
+					return { success: true, message: successMessage, data };
 				} catch (error) {
 					return { success: false, message: "An error occurred. Please try again later." };
 				}

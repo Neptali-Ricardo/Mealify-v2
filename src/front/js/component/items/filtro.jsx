@@ -3,12 +3,14 @@ import React from "react";
 export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
 
     return (
-        <div>
-            <h2>
-                <button class="accordion-button collapsed gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Number of guests
+        <>
+            <div className="filtro-form__form">
+                <div className="filtro-form__field">
+                    <label htmlFor="user">
+                        Number of guests
+                    </label>
                     <input
-                        className="contact-form__input-acoordion"
+                        className="filtro-form__input"
                         type="text"
                         id="comensales"
                         name="comensales"
@@ -18,32 +20,41 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         value={guests}
                         required
                     />
-                    Allergens
+                </div>
+                <div className="filtro-form__field">
+                    <label htmlFor="user">
+                        Allergens
+                    </label>
                     <input
-                        className="contact-form__input-acoordion"
+                        className="filtro-form__input"
                         type="text"
                         id="Allergens"
                         name="Allergens"
                         min="1"
                         max="100"
                         placeholder="0"
-                        value={allergens}
+                        value={guests}
                         required
                     />
-                    Medical Conditions
+                </div>
+                <div className="filtro-form__field">
+                    <label htmlFor="user">
+                        Medical Conditions
+                    </label>
                     <input
-                        className="contact-form__input-acoordion"
+                        className="filtro-form__input"
                         type="text"
                         id="Medical-Conditions"
                         name="Medical-Conditions"
                         min="1"
                         max="100"
-                        placeholder="0" value={medical}
+                        placeholder="0"
+                        value={guests}
                         required
                     />
-                </button>
-            </h2>
-        </div>
+                </div>
+            </div>
+        </>
     )
 
 
