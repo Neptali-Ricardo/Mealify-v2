@@ -20,10 +20,21 @@ export const Menu_GPT = () => {
     const [cantidadCondiciones, setCantidadCondiciones] = useState(0);
     const [datosPerfil, setDatosPerfil] = useState([]);
     const navigate = useNavigate();
+    const [message, setMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         Obtener_Datos_Profile()
     }, [])
+
+    useEffect(() => {
+        // Este efecto se ejecutará cada vez que cambien las variables
+        console.log("Datos actualizados:", {
+            cantidadPersonas,
+            cantidadAlergenos,
+            cantidadCondiciones,
+        });
+    }, [cantidadPersonas, cantidadAlergenos, cantidadCondiciones]);
 
     const handleGuardar = async () => {
         if (!store.token) {
@@ -65,7 +76,7 @@ export const Menu_GPT = () => {
                 "name": consulta
             }
 
-            await actions.uploadProfile(user.id, recetaData);
+            await actions.uploadProfile(recetaData);
             await actions.uploadPlan(user.id, plan);
         }
     };

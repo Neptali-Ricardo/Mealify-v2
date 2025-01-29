@@ -13,8 +13,8 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
 
     useEffect(() => {
         if (Objectx.length > 0) {
-            const newAlergenos = Objectx.flatMap(profile => profile.alergenos)|| [];
-            const newCondiciones = Objectx.flatMap(profile => profile.condicion)|| [];
+            const newAlergenos = Objectx.flatMap(profile => profile.alergenos) || [];
+            const newCondiciones = Objectx.flatMap(profile => profile.condicion) || [];
             const totalComensales = Objectx.reduce((acc, profile) => acc + (profile.comensales || 0), 0);
 
             setAlergenos(newAlergenos);
@@ -44,6 +44,8 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
             console.log("No se encontró el id de usuario en la información del usuario:", user);
         }
         await actions.uploadProfile(recetaData);
+
+        location.reload(true)
     }
 
     const addAlergenos = (e) => {
