@@ -2,12 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
+import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
 
 export const MealPlan = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [userPlans, setUserPlans] = useState(null); // Variable para guardar los planes
     const [desplegado, setDesplegado] = useState({});
+    const [selectedRow, setSelectedRow] = useState(null); // Variable para la fila seleccionada
 
     const desplegar = (index) => {
         setDesplegado((prevState) => ({
@@ -56,7 +58,7 @@ export const MealPlan = () => {
         } else {
             console.error("Error al eliminar el plan");
         }
-        location.reload(true)
+        location.reload(true);
     };
 
     return (
@@ -99,7 +101,7 @@ export const MealPlan = () => {
                                         </thead>
                                         <tbody>
                                             {plan.plan.map((detalle, idx) => (
-                                                <tr key={idx}>
+                                                <tr key={idx} onClick={() => setSelectedRow(detalle)} data-bs-toggle="modal" data-bs-target="#dataModal">
                                                     <td>{detalle.day}</td>
                                                     <td>{detalle.mealType}</td>
                                                     <td>{detalle.ingredients}</td>
@@ -113,8 +115,34 @@ export const MealPlan = () => {
                         </div>
                     ))
                 ) : (
-                    <p>Cargando planess...</p>
+                    <p>Cargando planes...</p>
                 )}
+            </div>
+
+            <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-xl">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            {selectedRow ? (
+                                <>
+                                    <div className="modal-header">
+                                        <div className="d-flex flex-column">
+                                            <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                            <h5>{selectedRow.day}</h5>
+                                        </div>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                </>
+                            ) : (
+                                <p>Selecciona una fila para ver los detalles.</p>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );

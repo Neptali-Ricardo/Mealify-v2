@@ -4,6 +4,7 @@
     gap: 1.5rem;
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .filtro-form__field{
     display: flex;
@@ -34,8 +35,4 @@
         line-height: 2rem;
     }
 
-    .filtro-form__form{
-        align-items: flex-end;
-        flex-direction: column;
-    } 
 }
