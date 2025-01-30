@@ -1,0 +1,17 @@
+.father-space{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.child-space{
+    gap: 8px;
+}
+
+.card-space{
+    gap: 30px;
+}
+
+.content-space{
+    gap: 24px;
+}
