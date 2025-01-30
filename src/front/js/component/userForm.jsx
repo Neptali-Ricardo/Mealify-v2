@@ -33,8 +33,8 @@ export const UserForm = ({ type, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="contact-form__form">
-            <div className="contact-form__field">
+        <form onSubmit={handleSubmit} className="form__form">
+            <div className="form__field">
                 <label htmlFor="user">Username</label>
                 <input
                     id="user"
@@ -43,10 +43,10 @@ export const UserForm = ({ type, onSubmit }) => {
                     placeholder="Username"
                     value={formData.user}
                     onChange={handleChange}
-                    className="contact-form__input"
+                    className="form__input"
                 />
             </div>
-            <div className="contact-form__field">
+            <div className="form__field">
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
@@ -55,10 +55,10 @@ export const UserForm = ({ type, onSubmit }) => {
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="contact-form__input"
+                    className="form__input"
                 />
             </div>
-            <div className="contact-form__field">
+            <div className="form__field">
                 <label htmlFor="password">Password</label>
                 <input
                     id="password"
@@ -67,7 +67,7 @@ export const UserForm = ({ type, onSubmit }) => {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="contact-form__input"
+                    className="form__input"
                 />
             </div>
             <button className="button button--primary" type="submit">

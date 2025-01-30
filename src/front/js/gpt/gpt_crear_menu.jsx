@@ -206,16 +206,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
     }
 
     return (
-        <div className="menu__container container text-center mt-5 mb-5">
+        <div className="menu__container container text-center mt-5">
             <div className="text-center">
                 <h2 className="menu__title">What are <strong>cooking today</strong></h2>
                 <p className="menu__description">Tell us what you need, and let AI create the perfect weekly menu for you.</p>
             </div>
-            <form onSubmit={(e) => e.preventDefault()} className="contact-form__form">
+            <form onSubmit={(e) => e.preventDefault()} className="form__form">
                 <div className="menu-form__field">
                     <input
                         type="text"
-                        className="contact-form__input"
+                        className="form__input"
                         placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}

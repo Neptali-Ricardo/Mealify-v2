@@ -1,4 +1,4 @@
-.contact-form__form{
+.form__form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,15 +6,20 @@
     width: 100%;
 }
 
-.contact-form__field{
+.form__field{
     width: 100%;
     max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    text-align: left;
 }
 
-.contact-form__input {
+.form__label{
+    margin: 0;
+}
+
+.form__input {
     height: 52px;
     padding: 1rem;
     border-radius: 12px;
@@ -23,7 +28,7 @@
     transition: all 0.3s ease; /* Transición suave para el cambio */
 }
 
-.contact-form__input:focus {
+.form__input:focus {
     border: 1px solid var(--primary-color); /* Cambia el color del borde */
     outline: none; /* Elimina el borde predeterminado del navegador */
 }
