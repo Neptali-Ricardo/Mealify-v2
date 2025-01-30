@@ -4,67 +4,62 @@ import { Context } from "../store/appContext";
 
 export const Navbar = () => {
     const navigate = useNavigate();
-    const { store } = useContext(Context); // Accede a store para verificar el estado global del token
-    const [isLogin, setIsLogin] = useState(true);
+    const { store } = useContext(Context);
     const [token, setToken] = useState(localStorage.getItem("token"));
-
-    // Funciones para manejar la navegación
-    const goToHome = () => navigate("/");
-    const goToLogin = () => navigate("/loginRegister");
-    const goToMealPlan = () => navigate("/mealplan");
-    const goToMenuCreator = () => navigate("/menucreator");
-    const goToAbout = () => navigate("/about");
-
-    // Redirigir al perfil si está logueado
-    const goToProfile = () => {
-        if (token) {
-            // Si hay un token válido, redirige al perfil
-            navigate("/profile");
-        } else {
-            // Si no hay token, redirige a login
-            navigate("/loginRegister");
-        }
-    };
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar el menú
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        setToken(""); // Limpia el estado local
+        setToken("");
         navigate("/");
+        setIsMenuOpen(false); // Cerrar el menú al cerrar sesión
     };
 
     useEffect(() => {
-        // Escucha cambios en el token del almacenamiento local
         const storedToken = localStorage.getItem("token");
         setToken(storedToken);
-    }, [store.token]); // Se asegura de actualizar el token global
+    }, [store.token]);
+
+    // Función para cerrar el menú al hacer clic en un enlace o botón
+    const closeMenu = () => setIsMenuOpen(false);
+
+    // Función para alternar el menú al hacer clic en el botón del navbar
+    const toggleMenu = () => setIsMenuOpen(prevState => !prevState);
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <a className="navbar-brand" onClick={goToHome}>
+                <Link className="navbar-brand" to="/" onClick={closeMenu}>
                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888386/Mealify-logo_ao4ifn.svg" alt="Mealify logotipo" className="navbar-icon" />
-                </a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                </Link>
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded={isMenuOpen}
+                    aria-label="Toggle navigation"
+                    onClick={toggleMenu} // Alternar estado del menú al hacer clic en el botón
+                >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`} id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a class="nav-link" aria-current="page" href="#" onClick={goToHome}>Home</a>
+                            <Link className="nav-link" to="/" onClick={closeMenu}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <a class="nav-link" aria-current="page" href="#" onClick={goToMenuCreator}>MenuCreator</a>
+                            <Link className="nav-link" to="/menucreator" onClick={closeMenu}>MenuCreator</Link>
                         </li>
                         <li className="nav-item">
-                            <a class="nav-link" aria-current="page" href="#" onClick={goToAbout}>About</a>
+                            <Link className="nav-link" to="/about" onClick={closeMenu}>About</Link>
                         </li>
                         {token ? (
                             <>
                                 <li className="nav-item">
-                                    <a class="nav-link" aria-current="page" href="#" onClick={goToMealPlan}>Mealplan</a>
+                                    <Link className="nav-link" to="/mealplan" onClick={closeMenu}>Mealplan</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a class="nav-link" aria-current="page" href="#" onClick={goToProfile}>Profile</a>
+                                    <Link className="nav-link" to="/profile" onClick={closeMenu}>Profile</Link>
                                 </li>
                                 <li className="nav-item">
                                     <button className="btn btn-outline-dark button-custon" onClick={handleLogout}>
@@ -75,7 +70,7 @@ export const Navbar = () => {
                             </>
                         ) : (
                             <li className="nav-item">
-                                <button className="btn btn-outline-dark " onClick={goToLogin}>
+                                <button className="btn btn-outline-dark" onClick={() => { navigate("/loginRegister"); closeMenu(); }}>
                                     Login
                                 </button>
                             </li>
