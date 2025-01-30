@@ -2,10 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 3.75rem;
+    margin-bottom: 3.75rem;
+    gap: 3.75rem;
 }
 
 .why-choose__description{
-    font-size: 32px;
+    font-size: var(--font-size-m);
 }
 
 .why-choose__image img {
@@ -19,6 +22,7 @@
     line-height: 4rem;
     font-weight: var(--font-weight-regular);
     color: var(--primary-color);
+    margin: 0;
 }
 
 .why-choose__subtitle {
@@ -69,12 +73,18 @@
 }
 
 @media (max-width: 768px) {
+    .why-choose{
+        margin-top: 1.5rem;
+        margin-bottom:1.5rem;
+        gap: 1.5rem;
+    }
+
     .why-choose__benefit {
         flex-direction: column;
     }
 
     .why-choose__description {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 
     .why-choose__content--personalized,
