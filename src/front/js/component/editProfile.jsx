@@ -139,7 +139,7 @@ export const EditProfile = () => {
 
             <form onSubmit={handleSubmit} className="edit-form__form mb-5 mt-5">
                 <h2 className="text-center profile__subtitle">Basic Profile Information</h2>
-                <div className="contact-form__field">
+                <div className="form__field">
                     <label htmlFor="user">Username</label>
                     <input
                         id="user"
@@ -148,10 +148,10 @@ export const EditProfile = () => {
                         placeholder="username"
                         value={formData.user}
                         onChange={handleChange}
-                        className="contact-form__input"
+                        className="form__input"
                     />
                 </div>
-                <div className="contact-form__field">
+                <div className="form__field">
                     <label htmlFor="email">Email</label>
                     <input
                         id="email"
@@ -160,12 +160,12 @@ export const EditProfile = () => {
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="contact-form__input"
+                        className="form__input"
                     />
                 </div>
                 <div className="edit-form__form--password">
                     <h2 className="text-center profile__subtitle">Update password</h2>
-                    <div className="contact-form__field">
+                    <div className="form__field">
                         <label htmlFor="password">Password</label>
                         <input
                             id="password"
@@ -174,10 +174,10 @@ export const EditProfile = () => {
                             placeholder="Password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="contact-form__input"
+                            className="form__input"
                         />
                     </div>
-                    <div className="contact-form__field">
+                    <div className="form__field">
                         <label htmlFor="password">Repeat Password</label>
                         <input
                             id="repeat_password"
@@ -186,7 +186,7 @@ export const EditProfile = () => {
                             placeholder="Repeat Password"
                             value={formData.repeat_password}
                             onChange={handleChange}
-                            className="contact-form__input"
+                            className="form__input"
                         />
                     </div>
                 </div>
