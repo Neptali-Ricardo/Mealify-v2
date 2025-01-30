@@ -120,17 +120,16 @@ export const MealPlan = () => {
             </div>
 
             <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-xl">
-                    <div className="modal-content">
-                        <div className="modal-body">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content d-flex flex-column content-space">
+                        <div className="modal-body d-flex flex-column card-space">
                             {selectedRow ? (
                                 <>
-                                    <div className="modal-header">
+                                    <div className="modal-header ">
                                         <div className="d-flex flex-column">
                                             <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
                                             <h5>{selectedRow.day}</h5>
                                         </div>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
                                 </>
@@ -139,7 +138,7 @@ export const MealPlan = () => {
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" className="button button--primary" data-bs-dismiss="modal">Go Back to Meal Menu</button>
                         </div>
                     </div>
                 </div>
