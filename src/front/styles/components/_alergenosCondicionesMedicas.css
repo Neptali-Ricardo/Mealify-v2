@@ -1,0 +1,65 @@
+.alergenos-condiciones{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.alergenos-condiciones__header{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alergenos-condiciones__title{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-neutral-gray-800);
+}
+
+.alergenos-condiciones__section{
+    display: flex;
+    gap: 8px;
+}
+
+.alergenos-condiciones__container{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.medical-condiciones__section{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.medical-condiciones__input{
+    width: 100%;
+}
+
+.dinners__section{
+    max-width: 150px;
+}
+
+.alergenos-condiciones__list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 1000px) {
+    .alergenos-condiciones__content{
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .alergenos-condiciones__container{
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    } 
+}

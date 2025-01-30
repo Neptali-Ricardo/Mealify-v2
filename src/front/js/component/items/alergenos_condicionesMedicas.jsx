@@ -73,27 +73,27 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
     };
 
     return (
-        <div className="border border-rounded gap-2">
-            <div className="d-flex flex-column justify-content-center align-items-center text-center">
-                <h3>You health come first</h3>
-                <p>
+        <div className="alergenos-condiciones container">
+            <div className="alergenos-condiciones__header">
+                <h3 className="alergenos-condiciones__title">Your health come first</h3>
+                <p className="alergenos-condiciones__description">
                     Let use know your alergens or medical conditions to tailor your meal plans perfectly. Click on any item to remove it
                 </p>
             </div>
-            <div className="container-fluid">
-                <div className="row">
-                    {/* Columna izquierda */}
-                    <div className="col-6">
-                        <div className="p-3">
-                            <div className="d-flex gap-4">
-                                {/* Formulario de alérgenos */}
-                                <form onSubmit={addAlergenos} className="w-100">
-                                    <div className="mb-3">
-                                        <label htmlFor="allergens" className="form-label">Allergens</label>
+            <div className="alergenos-condiciones__content row">
+                {/* Columna izquierda */}
+                <div className=" col-sm-12 col-lg-6">
+                    <div className="medical-condiciones__section">
+                        <div className="alergenos-condiciones__section">
+                            {/* Formulario de alérgenos */}
+                            <div className="alergenos-condiciones__container">
+                                <form onSubmit={addAlergenos} className="alergenos-condiciones__form form__form">
+                                    <div className=" form__field">
+                                        <label htmlFor="allergens" className=" form__label">Allergens</label>
                                         <input
                                             type="text"
                                             id="allergens"
-                                            className="form-control"
+                                            className="form__input"
                                             placeholder="Add your Allergens"
                                             value={inputAlergenos}
                                             onChange={(e) => setInputAlergenos(e.target.value)}
@@ -101,60 +101,59 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
                                     </div>
                                 </form>
                                 {/* Input para número de comensales */}
-                                <div className="mb-3 w-100">
-                                    <label htmlFor="numComensales" className="form-label">Number of diners:</label>
+                                <div className="dinners__section form__field">
+                                    <label htmlFor="numComensales" className="form__label">Number of diners</label>
                                     <input
                                         type="number"
                                         id="numComensales"
-                                        className="form-control"
+                                        className="form__input"
                                         min="1"
                                         value={inputComensales}
                                         onChange={(e) => setInputComensales(e.target.value)}
                                     />
                                 </div>
                             </div>
-
-                            {/* Lista de alérgenos */}
-                            <div className="d-flex flex-wrap gap-2 mt-4">
-                                {alergenos.map((alergeno, index) => (
-                                    <button
-                                        key={index}
-                                        className="button button--small"
-                                        onClick={() => removeAlergeno(index)}
-                                    >
-                                        {alergeno}
-                                    </button>
-                                ))}
-                            </div>
+                        </div>
+                        {/* Lista de alérgenos */}
+                        <div className="alergenos-condiciones__list">
+                            {alergenos.map((alergeno, index) => (
+                                <button
+                                    key={index}
+                                    className="alergenos-condiciones__item button button--small"
+                                    onClick={() => removeAlergeno(index)}
+                                >
+                                    {alergeno}
+                                </button>
+                            ))}
                         </div>
                     </div>
+                </div>
 
-                    {/* Columna derecha */}
-                    <div className="col-6">
-                        <div className="p-3">
-                            <label className="mb-2">Medical Conditions</label>
-                            {/* Formulario para condiciones médicas */}
-                            <form onSubmit={addCondiciones} className="w-100">
-                                <input
-                                    className="form-control mb-3"
-                                    type="text"
-                                    placeholder="Add your Medical Conditions"
-                                    value={inputCondiciones}
-                                    onChange={(e) => setInputCondiciones(e.target.value)}
-                                />
-                            </form>
-                            {/* Lista de condiciones médicas */}
-                            <div className="d-flex flex-wrap gap-4">
-                                {condicionesMedicas.map((condicion, index) => (
-                                    <button
-                                        key={index}
-                                        className="button button--small"
-                                        onClick={() => removeCondicion(index)}
-                                    >
-                                        {condicion}
-                                    </button>
-                                ))}
-                            </div>
+                {/* Columna derecha */}
+                <div className=" col-sm-12 col-lg-6">
+                    <div className="medical-condiciones__section">
+                        <label className="form__label">Medical Conditions</label>
+                        {/* Formulario para condiciones médicas */}
+                        <form onSubmit={addCondiciones} className="medical-condiciones__form form__form">
+                            <input
+                                className="medical-condiciones__input form__input"
+                                type="text"
+                                placeholder="Add your Medical Conditions"
+                                value={inputCondiciones}
+                                onChange={(e) => setInputCondiciones(e.target.value)}
+                            />
+                        </form>
+                        {/* Lista de condiciones médicas */}
+                        <div className="alergenos-condiciones__list">
+                            {condicionesMedicas.map((condicion, index) => (
+                                <button
+                                    key={index}
+                                    className="button button--small"
+                                    onClick={() => removeCondicion(index)}
+                                >
+                                    {condicion}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
