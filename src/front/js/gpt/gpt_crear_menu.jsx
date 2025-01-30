@@ -206,16 +206,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
     }
 
     return (
-        <div className="menu__container container text-center mt-5 mb-5">
+        <div className="menu__container container text-center mt-5">
             <div className="text-center">
                 <h2 className="menu__title">What are <strong>cooking today</strong></h2>
                 <p className="menu__description">Tell us what you need, and let AI create the perfect weekly menu for you.</p>
             </div>
-            <form onSubmit={(e) => e.preventDefault()} className="contact-form__form">
+            <form onSubmit={(e) => e.preventDefault()} className="form__form">
                 <div className="menu-form__field">
                     <input
                         type="text"
-                        className="contact-form__input"
+                        className="form__input"
                         placeholder="Write your dietary preferences (e.g., vegetarian, high protein)"
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}
@@ -236,7 +236,6 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                 ) : null}
             </form>
             <div className="resultado_GPT mt-4">
-                <h5>Response:</h5>
                 {parsedData.length > 0 ? (
                     <div>
                         <table className="table">
@@ -264,16 +263,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                 <div className="modal-content">
                                     <div className="modal-body">
                                         {selectedRow ? (
-                                        <>
-                                            <div className="modal-header">
-                                                <div className="d-flex flex-column">
-                                                    <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                    <h5>{selectedRow.day}</h5>
+                                            <>
+                                                <div className="modal-header">
+                                                    <div className="d-flex flex-column">
+                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                        <h5>{selectedRow.day}</h5>
+                                                    </div>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
-                                        </>
+                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                            </>
                                         ) : (
                                             <p>Selecciona una fila para ver los detalles.</p>
                                         )}
@@ -288,7 +287,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                             <button className="button button--secondary" type="button" onClick={handleGuardar}>
                                 Save recipe
                             </button>
-                            <button className="button button--secondary" type="button">
+                            <button onClick={mealPlans} className="button button--secondary" type="button">
                                 Go to MealPlans
                             </button>
                         </div>
