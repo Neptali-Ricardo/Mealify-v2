@@ -236,7 +236,6 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                 ) : null}
             </form>
             <div className="resultado_GPT mt-4">
-                <h5>Response:</h5>
                 {parsedData.length > 0 ? (
                     <div>
                         <table className="table">
@@ -264,16 +263,16 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                 <div className="modal-content">
                                     <div className="modal-body">
                                         {selectedRow ? (
-                                        <>
-                                            <div className="modal-header">
-                                                <div className="d-flex flex-column">
-                                                    <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                    <h5>{selectedRow.day}</h5>
+                                            <>
+                                                <div className="modal-header">
+                                                    <div className="d-flex flex-column">
+                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                        <h5>{selectedRow.day}</h5>
+                                                    </div>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
-                                        </>
+                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                            </>
                                         ) : (
                                             <p>Selecciona una fila para ver los detalles.</p>
                                         )}
@@ -288,7 +287,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                             <button className="button button--secondary" type="button" onClick={handleGuardar}>
                                 Save recipe
                             </button>
-                            <button className="button button--secondary" type="button">
+                            <button onClick={mealPlans} className="button button--secondary" type="button">
                                 Go to MealPlans
                             </button>
                         </div>

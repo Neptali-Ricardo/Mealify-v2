@@ -33,7 +33,7 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         min="1"
                         max="100"
                         placeholder="0"
-                        value={guests}
+                        value={allergens}
                         required
                     />
                 </div>
@@ -49,7 +49,7 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         min="1"
                         max="100"
                         placeholder="0"
-                        value={guests}
+                        value={medical}
                         required
                     />
                 </div>
