@@ -31,11 +31,11 @@
     background: var(--primary-color);
     color: var(--color-neutral-white);
     width: 100%;
-    max-width: 700px;
+    max-width: 37.5rem;
 }
 
 .button-groupe--primary {
-    max-width: 600px;
+    max-width: 37.5rem;
     width: 100%;
 }
 .button--primary__left {
