@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Filtro_Preferencias } from "../component/items/filtro.jsx";
 import { Algerenos_Condiciones_Medicas } from "../component/items/alergenos_condicionesMedicas.jsx";
 import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
+import "../../styles/components/_menuCreatorTable.css";
 
 export const Menu_GPT = () => {
     const [desplegar, setDesplegar] = useState("");
@@ -235,41 +236,48 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                     <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
             </form>
-            <div className="resultado_GPT mt-4">
+            
+            {parsedData.length > 0 && (
+                <div className="text-center">
+                    <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
+                    <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
+                </div>
+            )}
+
+            <div className="resultado_GPT">
                 {parsedData.length > 0 ? (
-                    <div>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Meal Type</th>
-                                    <th>Ingredients</th>
-                                    <th>Calories</th>
+                    <div className="menu-creator">
+                        <table className="menu-creator__table">
+                            <thead className="menu-creator__thead">
+                                <tr className="menu-creator__tr">
+                                    <th className="menu-creator__th">Day</th>
+                                    <th className="menu-creator__th">Meal Type</th>
+                                    <th className="menu-creator__th">Ingredients</th>
+                                    <th className="menu-creator__th">Calories</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="menu-creator__tbody">
                                 {parsedData.map((row, index) => (
-                                    <tr key={index} onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
-                                        <td>{row.day}</td>
-                                        <td>{row.mealType}</td>
-                                        <td>{row.ingredients}</td>
-                                        <td>{row.calories}</td>
+                                    <tr key={index} className="menu-creator__tr" onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
+                                        <td className="menu-creator__td">{row.day}</td>
+                                        <td className="menu-creator__td">{row.mealType}</td>
+                                        <td className="menu-creator__td">{row.ingredients}</td>
+                                        <td className="menu-creator__td">{row.calories}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                         <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-xl">
-                                <div className="modal-content">
-                                    <div className="modal-body">
+                            <div className="modal-dialog modal-lg">
+                                <div className="modal-content d-flex flex-column content-space">
+                                    <div className="modal-body d-flex flex-column card-space">
                                         {selectedRow ? (
                                             <>
-                                                <div className="modal-header">
+                                                <div className="modal-header p-0">
                                                     <div className="d-flex flex-column">
-                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                        <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
                                                         <h5>{selectedRow.day}</h5>
                                                     </div>
-                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
                                             </>
@@ -277,8 +285,11 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                             <p>Selecciona una fila para ver los detalles.</p>
                                         )}
                                     </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <div className="modal-footer d-flex justify-content-center">
+                                        <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
+                                            <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
+                                            Go Back to Meal Menu
+                                        </button>
                                     </div>
                                 </div>
                             </div>

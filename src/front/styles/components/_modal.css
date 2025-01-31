@@ -1,7 +1,7 @@
 .father-space{
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 14px;
 }
 
 .child-space{
@@ -14,4 +14,18 @@
 
 .content-space{
     gap: 24px;
+}
+
+.separator_line_detailsMenu {
+    flex-grow: 1;
+    height: 0.0625rem; /* 1px */
+    background-color: black;
+    border: none;
+}
+
+.modal_title {
+    font-size: 24px;
+    line-height: 4rem;
+    font-weight: 600;
+    color: var(--primary-color);
 }

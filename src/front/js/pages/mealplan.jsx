@@ -65,14 +65,15 @@ export const MealPlan = () => {
         <>
             <SecondaryJumbotron />
 
-            <div className="separator">
-                <h2>Meal Plan</h2>
+            <div className="mealplan__container text-center">
+                <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
+                <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
             </div>
 
             <div id="mealPlanAccordion">
                 {userPlans ? (
                     userPlans.map((plan, index) => (
-                        <div key={index} className="card mb-3">
+                        <div key={index} className="card- mb-3">
                             <div className="card-header" onClick={() => desplegar(index)}>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <h3>{plan.name}</h3>
@@ -88,34 +89,42 @@ export const MealPlan = () => {
                                 </div>
                             </div>
                             {desplegado[index] && (
-                                <div className="card-body">
+                                <div className="">
+
                                     <p><strong>Creado en:</strong> {plan.create_at}</p>
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Day</th>
-                                                <th>Meal Type</th>
-                                                <th>Ingredients</th>
-                                                <th>Calories</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {plan.plan.map((detalle, idx) => (
-                                                <tr key={idx} onClick={() => setSelectedRow(detalle)} data-bs-toggle="modal" data-bs-target="#dataModal">
-                                                    <td>{detalle.day}</td>
-                                                    <td>{detalle.mealType}</td>
-                                                    <td>{detalle.ingredients}</td>
-                                                    <td>{detalle.calories}</td>
+
+                                    <div className="menu-creator">
+                                        <table className="menu-creator__table">
+                                            <thead className="menu-creator__thead">
+                                                <tr className="menu-creator__tr">
+                                                    <th className="menu-creator__th">Day</th>
+                                                    <th className="menu-creator__th">Meal Type</th>
+                                                    <th className="menu-creator__th">Ingredients</th>
+                                                    <th className="menu-creator__th">Calories</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody className="menu-creator__tbody">
+                                                {plan.plan.map((detalle, idx) => (
+                                                    <tr className="menu-creator__tr" key={idx} onClick={() => setSelectedRow(detalle)} data-bs-toggle="modal" data-bs-target="#dataModal">
+                                                        <td className="menu-creator__td">{detalle.day}</td>
+                                                        <td className="menu-creator__td">{detalle.mealType}</td>
+                                                        <td className="menu-creator__td">{detalle.ingredients}</td>
+                                                        <td className="menu-creator__td">{detalle.calories}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
                                 </div>
                             )}
                         </div>
                     ))
                 ) : (
-                    <p>Cargando planes...</p>
+                    <div className="text-center mb-5">
+                        <p className="meal-menu__description">No Meal Plans Yet</p>
+                        <p className="menu__description">Start planning your meals effortlessly! <br/> Save your favorite meals and create a personalized plan to stay on track.</p>
+                    </div>
                 )}
             </div>
 
@@ -125,9 +134,9 @@ export const MealPlan = () => {
                         <div className="modal-body d-flex flex-column card-space">
                             {selectedRow ? (
                                 <>
-                                    <div className="modal-header ">
+                                    <div className="modal-header p-0">
                                         <div className="d-flex flex-column">
-                                            <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                            <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
                                             <h5>{selectedRow.day}</h5>
                                         </div>
                                     </div>
@@ -137,8 +146,11 @@ export const MealPlan = () => {
                                 <p>Selecciona una fila para ver los detalles.</p>
                             )}
                         </div>
-                        <div className="modal-footer">
-                            <button type="button" className="button button--primary" data-bs-dismiss="modal">Go Back to Meal Menu</button>
+                        <div className="modal-footer d-flex justify-content-center">
+                            <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
+                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
+                                Go Back to Meal Menu
+                            </button>
                         </div>
                     </div>
                 </div>
