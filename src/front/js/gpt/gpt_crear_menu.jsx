@@ -6,6 +6,7 @@ import { Filtro_Preferencias } from "../component/items/filtro.jsx";
 import { Algerenos_Condiciones_Medicas } from "../component/items/alergenos_condicionesMedicas.jsx";
 import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
 import "../../styles/components/_menuCreatorTable.css";
+import { Spinner } from "../component/spinner.jsx";
 
 export const Menu_GPT = () => {
     const [desplegar, setDesplegar] = useState("");
@@ -163,7 +164,7 @@ export const Menu_GPT = () => {
             alert("Por favor, escribe tus preferencias alimenticias.");
             return;
         }
-
+        setLoading(true);
         const fullConsulta = `Hazme un menú semanal.
 Desayuno, comida y cena  
 Preferencias: ${consulta.trim()}.
@@ -183,6 +184,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
             console.error("Error al obtener la respuesta de ChatGPT:", error);
             setResultado("Hubo un error al procesar la consulta.");
         }
+        setLoading(false);
     };
 
     const parseResult = (result) => {
@@ -208,6 +210,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
     return (
         <div className="menu__container container text-center mt-5">
+            {loading && <Spinner />}
             <div className="text-center">
                 <h2 className="menu__title">What are <strong>cooking today</strong></h2>
                 <p className="menu__description">Tell us what you need, and let AI create the perfect weekly menu for you.</p>
