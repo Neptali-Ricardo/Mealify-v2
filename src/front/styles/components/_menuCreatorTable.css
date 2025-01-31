@@ -5,6 +5,7 @@
     padding: 12px;
 }
 
+
 .menu-creator__table {
     width: 100%;
     max-width: 800px;
@@ -75,6 +76,13 @@
 
     .button-group__table {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .resultado_GPT{
+        max-width: 360px;
     }
     
 }

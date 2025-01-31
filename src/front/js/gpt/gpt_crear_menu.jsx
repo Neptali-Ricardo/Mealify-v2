@@ -249,65 +249,67 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
             <div className="resultado_GPT">
                 {parsedData.length > 0 ? (
-                    <div className="menu-creator">
-                        <table className="menu-creator__table">
-                            <thead className="menu-creator__thead">
-                                <tr className="menu-creator__tr">
-                                    <th className="menu-creator__th">Day</th>
-                                    <th className="menu-creator__th">Meal Type</th>
-                                    <th className="menu-creator__th">Ingredients</th>
-                                    <th className="menu-creator__th">Calories</th>
-                                </tr>
-                            </thead>
-                            <tbody className="menu-creator__tbody">
-                                {parsedData.map((row, index) => (
-                                    <tr key={index} className="menu-creator__tr" onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
-                                        <td className="menu-creator__td">{row.day}</td>
-                                        <td className="menu-creator__td">{row.mealType}</td>
-                                        <td className="menu-creator__td">{row.ingredients}</td>
-                                        <td className="menu-creator__td">{row.calories}</td>
+                    <>
+                        <div className="menu-creator">
+                            <table className="menu-creator__table">
+                                <thead className="menu-creator__thead">
+                                    <tr className="menu-creator__tr">
+                                        <th className="menu-creator__th">Day</th>
+                                        <th className="menu-creator__th">Meal Type</th>
+                                        <th className="menu-creator__th">Ingredients</th>
+                                        <th className="menu-creator__th">Calories</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-lg">
-                                <div className="modal-content d-flex flex-column content-space">
-                                    <div className="modal-body d-flex flex-column card-space">
-                                        {selectedRow ? (
-                                            <>
-                                                <div className="modal-header p-0">
-                                                    <div className="d-flex flex-column">
-                                                        <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                        <h5>{selectedRow.day}</h5>
+                                </thead>
+                                <tbody className="menu-creator__tbody">
+                                    {parsedData.map((row, index) => (
+                                        <tr key={index} className="menu-creator__tr" onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
+                                            <td className="menu-creator__td">{row.day}</td>
+                                            <td className="menu-creator__td">{row.mealType}</td>
+                                            <td className="menu-creator__td">{row.ingredients}</td>
+                                            <td className="menu-creator__td">{row.calories}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-lg">
+                                    <div className="modal-content d-flex flex-column content-space">
+                                        <div className="modal-body d-flex flex-column card-space">
+                                            {selectedRow ? (
+                                                <>
+                                                    <div className="modal-header p-0">
+                                                        <div className="d-flex flex-column">
+                                                            <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                            <h5>{selectedRow.day}</h5>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
-                                            </>
-                                        ) : (
-                                            <p>Selecciona una fila para ver los detalles.</p>
-                                        )}
-                                    </div>
-                                    <div className="modal-footer d-flex justify-content-center">
-                                        <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
-                                            <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
-                                            Go Back to Meal Menu
-                                        </button>
+                                                    <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                                </>
+                                            ) : (
+                                                <p>Selecciona una fila para ver los detalles.</p>
+                                            )}
+                                        </div>
+                                        <div className="modal-footer d-flex justify-content-center">
+                                            <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
+                                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
+                                                Go Back to Meal Menu
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div className="button-group__table">
+                                <button className="button button--primary" type="button" onClick={handleGuardar}>
+                                    Save recipe
+                                    <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+                                </button>
+                                <button onClick={mealPlans} className="button button--primary" type="button">
+                                    Go to MealPlans
+                                    <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+                                </button>
+                            </div>
                         </div>
-                        <div className="button-group__table">
-                            <button className="button button--primary" type="button" onClick={handleGuardar}>
-                                Save recipe
-                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-                            </button>
-                            <button onClick={mealPlans} className="button button--primary" type="button">
-                                Go to MealPlans
-                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-                            </button>
-                        </div>
-                    </div>
+                    </>
                 ) : (
                     <p>{resultado}</p>
                 )}
