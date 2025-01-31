@@ -162,10 +162,8 @@ export const MealPlan = () => {
                                 {selectedRow ? (
                                     <>
                                         <div className="modal-header p-0">
-                                            <div className="d-flex flex-column">
-                                                <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                <h5>{selectedRow.day}</h5>
-                                            </div>
+                                            <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                            <h5>{selectedRow.day}</h5>
                                         </div>
                                         <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
                                     </>
@@ -174,7 +172,7 @@ export const MealPlan = () => {
                                 )}
                             </div>
                             <div className="modal-footer d-flex justify-content-center">
-                                <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
+                                <button type="button" className="button button--modal" data-bs-dismiss="modal">
                                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
                                     Go Back to Meal Menu
                                 </button>

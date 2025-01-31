@@ -42,6 +42,7 @@
     max-width: 37.5rem;
     width: 100%;
 }
+
 .button--primary__left {
     background: var(--primary-color);
     color: var(--color-neutral-white);
@@ -96,4 +97,8 @@
     background-color: #a067fc;
 }
 
-
+.button--modal {
+    background: var(--primary-color);
+    color: var(--color-neutral-white);
+    width: 100%;
+}
