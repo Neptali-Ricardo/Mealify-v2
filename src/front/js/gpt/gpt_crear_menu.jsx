@@ -165,14 +165,14 @@ export const Menu_GPT = () => {
             return;
         }
         setLoading(true);
-        const fullConsulta = `Hazme un menú semanal.
-Desayuno, comida y cena  
-Preferencias: ${consulta.trim()}.
-Número de comensales: ${inputComensales}.
-Que no tenga estos alimentos: ${alergenos.join(", ")}.
-Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
-De lunes a domingo
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
+        const fullConsulta = `Create a weekly menu for me.
+        Breakfast, lunch, and dinner  
+        Preferences: ${consulta.trim()}.
+        Number of diners: ${inputComensales}.
+        Exclude these foods: ${alergenos.join(", ")}.
+        I have these medical conditions: ${condicionesMedicas.join(", ")}.
+        From Monday to Sunday
+        Include the ingredients, quantities in weight, and total calories of each dish separated by |.`;
 
         try {
             const response = await getChatGPTResponse([
@@ -239,7 +239,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                     <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
             </form>
-            
+
             {parsedData.length > 0 && (
                 <div className="text-center">
                     <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
@@ -300,7 +300,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                             </div>
                             <div className="button-group__table">
                                 <button className="button button--primary" type="button" onClick={handleGuardar}>
-                                    Save recipe
+                                    Save MealPlans
                                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                                 </button>
                                 <button onClick={mealPlans} className="button button--primary" type="button">
