@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
 import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
+import { Spinner } from "../component/spinner.jsx";
 
 export const MealPlan = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const MealPlan = () => {
     const [userPlans, setUserPlans] = useState(null); // Variable para guardar los planes
     const [desplegado, setDesplegado] = useState({});
     const [selectedRow, setSelectedRow] = useState(null); // Variable para la fila seleccionada
+    const [loading, setLoading] = useState(false);
 
     const desplegar = (index) => {
         setDesplegado((prevState) => ({
@@ -23,7 +25,13 @@ export const MealPlan = () => {
         if (!store.token) {
             navigate("/loginRegister");
         }
+        setLoading(true);
         Obtener_planes();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        
     }, [store.token, navigate]);
 
     const Obtener_planes = async () => {
@@ -69,6 +77,8 @@ export const MealPlan = () => {
                 <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
                 <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
             </div>
+
+            {loading && <Spinner />}
 
             <div id="mealPlanAccordion">
                 {userPlans ? (
