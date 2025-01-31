@@ -53,6 +53,16 @@
     font-size: 2rem;
 }
 
+.button-group__table {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+
 /* Media queries para dispositivos móviles */
 @media (max-width: 500px) {
 
@@ -62,4 +72,9 @@
         border-radius: 0;
         box-shadow: none;
     }
+
+    .button-group__table {
+        flex-direction: column;
+    }
+    
 }
