@@ -1,31 +1,40 @@
+.modal_title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.modal-header{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border: 0;
+}
+
 .father-space{
     display: flex;
     flex-direction: column;
-    gap: 14px;
-}
-
-.child-space{
-    gap: 8px;
-}
-
-.card-space{
-    gap: 30px;
-}
-
-.content-space{
     gap: 24px;
 }
 
-.separator_line_detailsMenu {
-    flex-grow: 1;
-    height: 0.0625rem; /* 1px */
-    background-color: black;
-    border: none;
+.child-space{
+    gap: 24px;
 }
 
-.modal_title {
-    font-size: 24px;
-    line-height: 4rem;
-    font-weight: 600;
-    color: var(--primary-color);
+.card-space{
+    gap: 24px;
+}
+
+
+.modal__separator--line {
+    width: 100%;  /* O usa flex-grow si está dentro de un flexbox */
+    height: 1px; /* Grosor de la línea */
+    background-color: var(--gray-color, #ccc); /* Define un gris neutro */
+    border: none; /* Elimina el borde si lo tenías antes */
+}
+
+.plan-name__description{
+    font-size: 20px !important;
+    color: var(--text-color) !important;
 }
