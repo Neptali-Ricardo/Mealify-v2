@@ -161,7 +161,7 @@ export const MealPlan = () => {
                             <div className="modal-body d-flex flex-column card-space">
                                 {selectedRow ? (
                                     <>
-                                        <div className="modal-header p-0">
+                                        <div className="modal-header modal__header-custom">
                                             <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
                                             <h5>{selectedRow.day}</h5>
                                         </div>
