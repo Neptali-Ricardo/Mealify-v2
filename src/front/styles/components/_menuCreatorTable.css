@@ -52,6 +52,7 @@
 
 .meal-menu__description {
     font-size: 2rem;
+    color: var(--text-color);
 }
 
 .button-group__table {
@@ -63,7 +64,31 @@
     margin-bottom: 35px;
 }
 
+.plan-name__title{
+    font-size: 17px;
+    color: var(--text-color);
+}
 
+.card{
+    margin-bottom: 8px;
+    border: none;
+}
+
+.btn-link{
+    padding-right: 0;
+}
+
+.card-header{
+    background-color: white;
+    padding: 8px;
+}
+
+.mealplan__time{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--text-color);
+}
 /* Media queries para dispositivos móviles */
 @media (max-width: 500px) {
 

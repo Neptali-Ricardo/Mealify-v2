@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import { SecondaryJumbotron } from "../component/secondaryJumbotron.jsx";
 import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
 import { Spinner } from "../component/spinner.jsx";
+import { Accordion, Card, Button } from "react-bootstrap";
 
 export const MealPlan = () => {
     const navigate = useNavigate();
@@ -69,42 +70,55 @@ export const MealPlan = () => {
         location.reload(true);
     };
 
+    const [activeKey, setActiveKey] = useState(null);
+    const handleToggle = (key) => {
+        setActiveKey(activeKey === key ? null : key);
+    };
+
     return (
         <>
             <SecondaryJumbotron />
 
             <div className="container">
-            <div className="mealplan__container text-center">
-                <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
-                <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
-            </div>
+                <div className="mealplan__container text-center">
+                    <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
+                    <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
+                </div>
 
-            {loading && <Spinner />}
+                {loading && <Spinner />}
 
-                <div id="mealPlanAccordion">
-                    {userPlans ? (
-                        userPlans.map((plan, index) => (
-                            <div key={index} className="card- mb-3">
-                                <div className="card-header" onClick={() => desplegar(index)}>
+                <div className="mb-5">
+                    <Accordion activeKey={activeKey}>
+                        {userPlans && userPlans.map((plan, index) => (
+                            <Card key={index}>
+                                <Card.Header onClick={() => handleToggle(index)}>
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <h3>{plan.name}</h3>
-                                        <button
-                                            className="btn btn-danger btn-sm rounded-circle ms-3"
-                                            onClick={(e) => {
-                                                e.stopPropagation(); // Evita que el evento de clic se propague al contenedor padre
-                                                eliminarPlan(plan.id);
-                                            }}
-                                        >
-                                            X
-                                        </button>
+                                        <h3 className="plan-name__title">{plan.name}</h3>
+                                        <div className="d-flex align-items-center">
+                                            <img
+                                                src={activeKey === index ? "https://res.cloudinary.com/dfhhq651o/image/upload/v1737888385/arrow-up_xbitmw.svg" : "https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-down-icon_yfmxyl.svg"}
+                                                alt="toggle icon"
+                                                className="ms-3"
+                                            />
+                                            <Button
+                                                variant="link"
+                                                onClick={(e) => {
+                                                    e.stopPropagation(); // Evita que el evento de clic se propague al contenedor padre
+                                                    eliminarPlan(plan.id);
+                                                }}
+                                            >
+                                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888386/delete-icon_woqozv.svg" alt="delete icon" />
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
-                                {desplegado[index] && (
-                                    <div className="">
-
-                                        <p><strong>Creado en:</strong> {plan.create_at}</p>
-
-                                        <div className="menu-creator">
+                                </Card.Header>
+                                <Accordion.Collapse eventKey={index}>
+                                    <Card.Body className="p-0">
+                                        {/* Contenido del plan */}
+                                        <p className="mealplan__time">{plan.description}{plan.create_at}</p>
+                                        {/* Agrega más contenido aquí según sea necesario */}
+                                
+                                        <div className="menu-creator p-0">
                                             <table className="menu-creator__table">
                                                 <thead className="menu-creator__thead">
                                                     <tr className="menu-creator__tr">
@@ -126,18 +140,20 @@ export const MealPlan = () => {
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
-                                    </div>
-                                )}
-                            </div>
-                        ))
-                    ) : (
-                        <div className="text-center mb-5">
-                            <p className="meal-menu__description">No Meal Plans Yet</p>
-                            <p className="menu__description">Start planning your meals effortlessly! <br/> Save your favorite meals and create a personalized plan to stay on track.</p>
-                        </div>
-                    )}
+                                                
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        ))}
+                    </Accordion>
                 </div>
+
+                {!userPlans || userPlans.length === 0 ? (
+                    <div className="text-center mb-5">
+                        <p className="meal-menu__description">No Meal Plans Yet</p>
+                        <p className="menu__description">Start planning your meals effortlessly! <br/> Save your favorite meals and create a personalized plan to stay on track.</p>
+                    </div>
+                ) : null}
 
                 <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
