@@ -165,7 +165,7 @@ export const Menu_GPT = () => {
             return;
         }
         setLoading(true);
-        const fullConsulta =         `Create a weekly menu for me.
+        const fullConsulta = `Create a weekly menu for me.
         Breakfast, lunch, and dinner  
         Preferences: ${consulta.trim()}.
         Number of diners: ${inputComensales}.
@@ -239,7 +239,7 @@ export const Menu_GPT = () => {
                     <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
                 ) : null}
             </form>
-            
+
             {parsedData.length > 0 && (
                 <div className="text-center">
                     <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
@@ -300,7 +300,7 @@ export const Menu_GPT = () => {
                             </div>
                             <div className="button-group__table">
                                 <button className="button button--primary" type="button" onClick={handleGuardar}>
-                                    Save recipe
+                                    Save MealPlans
                                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                                 </button>
                                 <button onClick={mealPlans} className="button button--primary" type="button">

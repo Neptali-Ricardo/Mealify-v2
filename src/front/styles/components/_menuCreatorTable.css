@@ -5,6 +5,9 @@
     padding: 12px;
 }
 
+.card-space{
+    text-align: start;
+}
 
 .menu-creator__table {
     width: 100%;
