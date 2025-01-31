@@ -34,10 +34,15 @@
     max-width: 37.5rem;
 }
 
+.button--primary:hover {
+    background-color: #a067fc;
+}
+
 .button-groupe--primary {
     max-width: 37.5rem;
     width: 100%;
 }
+
 .button--primary__left {
     background: var(--primary-color);
     color: var(--color-neutral-white);
@@ -62,7 +67,12 @@
 
 .button--secondary {
     background: var(--color-neutral-gray-50);
-    color: var(--colors-neutral-white);
+    color: var(--text-color);
+}
+
+.button--secondary:hover {
+    background: var(--secondary-color);
+    color: var(--text-color);
 }
 
 .button--small {
@@ -73,10 +83,22 @@
     gap: var(--button-jumbotron-gap);
 }
 
+.button--small:hover {
+    background: var(--secondary-color);
+}
+
 .button--medium {
     background-color: var(--primary-color);
     color: var(--color-neutral-white);
     gap: var(--button-jumbotron-gap);
 }
 
+.button--medium:hover {
+    background-color: #a067fc;
+}
 
+.button--modal {
+    background: var(--primary-color);
+    color: var(--color-neutral-white);
+    width: 100%;
+}
