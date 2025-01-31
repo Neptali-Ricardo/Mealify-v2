@@ -165,14 +165,14 @@ export const Menu_GPT = () => {
             return;
         }
         setLoading(true);
-        const fullConsulta = `Hazme un menú semanal.
-Desayuno, comida y cena  
-Preferencias: ${consulta.trim()}.
-Número de comensales: ${inputComensales}.
-Que no tenga estos alimentos: ${alergenos.join(", ")}.
-Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
-De lunes a domingo
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
+        const fullConsulta =         `Create a weekly menu for me.
+        Breakfast, lunch, and dinner  
+        Preferences: ${consulta.trim()}.
+        Number of diners: ${inputComensales}.
+        Exclude these foods: ${alergenos.join(", ")}.
+        I have these medical conditions: ${condicionesMedicas.join(", ")}.
+        From Monday to Sunday
+        Include the ingredients, quantities in weight, and total calories of each dish separated by |.`;
 
         try {
             const response = await getChatGPTResponse([
