@@ -297,12 +297,14 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                                 </div>
                             </div>
                         </div>
-                        <div className="d-flex justify-content-between">
-                            <button className="button button--secondary" type="button" onClick={handleGuardar}>
+                        <div className="button-group__table">
+                            <button className="button button--primary" type="button" onClick={handleGuardar}>
                                 Save recipe
+                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                             </button>
-                            <button onClick={mealPlans} className="button button--secondary" type="button">
+                            <button onClick={mealPlans} className="button button--primary" type="button">
                                 Go to MealPlans
+                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                             </button>
                         </div>
                     </div>
