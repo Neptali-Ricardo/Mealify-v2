@@ -19,6 +19,7 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         placeholder="0"
                         value={guests}
                         required
+                        disabled
                     />
                 </div>
                 <div className="filtro-form__field">
@@ -35,6 +36,7 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         placeholder="0"
                         value={allergens}
                         required
+                        disabled
                     />
                 </div>
                 <div className="filtro-form__field">
@@ -51,6 +53,7 @@ export const Filtro_Preferencias = ({ guests, allergens, medical }) => {
                         placeholder="0"
                         value={medical}
                         required
+                        disabled
                     />
                 </div>
             </div>
