@@ -20,7 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			register: async (formData) => {
 				try {
-					console.log("Datos enviados al servidor:", formData);
+					//console.log("Datos enviados al servidor:", formData);
 			
 					// Validación previa de los datos del formulario
 					if (!formData.user || !formData.email || !formData.password) {
@@ -75,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 			
 					const data = await resp.json();
-					console.log("Data received from the server:", data);
+					// console.log("Data received from the server:", data);
 					return { success: true, message: "User successfully registered." };
 			
 				} catch (error) {
@@ -157,7 +157,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Token not found in localStorage.");
 					}
 
-					console.log("Token obtained:", token);
+					//console.log("Token obtained:", token);
 
 					const resp = await fetch(process.env.BACKEND_URL + '/api/user_info',
 						{
@@ -168,7 +168,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-				  	console.log("Complete response:", resp);
+				  	//console.log("Complete response:", resp);
 
 					if (!resp.ok) {
 						console.error("Server response error:", resp.status, resp.statusText);
@@ -183,7 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await resp.json();
-					console.log("Data retrieved:", data);
+					//console.log("Data retrieved:", data);
 
 					setStore({ user: data.payload });
 				} catch (error) {
