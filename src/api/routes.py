@@ -448,15 +448,15 @@ def get_user_info():
         id = get_jwt_identity()  # Obtiene el ID del usuario desde el token
         user = Users.query.get(id)
         if not user:
-            return jsonify({"msg": "Usuario no encontrado"}), 404
+            return jsonify({"msg": "User not found"}), 404
         return jsonify({
             "success": True,
-            "msg": "Información del usuario obtenida con éxito",
+            "msg": "User information retrieved successfully",
             "payload": user.serialize()
         }), 200
     except Exception as e:
         print(f"Error interno: {str(e)}")
-        return jsonify({"success": False, "msg": "Error interno del servidor", "error": str(e)}), 500
+        return jsonify({"success": False, "msg": "Internal server error", "error": str(e)}), 500
     
     
 # Endpoint para obtener todos los planes
