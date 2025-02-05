@@ -26,7 +26,7 @@ export default function LoginRegister() {
             success = await actions.login(formData);
             await actions.getUserInfo()
             const user_id = store.user.id;
-            console.log("El usuario que acaba de iniciar sesión tiene el id de: " + user_id)
+            //console.log("The user who just logged in has the id of: " + user_id)
 
         } else {
             // Intentar registrar un nuevo usuario
@@ -40,27 +40,27 @@ export default function LoginRegister() {
             // Si fue un registro exitoso, cambiar automáticamente a login
             if (!isLogin) {
                 setIsLogin(true);
-                console.log("Registro exitoso. Cambiando a formulario de login.");
+                console.log("Successful registration. Switching to login form.");
             } else {
-                console.log("Login exitoso.");
+                console.log("Successful login.");
                 navigate("/");
             }
         } else {
             // Si no fue exitoso, asegurarse de mantenerse en la página de registro
             if (!isLogin) {
                 setMessage({ type: "success", text: response.message });
-                console.log("Registro fallido. Permaneciendo en formulario de registro.");
+                console.log("Failed registration. Staying on registration form.");
                 setIsLogin(false);
             } else {
                 setMessage({ type: "error", text: response.message });
-                console.log("Login fallido. Permaneciendo en formulario de login.");
+                console.log("Failed login. Staying on login form.");
             }
         }
         setLoading(false); // Detener el spinner al finalizar
     };
 
     useEffect(() => {
-        console.log("Token actual:", token);
+        //console.log("Token actual:", token);
     }, [token]);
 
     return (
@@ -69,7 +69,7 @@ export default function LoginRegister() {
             {loading && <Spinner />}
 
             <div className="banner__image-container">
-                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888561/women-banner-2_aqfefy.png" alt="Fondo del banner mostrando un paisaje" className="banner__image-login" />
+                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888561/women-banner-2_aqfefy.png" alt="Banner background showing a happy girl" className="banner__image-login" />
             </div>
 
             {/* Mostrar el formulario con la lógica de tipo login/register */}
@@ -80,7 +80,7 @@ export default function LoginRegister() {
                             <h2 className="login__heading m-0">Join Us and Start Planning!</h2>
                         </div>
                         <LoginForm onSubmit={handleSubmit} />
-                        <p className="login-form__text" onClick={toggleForm}>
+                        <p className="login-form__text" onClick={toggleForm} role="button" tabIndex="0">
                             Don't have an account? <span className="login-form__highlight">Register</span>
                         </p>
                     </div>
@@ -92,7 +92,7 @@ export default function LoginRegister() {
                             <h2 className="login__heading m-0">Welcome Back! <br /> Ready to Plan Your Next Meal?</h2>
                         </div>
                         <UserForm onSubmit={handleSubmit} />
-                        <p className="login-form__text" onClick={toggleForm}>
+                        <p className="login-form__text" onClick={toggleForm} role="button" tabIndex="0">
                             Already have an account? <span className="login-form__highlight">Login</span>
                         </p>
                     </div>

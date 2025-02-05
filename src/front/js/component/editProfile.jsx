@@ -190,29 +190,29 @@ export const EditProfile = () => {
                         />
                     </div>
                 </div>
-                <button className="button button--primary" type="submit">
+                <button className="button button--primary" type="submit" aria-label="Save Changes">
                     Save Changes
                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                 </button>
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h2 className="profile__subtitle">Are you sure?</h2>
+                                <h2 className="profile__subtitle" id="exampleModalLabel">Are you sure?</h2>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
                                 <p>This action is irreversible. Once your account is deleted, all your history, settings, and associated data will be lost.</p>
                             </div>
                             <div className="modal-footer modal-custom">
-                                <button type="button" className="button button--secondary w-100" onClick={handleDelete}>
+                                <button type="button" className="button button--secondary w-100" onClick={handleDelete} aria-label="Confirm Delete Account">
                                     Delete Account
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="button" className="button button--secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" className="button button--secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="Delete Account">
                     Delete Account
                 </button>
                 {message && (
