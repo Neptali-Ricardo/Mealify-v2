@@ -8,7 +8,7 @@ export const Footer = () => (
       {/* Logo del footer */}
       <div className="footer__logo" aria-label="Logo principal del sitio">
         <Link to="/" className="footer__link">
-          <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888385/Mealify-logo-white_krffqk.svg" alt="Mealify logotipo" className="button__icon" />
+          <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888385/Mealify-logo-white_krffqk.svg" alt="Mealify logo" className="button__icon" />
         </Link>
       </div>
 
@@ -36,7 +36,7 @@ export const Footer = () => (
             <h5>About</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <Link to="/about" className="footer__link">
+                <Link to="/" className="footer__link">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">About</span>
                 </Link>
@@ -60,21 +60,21 @@ export const Footer = () => (
             <h5>GitHub & LinkedIn</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <a href="https://github.com/4GeeksAcademy/Final-Project-User-Stories-Wireframes-Mealify" className="footer__link" target="_blank">
+                <a href="https://github.com/Neptali-Ricardo/Mealify-v2" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">GitHub Repository</span>
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="https://www.linkedin.com/in/nepta/" className="footer__link" target="_blank">
+                <a href="https://www.linkedin.com/in/nepta/" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">Neptali Castejón LinkedIn</span>
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="https://www.linkedin.com/in/jose-antonio-llorens-padilla/" className="footer__link" target="_blank">
+                <a href="https://www.linkedin.com/in/stefanodellolioprada/" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-                  <span className="footer__link-text">Jose Llorens LinkedIn</span>
+                  <span className="footer__link-text">Stefano Dell'Olio Prada</span>
                 </a>
               </li>
             </ul>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { LoginForm } from "../component/loginForm.jsx";
 import { UserForm } from "../component/userForm.jsx";
 import { Context } from "../store/appContext.js";
@@ -13,6 +13,13 @@ export default function LoginRegister() {
     const navigate = useNavigate();
     const [message, setMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
 
     // Alternar entre Login y Register
     const toggleForm = () => setIsLogin(!isLogin);
@@ -20,47 +27,53 @@ export default function LoginRegister() {
     // Manejar el envío del formulario
     const handleSubmit = async (formData) => {
         let success;
+        let response;
         setLoading(true);
         if (isLogin) {
             // Intentar iniciar sesión
-            success = await actions.login(formData);
-            await actions.getUserInfo()
-            const user_id = store.user.id;
-            console.log("El usuario que acaba de iniciar sesión tiene el id de: " + user_id)
-
+            response = await actions.login(formData);
+            success = response.success;
+            await actions.getUserInfo();
         } else {
             // Intentar registrar un nuevo usuario
-            success = await actions.register(formData);
+            response = await actions.register(formData);
+            success = response.success;
         }
 
         if (success) {
             // Actualizar el token si el login o registro fue exitoso
-            setToken(localStorage.getItem("token"));
+            if (isMounted.current) {
+                setToken(localStorage.getItem("token"));
+            }
 
             // Si fue un registro exitoso, cambiar automáticamente a login
             if (!isLogin) {
-                setIsLogin(true);
-                console.log("Registro exitoso. Cambiando a formulario de login.");
+                if (isMounted.current) {
+                    setIsLogin(true);
+                }
             } else {
-                console.log("Login exitoso.");
                 navigate("/");
             }
         } else {
             // Si no fue exitoso, asegurarse de mantenerse en la página de registro
             if (!isLogin) {
-                setMessage({ type: "success", text: response.message });
-                console.log("Registro fallido. Permaneciendo en formulario de registro.");
-                setIsLogin(false);
+                if (isMounted.current) {
+                    setMessage({ type: "success", text: response.message });
+                    setIsLogin(false);
+                }
             } else {
-                setMessage({ type: "error", text: response.message });
-                console.log("Login fallido. Permaneciendo en formulario de login.");
+                if (isMounted.current) {
+                    setMessage({ type: "error", text: response.message });
+                }
             }
         }
-        setLoading(false); // Detener el spinner al finalizar
+        if (isMounted.current) {
+            setLoading(false); // Detener el spinner al finalizar
+        }
     };
 
     useEffect(() => {
-        console.log("Token actual:", token);
+        //console.log("Token actual:", token);
     }, [token]);
 
     return (

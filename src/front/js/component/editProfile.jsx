@@ -139,7 +139,7 @@ export const EditProfile = () => {
 
             <form onSubmit={handleSubmit} className="edit-form__form mb-5 mt-5">
                 <h2 className="text-center profile__subtitle">Basic Profile Information</h2>
-                <div className="contact-form__field">
+                <div className="form__field">
                     <label htmlFor="user">Username</label>
                     <input
                         id="user"
@@ -148,10 +148,10 @@ export const EditProfile = () => {
                         placeholder="username"
                         value={formData.user}
                         onChange={handleChange}
-                        className="contact-form__input"
+                        className="form__input"
                     />
                 </div>
-                <div className="contact-form__field">
+                <div className="form__field">
                     <label htmlFor="email">Email</label>
                     <input
                         id="email"
@@ -160,12 +160,12 @@ export const EditProfile = () => {
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="contact-form__input"
+                        className="form__input"
                     />
                 </div>
                 <div className="edit-form__form--password">
                     <h2 className="text-center profile__subtitle">Update password</h2>
-                    <div className="contact-form__field">
+                    <div className="form__field">
                         <label htmlFor="password">Password</label>
                         <input
                             id="password"
@@ -174,10 +174,10 @@ export const EditProfile = () => {
                             placeholder="Password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="contact-form__input"
+                            className="form__input"
                         />
                     </div>
-                    <div className="contact-form__field">
+                    <div className="form__field">
                         <label htmlFor="password">Repeat Password</label>
                         <input
                             id="repeat_password"
@@ -186,33 +186,33 @@ export const EditProfile = () => {
                             placeholder="Repeat Password"
                             value={formData.repeat_password}
                             onChange={handleChange}
-                            className="contact-form__input"
+                            className="form__input"
                         />
                     </div>
                 </div>
-                <button className="button button--primary" type="submit">
+                <button className="button button--primary" type="submit" aria-label="Save Changes">
                     Save Changes
                     <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                 </button>
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h2 className="profile__subtitle">Are you sure?</h2>
+                                <h2 className="profile__subtitle" id="exampleModalLabel">Are you sure?</h2>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
                                 <p>This action is irreversible. Once your account is deleted, all your history, settings, and associated data will be lost.</p>
                             </div>
                             <div className="modal-footer modal-custom">
-                                <button type="button" className="button button--secondary w-100" onClick={handleDelete}>
+                                <button type="button" className="button button--secondary w-100" onClick={handleDelete} aria-label="Confirm Delete Account">
                                     Delete Account
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="button" className="button button--secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" className="button button--secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="Delete Account">
                     Delete Account
                 </button>
                 {message && (

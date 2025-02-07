@@ -20,7 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			register: async (formData) => {
 				try {
-					console.log("Datos enviados al servidor:", formData);
+					//console.log("Datos enviados al servidor:", formData);
 			
 					// Validación previa de los datos del formulario
 					if (!formData.user || !formData.email || !formData.password) {
@@ -75,7 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 			
 					const data = await resp.json();
-					console.log("Data received from the server:", data);
+					// console.log("Data received from the server:", data);
 					return { success: true, message: "User successfully registered." };
 			
 				} catch (error) {
@@ -150,14 +150,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			getUserInfo: async () => {
 				try {
-					console.log("Initiating request to retrieve user information...");
+					//console.log("Initiating request to retrieve user information...");
 
 					const token = localStorage.getItem("token");
 					if (!token) {
 						throw new Error("Token not found in localStorage.");
 					}
 
-					console.log("Token obtained:", token);
+					//console.log("Token obtained:", token);
 
 					const resp = await fetch(process.env.BACKEND_URL + '/api/user_info',
 						{
@@ -168,7 +168,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-				  	console.log("Complete response:", resp);
+				  	//console.log("Complete response:", resp);
 
 					if (!resp.ok) {
 						console.error("Server response error:", resp.status, resp.statusText);
@@ -183,11 +183,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await resp.json();
-					console.log("Data retrieved:", data);
+					//console.log("Data retrieved:", data);
 
 					setStore({ user: data.payload });
 				} catch (error) {
-					console.error("Error retrieving user information:", error.message);
+					// console.error("Error retrieving user information:", error.message);
 					// alert("Could not retrieve user information. Please check your connection.");
 					return false;
 				}
@@ -210,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// Validamos la respuesta
 					if (!response.ok) {
 						const errorData = await response.json();
-						console.error("Error al obtener el perfil:", errorData);
+						//console.error("Error al obtener el perfil:", errorData);
 						return { error: errorData.message || "Error desconocido" };
 					}
 			

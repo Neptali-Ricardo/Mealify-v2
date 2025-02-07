@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Filtro_Preferencias } from "../component/items/filtro.jsx";
 import { Algerenos_Condiciones_Medicas } from "../component/items/alergenos_condicionesMedicas.jsx";
 import { Card_Detail_Component } from "../component/card_details_preparation/card_detail_menu_component.jsx";
+import "../../styles/components/_menuCreatorTable.css";
+import { Spinner } from "../component/spinner.jsx";
 
 export const Menu_GPT = () => {
     const [desplegar, setDesplegar] = useState("");
@@ -31,11 +33,10 @@ export const Menu_GPT = () => {
 
     useEffect(() => {
         // Este efecto se ejecutará cada vez que cambien las variables
-        console.log("Datos actualizados:", {
-            cantidadPersonas,
-            cantidadAlergenos,
-            cantidadCondiciones,
-        });
+        cantidadPersonas;
+        cantidadAlergenos;
+        cantidadCondiciones;
+        
     }, [cantidadPersonas, cantidadAlergenos, cantidadCondiciones]);
 
     const handleGuardar = async () => {
@@ -43,7 +44,7 @@ export const Menu_GPT = () => {
             alert("Tienes que iniciar sesión para guardar esta receta");
             navigate("/loginRegister");
         } else {
-            console.log("Receta guardada:", resultado);
+            //console.log("Receta guardada:", resultado);
 
             // Crea el JSON con todos los datos del formulario
             const recetaData = {
@@ -52,7 +53,7 @@ export const Menu_GPT = () => {
                 "condicion": condicionesMedicas,
             };
 
-            console.log("Datos del formulario en formato JSON:", recetaData);
+            //console.log("Datos del formulario en formato JSON:", recetaData);
 
             // Asegúrate de esperar a que la información del usuario sea cargada
             await actions.getUserInfo();
@@ -61,7 +62,7 @@ export const Menu_GPT = () => {
             const user = store.user;
 
             if (user && user.id) {
-                console.log("El id de usuario es:", user.id);
+                //console.log("El id de usuario es:", user.id);
 
                 // Si necesitas incluir el ID del usuario en el JSON
                 recetaData.userId = user.id;
@@ -89,16 +90,13 @@ export const Menu_GPT = () => {
             const user = store.user;
 
             if (user && user.id) {
-                console.log("El id de usuario es (profile):", user.id);
-            } else {
-                console.error("No se encontró el id de usuario.");
                 return;
             }
 
             await actions.getUserProfile();
 
             const profile_obtained = store.userProfile || [];
-            console.log(profile_obtained);
+            //console.log(profile_obtained);
 
             // Cálculo de datos
             let personas = 0, alergenos = 0, condiciones = 0;
@@ -162,26 +160,27 @@ export const Menu_GPT = () => {
             alert("Por favor, escribe tus preferencias alimenticias.");
             return;
         }
-
-        const fullConsulta = `Hazme un menú semanal.
-Desayuno, comida y cena  
-Preferencias: ${consulta.trim()}.
-Número de comensales: ${inputComensales}.
-Que no tenga estos alimentos: ${alergenos.join(", ")}.
-Tengo estas condiciones médicas: ${condicionesMedicas.join(", ")}.
-De lunes a domingo
-Incluye los ingredientes, cantidades en peso y calorías totales de cada plato separados en |.`;
+        setLoading(true);
+        const fullConsulta = `Create a weekly menu for me.
+        Breakfast, lunch, and dinner  
+        Preferences: ${consulta.trim()}.
+        Number of diners: ${inputComensales}.
+        Exclude these foods: ${alergenos.join(", ")}.
+        I have these medical conditions: ${condicionesMedicas.join(", ")}.
+        From Monday to Sunday
+        Include the ingredients, quantities in weight, and total calories of each dish separated by |.`;
 
         try {
             const response = await getChatGPTResponse([
                 { role: "user", content: fullConsulta.trim() },
             ]);
-            console.log(response.content)
+            //console.log(response.content)
             setResultado(response.content);
         } catch (error) {
-            console.error("Error al obtener la respuesta de ChatGPT:", error);
+            //console.error("Error al obtener la respuesta de ChatGPT:", error);
             setResultado("Hubo un error al procesar la consulta.");
         }
+        setLoading(false);
     };
 
     const parseResult = (result) => {
@@ -199,7 +198,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
     };
 
     const parsedData = parseResult(resultado);
-    console.log(parsedData)
+    //console.log(parsedData)
 
     const mealPlans = () => {
         navigate('/mealplan')
@@ -207,6 +206,7 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
 
     return (
         <div className="menu__container container text-center mt-5">
+            {loading && <Spinner />}
             <div className="text-center">
                 <h2 className="menu__title">What are <strong>cooking today</strong></h2>
                 <p className="menu__description">Tell us what you need, and let AI create the perfect weekly menu for you.</p>
@@ -220,78 +220,93 @@ Incluye los ingredientes, cantidades en peso y calorías totales de cada plato s
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}
                     />
-                    <div class="btn-group button-groupe--primary" role="group" aria-label="Large button group">
-                        <button type="button" class="button button--primary__left" onClick={generarConsulta}>
+                    <div className="btn-group button-groupe--primary" role="group" aria-label="Large button group">
+                        <button type="button" className="button button--primary__left" onClick={generarConsulta}>
                             Generate Your Meal Plan
                             <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                         </button>
-                        <button type="button" class="button button--primary__right" onClick={handleDesplegar}>
+                        <button type="button" className="button button--primary__right" onClick={handleDesplegar}>
                             <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1738087672/filter-icon-white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                         </button>
                     </div>
                 </div>
-                <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
-                {desplegar === "Desplegado" ? (
-                    <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
-                ) : null}
             </form>
-            <div className="resultado_GPT mt-4">
+            
+            <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
+            {desplegar === "Desplegado" ? (
+                <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
+            ) : null}
+
+            {parsedData.length > 0 && (
+                <div className="text-center">
+                    <h3 className="menu__title">Weekly <strong>Meal Plan</strong></h3>
+                    <p className="menu__description">Plan ahead and enjoy a variety of tasty dishes all week long.</p>
+                </div>
+            )}
+
+            <div className="resultado_GPT">
                 {parsedData.length > 0 ? (
-                    <div>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Meal Type</th>
-                                    <th>Ingredients</th>
-                                    <th>Calories</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {parsedData.map((row, index) => (
-                                    <tr key={index} onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
-                                        <td>{row.day}</td>
-                                        <td>{row.mealType}</td>
-                                        <td>{row.ingredients}</td>
-                                        <td>{row.calories}</td>
+                    <>
+                        <div className="menu-creator">
+                            <table className="menu-creator__table">
+                                <thead className="menu-creator__thead">
+                                    <tr className="menu-creator__tr">
+                                        <th className="menu-creator__th">Day</th>
+                                        <th className="menu-creator__th">Meal Type</th>
+                                        <th className="menu-creator__th">Ingredients</th>
+                                        <th className="menu-creator__th">Calories</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-xl">
-                                <div className="modal-content">
-                                    <div className="modal-body">
-                                        {selectedRow ? (
-                                            <>
-                                                <div className="modal-header">
-                                                    <div className="d-flex flex-column">
-                                                        <h5 className="modal-title" id="dataModalLabel"> {selectedRow.mealType}</h5>
-                                                        <h5>{selectedRow.day}</h5>
+                                </thead>
+                                <tbody className="menu-creator__tbody">
+                                    {parsedData.map((row, index) => (
+                                        <tr key={index} className="menu-creator__tr" onClick={() => setSelectedRow(row)} data-bs-toggle="modal" data-bs-target="#dataModal">
+                                            <td className="menu-creator__td">{row.day}</td>
+                                            <td className="menu-creator__td">{row.mealType}</td>
+                                            <td className="menu-creator__td">{row.ingredients}</td>
+                                            <td className="menu-creator__td">{row.calories}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="modal fade" id="dataModal" tabIndex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-lg">
+                                    <div className="modal-content d-flex flex-column content-space">
+                                        <div className="modal-body d-flex flex-column card-space">
+                                            {selectedRow ? (
+                                                <>
+                                                    <div className="modal-header modal__header-custom">
+                                                        <div className="d-flex flex-column">
+                                                            <h5 className="modal-title modal_title" id="dataModalLabel"> {selectedRow.mealType}</h5>
+                                                            <h5>{selectedRow.day}</h5>
+                                                        </div>
                                                     </div>
-                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
-                                            </>
-                                        ) : (
-                                            <p>Selecciona una fila para ver los detalles.</p>
-                                        )}
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    <Card_Detail_Component comida={selectedRow.mealType} tipo_comida={selectedRow.day} ingredientes={selectedRow.ingredients} calorias={selectedRow.calories} />
+                                                </>
+                                            ) : (
+                                                <p>Selecciona una fila para ver los detalles.</p>
+                                            )}
+                                        </div>
+                                        <div className="modal-footer d-flex justify-content-center">
+                                            <button type="button" className="button button--primary w-100" data-bs-dismiss="modal">
+                                                <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-left-button_icwmqo.svg" alt="arrow  left" className="banner__icon" />
+                                                Go Back to Meal Menu
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div className="button-group__table">
+                                <button className="button button--primary" type="button" onClick={handleGuardar}>
+                                    Save MealPlans
+                                    <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+                                </button>
+                                <button onClick={mealPlans} className="button button--primary" type="button">
+                                    Go to MealPlans
+                                    <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
+                                </button>
+                            </div>
                         </div>
-                        <div className="d-flex justify-content-between">
-                            <button className="button button--secondary" type="button" onClick={handleGuardar}>
-                                Save recipe
-                            </button>
-                            <button onClick={mealPlans} className="button button--secondary" type="button">
-                                Go to MealPlans
-                            </button>
-                        </div>
-                    </div>
+                    </>
                 ) : (
                     <p>{resultado}</p>
                 )}
