@@ -36,7 +36,7 @@ export const Algerenos_Condiciones_Medicas = ({ Objectx }) => {
         const user = store.user;
 
         if (user && user.id) {
-            console.log("El id de usuario es:", user.id);
+            //console.log("El id de usuario es:", user.id);
 
             // Si necesitas incluir el ID del usuario en el JSON
             recetaData.userId = user.id;
