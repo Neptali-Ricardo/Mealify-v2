@@ -42,9 +42,7 @@ export const MealPlan = () => {
         const user = store.user;
 
         if (user && user.id) {
-            console.log("El id de usuario es (profile):", user.id);
-        } else {
-            console.log("No se encontró el id de usuario en la información del usuario:", user);
+            return;
         }
 
         await actions.getPlans();
@@ -52,7 +50,7 @@ export const MealPlan = () => {
         // Accedemos a los datos del store
         const store_obtained = store.userPlans;
 
-        console.log("Planes obtenidos:", JSON.stringify(store_obtained, null, 2));
+        //console.log("Planes obtenidos:", JSON.stringify(store_obtained, null, 2));
 
         // Guardar los datos en el estado local
         setUserPlans(store_obtained);

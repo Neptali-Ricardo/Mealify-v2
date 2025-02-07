@@ -33,11 +33,10 @@ export const Menu_GPT = () => {
 
     useEffect(() => {
         // Este efecto se ejecutará cada vez que cambien las variables
-        console.log("Datos actualizados:", {
-            cantidadPersonas,
-            cantidadAlergenos,
-            cantidadCondiciones,
-        });
+        cantidadPersonas;
+        cantidadAlergenos;
+        cantidadCondiciones;
+        
     }, [cantidadPersonas, cantidadAlergenos, cantidadCondiciones]);
 
     const handleGuardar = async () => {
@@ -45,7 +44,7 @@ export const Menu_GPT = () => {
             alert("Tienes que iniciar sesión para guardar esta receta");
             navigate("/loginRegister");
         } else {
-            console.log("Receta guardada:", resultado);
+            //console.log("Receta guardada:", resultado);
 
             // Crea el JSON con todos los datos del formulario
             const recetaData = {
@@ -54,7 +53,7 @@ export const Menu_GPT = () => {
                 "condicion": condicionesMedicas,
             };
 
-            console.log("Datos del formulario en formato JSON:", recetaData);
+            //console.log("Datos del formulario en formato JSON:", recetaData);
 
             // Asegúrate de esperar a que la información del usuario sea cargada
             await actions.getUserInfo();
@@ -63,7 +62,7 @@ export const Menu_GPT = () => {
             const user = store.user;
 
             if (user && user.id) {
-                console.log("El id de usuario es:", user.id);
+                //console.log("El id de usuario es:", user.id);
 
                 // Si necesitas incluir el ID del usuario en el JSON
                 recetaData.userId = user.id;
@@ -91,16 +90,13 @@ export const Menu_GPT = () => {
             const user = store.user;
 
             if (user && user.id) {
-                console.log("El id de usuario es (profile):", user.id);
-            } else {
-                console.error("No se encontró el id de usuario.");
                 return;
             }
 
             await actions.getUserProfile();
 
             const profile_obtained = store.userProfile || [];
-            console.log(profile_obtained);
+            //console.log(profile_obtained);
 
             // Cálculo de datos
             let personas = 0, alergenos = 0, condiciones = 0;
@@ -178,10 +174,10 @@ export const Menu_GPT = () => {
             const response = await getChatGPTResponse([
                 { role: "user", content: fullConsulta.trim() },
             ]);
-            console.log(response.content)
+            //console.log(response.content)
             setResultado(response.content);
         } catch (error) {
-            console.error("Error al obtener la respuesta de ChatGPT:", error);
+            //console.error("Error al obtener la respuesta de ChatGPT:", error);
             setResultado("Hubo un error al procesar la consulta.");
         }
         setLoading(false);
@@ -202,7 +198,7 @@ export const Menu_GPT = () => {
     };
 
     const parsedData = parseResult(resultado);
-    console.log(parsedData)
+    //console.log(parsedData)
 
     const mealPlans = () => {
         navigate('/mealplan')
@@ -224,21 +220,22 @@ export const Menu_GPT = () => {
                         value={consulta}
                         onChange={(e) => setConsulta(e.target.value)}
                     />
-                    <div class="btn-group button-groupe--primary" role="group" aria-label="Large button group">
-                        <button type="button" class="button button--primary__left" onClick={generarConsulta}>
+                    <div className="btn-group button-groupe--primary" role="group" aria-label="Large button group">
+                        <button type="button" className="button button--primary__left" onClick={generarConsulta}>
                             Generate Your Meal Plan
                             <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                         </button>
-                        <button type="button" class="button button--primary__right" onClick={handleDesplegar}>
+                        <button type="button" className="button button--primary__right" onClick={handleDesplegar}>
                             <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1738087672/filter-icon-white_iy1jw2.svg" alt="arrow icon" className="button__icon" />
                         </button>
                     </div>
                 </div>
-                <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
-                {desplegar === "Desplegado" ? (
-                    <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
-                ) : null}
             </form>
+            
+            <Filtro_Preferencias guests={cantidadPersonas || 0} allergens={cantidadAlergenos || 0} medical={cantidadCondiciones || 0} />
+            {desplegar === "Desplegado" ? (
+                <Algerenos_Condiciones_Medicas Objectx={datosPerfil} />
+            ) : null}
 
             {parsedData.length > 0 && (
                 <div className="text-center">

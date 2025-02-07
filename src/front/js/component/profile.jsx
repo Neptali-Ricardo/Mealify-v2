@@ -23,16 +23,13 @@ export const Profile = () => {
             const user = store.user;
 
             if (user && user.id) {
-                console.log("User ID (profile):", user.id);
-            } else {
-                console.error("User ID not found.");
                 return;
             }
 
             await actions.getUserProfile();
 
             const profile_obtained = store.userProfile || [];
-            console.log(profile_obtained);
+            //console.log(profile_obtained);
 
             // Cálculo de datos
             let personas = 0, alergenos = 0, condiciones = 0;

@@ -36,7 +36,7 @@ export const Footer = () => (
             <h5>About</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <Link to="/about" className="footer__link">
+                <Link to="/" className="footer__link">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">About</span>
                 </Link>
@@ -60,7 +60,7 @@ export const Footer = () => (
             <h5>GitHub & LinkedIn</h5>
             <ul className="footer__columns">
               <li className="footer__list-item">
-                <a href="https://github.com/4GeeksAcademy/Final-Project-User-Stories-Wireframes-Mealify" className="footer__link" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/Neptali-Ricardo/Mealify-v2" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">GitHub Repository</span>
                 </a>
@@ -72,9 +72,9 @@ export const Footer = () => (
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="https://www.linkedin.com/in/jose-antonio-llorens-padilla/" className="footer__link" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/stefanodellolioprada/" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
-                  <span className="footer__link-text">Jose Llorens LinkedIn</span>
+                  <span className="footer__link-text">Stefano Dell'Olio Prada</span>
                 </a>
               </li>
             </ul>
