@@ -12,7 +12,7 @@ body {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  color: var(--text-color);
+  color: var(--color-neutral-gray);
 }
 
 /* Títulos */
@@ -36,7 +36,6 @@ h6 {
   font-family: var(--font-family-primary);
   font-weight: var(--font-weight-medium);
   line-height: auto;
-  margin: 0;
 }
 
 /* Párrafos */
