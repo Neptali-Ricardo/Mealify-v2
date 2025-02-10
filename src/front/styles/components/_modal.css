@@ -37,5 +37,5 @@
 
 .plan-name__description{
     font-size: 20px !important;
-    color: var(--text-color) !important;
+    color: var(--color-neutral-gray) !important;
 }

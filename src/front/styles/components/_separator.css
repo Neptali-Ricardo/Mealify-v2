@@ -1,7 +1,7 @@
 .separator__line {
     flex-grow: 1;
     height: 0.0625rem; /* 1px */
-    background-color: var(--background-color);
+    background-color: var(--color-neutral-white);
     border: none;
 }
   

@@ -67,12 +67,12 @@
 
 .button--secondary {
     background: var(--color-neutral-gray-50);
-    color: var(--text-color);
+    color: var(--color-neutral-gray);
 }
 
 .button--secondary:hover {
     background: var(--secondary-color);
-    color: var(--text-color);
+    color: var(--color-neutral-gray);
 }
 
 .button--small {
