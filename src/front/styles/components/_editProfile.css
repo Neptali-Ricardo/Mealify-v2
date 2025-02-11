@@ -6,7 +6,7 @@
 }
 
 .edit-form__form{
-     width: 37.5rem;
+    width: 37.5rem;
     padding: 0.75rem;
     border: 1px solid var(--color-neutral-gray-50);
     border-radius: 0.75rem;
@@ -21,7 +21,8 @@
    gap: 1.5rem;
 }
 
-.container-edit-form h2{
+.profile__subtitle{
+    font-size: var(--font-size-l) !important;
     margin: 0;
 }
 
@@ -40,8 +41,4 @@
     .edit-form__form{
        gap: 1rem;
    }
-
-    .container-edit-form h2 {
-        font-size: 1.5rem;;
-    }
 }
