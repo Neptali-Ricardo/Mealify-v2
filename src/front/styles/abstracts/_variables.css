@@ -8,72 +8,74 @@
 */
 
 :root {
-    /* Colores */
-    --primary-color:          #8A42FB;
-    --primary-color-active:   #985bfb;
-    --secondary-color:        #ebebeb;
-    --color-neutral-white:    #FFFFFF;
-    --color-neutral-gray-50:  #F3F3F3;
-    --color-neutral-gray:     #646464;
-    --color-neutral-gray-800: #343434;
-  
-    /* Tipografía */
-    --font-family-primary: "Roboto", sans-serif;
-    --font-weight-ligth: 300;         /* Peso para light */
-    --font-weight-regular: 400;       /* Peso para regular */
-    --font-weight-medium: 500;        /* Peso para Medium */
-    --font-weight-semibold: 600;      /* Peso para SemiBold */
-    --font-weight-bold: 700;          /* Peso para Bold */
-  
-    /* Typography móvil*/
-    --font-size-xs: 0.875rem;         /* 14px para párrafos en móvil */
-    --font-size-s: 1.125rem;          /* 18px para párrafos en escritorio */
-    --font-size-m: 1.25rem;           /* 20px para subtítulos en móvil */
-    --font-size-l: 1.5rem;            /* 24px para títulos en móvil */
-    --font-size-xl: 3.1875rem;        /* 51px para subtítulos en escritorio */
-    --font-size-xxl: 3.8125rem;       /* 61px para títulos en escritorio */
+  /* Colores */
+  --primary-color:          #8A42FB;
+  --primary-color-active:   #985bfb;
+  --secondary-color:        #ebebeb;
+  --color-neutral-white:    #FFFFFF;
+  --color-neutral-gray-50:  #F3F3F3;
+  --color-neutral-gray:     #646464;
+  --color-neutral-gray-800: #343434;
 
-    /* Line Height */
-    --line-height-s: 1.4rem;          /* 22.4px para fuentes pequeñas */
-    --line-height-m: 1.5rem;          /* 24px para fuentes medianas */
-    --line-height-l: 2.7rem;          /* 43.2px para fuentes grandes */
-    --line-height-xl: 3.575rem;       /* 73.2px para fuentes extra grandes */
-    --line-height-xxl: 4.575rem;      /* 73.2px para fuentes muy grandes */
+  /* Tipografía */
+  --font-family-primary: "Roboto", sans-serif;
+  --font-weight-ligth: 300;         /* Peso para light */
+  --font-weight-regular: 400;       /* Peso para regular */
+  --font-weight-medium: 500;        /* Peso para Medium */
+  --font-weight-semibold: 600;      /* Peso para SemiBold */
+  --font-weight-bold: 700;          /* Peso para Bold */
+  --font-weight-black: 900;         /* Peso para Black */
 
-    /* Espaciados */
-    --spacing-small: 0.5rem;          /* 8px */
-    --spacing-medium: 1rem;           /* 16px */
-    --spacing-large: 1.5rem;          /* 24px */
+  /* Tamaños de fuente */
+  --font-size-xs: 0.875rem;         /* 14px para párrafos en móvil */
+  --font-size-s: 1.125rem;          /* 18px para párrafos en escritorio */
+  --font-size-m: 1.25rem;           /* 20px para subtítulos en móvil */
+  --font-size-l: 1.5rem;            /* 24px para títulos en móvil */
+  --font-size-xl: 3.1875rem;        /* 51px para subtítulos en escritorio */
+  --font-size-xxl: 3.8125rem;       /* 61px para títulos en escritorio */
 
-    /* Buttons */
-    --button-border-radius: 0.75rem;  /* 12px */
-    --button-font-size: 1rem;         /* 16px */
-    --button-line-height: 1.5rem;     /* 24px */
-    --button-padding: 1rem;           /* 16px */
-    --button-inner-gap: 0.5rem;       /* 8px */
-    --button-gap: 0.5rem;             /* 8px */
-    --button-jumbotron-gap: 1rem;     /* 16px */
+  /* Line Height */
+  --line-height-s: 1.4rem;          /* 22.4px para fuentes pequeñas */
+  --line-height-m: 1.5rem;          /* 24px para fuentes medianas */
+  --line-height-l: 2.7rem;          /* 43.2px para fuentes grandes */
+  --line-height-xl: 3.575rem;       /* 73.2px para fuentes extra grandes */
+  --line-height-xxl: 4.575rem;      /* 73.2px para fuentes muy grandes */
 
-    /* SCSS Variables */
-    --gap-xsmall: 0.5rem;             /* 8px */
-    --gap-small: 1rem;                /* 16px */
-    --gap-medium: 1.5rem;             /* 24px */
-    --gap-large: 2rem;                /* 32px */
-    --gap-xlarge: 2.5rem;             /* 40px */
-    --gap-xxlarge: 3.75rem;           /* 60px */
-    
-    /* margins */
-    --margin-small: 0.5rem;           /* 8px */
-    --margin-medium: 1rem;            /* 16px */
-    --margin-large: 1.5rem;           /* 24px */
-    --margin-xlarge: 2rem;            /* 32px */
-    --margin-xxlarge: 2.5rem;         /* 40px */
-    --margin-xxxlarge: 3.75rem;       /* 60px */
-    
-    /* Containers */
-    --container-inner-width: 75rem;   /* 1200px */
+  /* Espaciados */
+  --spacing-small: 0.5rem;          /* 8px */
+  --spacing-medium: 1rem;           /* 16px */
+  --spacing-large: 1.5rem;          /* 24px */
+  --spacing-xlarge: 2rem;           /* 32px */
+  --spacing-xxlarge: 2.5rem;        /* 40px */
 
-    /* width */
-    --width-button: 43.75rem;         /* 700px */
+  /* Buttons */
+  --button-border-radius: 0.75rem;  /* 12px */
+  --button-font-size: 1rem;         /* 16px */
+  --button-line-height: 1.5rem;     /* 24px */
+  --button-padding: 1rem;           /* 16px */
+  --button-inner-gap: 0.5rem;       /* 8px */
+  --button-gap: 0.5rem;             /* 8px */
+  --button-jumbotron-gap: 1rem;     /* 16px */
 
-  }
+  /* SCSS Variables */
+  --gap-xsmall: 0.5rem;             /* 8px */
+  --gap-small: 1rem;                /* 16px */
+  --gap-medium: 1.5rem;             /* 24px */
+  --gap-large: 2rem;                /* 32px */
+  --gap-xlarge: 2.5rem;             /* 40px */
+  --gap-xxlarge: 3.75rem;           /* 60px */
+
+  /* margins */
+  --margin-small: 0.5rem;           /* 8px */
+  --margin-medium: 1rem;            /* 16px */
+  --margin-large: 1.5rem;           /* 24px */
+  --margin-xlarge: 2rem;            /* 32px */
+  --margin-xxlarge: 2.5rem;         /* 40px */
+  --margin-xxxlarge: 3.75rem;       /* 60px */
+
+  /* Containers */
+  --container-inner-width: 75rem;   /* 1200px */
+
+  /* width */
+  --width-button: 43.75rem;         /* 700px */
+}
