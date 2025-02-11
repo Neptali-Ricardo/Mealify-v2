@@ -148,7 +148,7 @@ export const MealPlan = () => {
 
                 {!userPlans || userPlans.length === 0 ? (
                     <div className="text-center mb-5">
-                        <p className="meal-menu__description">No Meal Plans Yet</p>
+                        <h2 className="meal-menu__description">No Meal Plans Yet</h2>
                         <p className="menu__description">Start planning your meals effortlessly! <br/> Save your favorite meals and create a personalized plan to stay on track.</p>
                     </div>
                 ) : null}

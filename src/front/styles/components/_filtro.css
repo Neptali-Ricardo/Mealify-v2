@@ -6,6 +6,7 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
 .filtro-form__field{
     display: flex;
     gap: 0.5rem;
@@ -21,18 +22,4 @@
     background: #F7F7F7;
     transition: all 0.3s ease;
     text-align: center;
-}
-
-/* Media queries para dispositivos móviles */
-@media (max-width: 500px) {
-    .menu__title{
-        font-size: 2rem;
-        line-height: 2.5rem;
-    }
-
-    .menu__subtitle {
-        font-size: 1.5rem;
-        line-height: 2rem;
-    }
-
 }
