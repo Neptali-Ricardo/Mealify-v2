@@ -90,11 +90,11 @@ export default function LoginRegister() {
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading m-0">Join Us and Start Planning!</h2>
+                            <h2 className="login__heading m-0" id="banner__title">Join Us and Start Planning!</h2>
                         </div>
                         <LoginForm onSubmit={handleSubmit} />
-                        <p className="login-form__text" onClick={toggleForm}>
-                            Don't have an account? <span className="login-form__highlight">Register</span>
+                        <p className="login-form__text">
+                            Don't have an account? <button className="login-form__highlight" onClick={toggleForm}>Register</button>
                         </p>
                     </div>
                 </div>
@@ -102,11 +102,11 @@ export default function LoginRegister() {
                 <div className="banner__login-content container">
                     <div className="banner__column-login col-sm-12 col-md-12 col-lg-6">
                         <div className="login__text">
-                            <h2 className="login__heading m-0">Welcome Back! <br /> Ready to Plan Your Next Meal?</h2>
+                            <h2 className="login__heading m-0" id="banner__title">Welcome Back! <br /> Ready to Plan Your Next Meal?</h2>
                         </div>
                         <UserForm onSubmit={handleSubmit} />
-                        <p className="login-form__text" onClick={toggleForm}>
-                            Already have an account? <span className="login-form__highlight">Login</span>
+                        <p className="login-form__text">
+                            Already have an account? <button className="login-form__highlight" onClick={toggleForm}>Login</button>
                         </p>
                     </div>
                 </div>
