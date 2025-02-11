@@ -10,7 +10,7 @@
 }
 
 .banner__secondary--title {
-    font-size: 2.5rem !important;
+    font-size: var(--font-size-xl);
     color: var(--color-neutral-white);
     font-weight: var(--font-weight-bold);
 }
@@ -18,5 +18,9 @@
 @media (max-width: 430px) {
     .banner__secondary {
         max-height: 28.125rem;
+    }
+
+    .banner__secondary--title {
+        font-size: var(--font-size-l);
     }
 }
