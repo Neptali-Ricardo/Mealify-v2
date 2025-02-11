@@ -53,9 +53,17 @@
     margin: 40px 0;
 }
 
+.menu__title{
+    margin: 0;
+}
+
 .meal-menu__description {
-    font-size: 2rem;
+    font-size: var(--font-size-l);
     color: var(--color-neutral-gray);
+}
+
+.menu__description{
+    font-size: var(--font-size-s);
 }
 
 .button-group__table {
@@ -111,6 +119,14 @@
 
     .resultado_GPT{
         max-width: 360px;
+    }
+
+    .meal-menu__description {
+        font-size: var(--font-size-m);
+    }
+    
+    .menu__description{
+        font-size: var(--font-size-xs);
     }
     
 }
