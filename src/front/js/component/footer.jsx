@@ -66,7 +66,7 @@ export const Footer = () => (
                 </a>
               </li>
               <li className="footer__list-item">
-                <a href="https://www.linkedin.com/in/nepta/" className="footer__link" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/neptalicastejon/?originalSubdomain=es" className="footer__link" target="_blank" rel="noopener noreferrer">
                   <img src="https://res.cloudinary.com/dfhhq651o/image/upload/v1737888384/arrow-right-button_oepqyy.svg" alt="arrow icon" className="button__icon" />
                   <span className="footer__link-text">Neptali Castejón LinkedIn</span>
                 </a>
