@@ -4,8 +4,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar.jsx";
@@ -17,7 +15,7 @@ import { Menu_GPT } from "./gpt/gpt_crear_menu.jsx";
 import { Profile } from "./component/profile.jsx";
 import { MealPlan } from "./pages/mealplan.jsx";
 import { MenuCreator } from "./pages/menuCreator.jsx";
-import { About } from "./pages/about.jsx";
+// import { About } from "./pages/about.jsx";
 
 
 
@@ -36,12 +34,10 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<MenuCreator />} path="/menuCreator" />
                         <Route element={<MealPlan />} path="/mealplan" />
-                        <Route element={<About />} path="/about" />
+                        {/* <Route element={<About />} path="/about" /> */}
                         <Route element={<LoginRegister />} path="/loginRegister" />
                         <Route element={<SelectAllergiesPage />} path="/alergias" />
                         <Route element={<File_test />} path="/test" />
