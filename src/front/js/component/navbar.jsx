@@ -50,9 +50,6 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/menucreator" onClick={closeMenu}>MenuCreator</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about" onClick={closeMenu}>About</Link>
-                        </li>
                         {token ? (
                             <>
                                 <li className="nav-item">

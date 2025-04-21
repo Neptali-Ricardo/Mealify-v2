@@ -150,7 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			getUserInfo: async () => {
 				try {
-					console.log("Initiating request to retrieve user information...");
+					//console.log("Initiating request to retrieve user information...");
 
 					const token = localStorage.getItem("token");
 					if (!token) {
@@ -187,7 +187,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					setStore({ user: data.payload });
 				} catch (error) {
-					console.error("Error retrieving user information:", error.message);
+					// console.error("Error retrieving user information:", error.message);
 					// alert("Could not retrieve user information. Please check your connection.");
 					return false;
 				}
@@ -210,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// Validamos la respuesta
 					if (!response.ok) {
 						const errorData = await response.json();
-						console.error("Error al obtener el perfil:", errorData);
+						//console.error("Error al obtener el perfil:", errorData);
 						return { error: errorData.message || "Error desconocido" };
 					}
 			
