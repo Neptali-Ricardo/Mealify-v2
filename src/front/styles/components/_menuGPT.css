@@ -13,7 +13,7 @@
 }
 
 .menu__description{
-    font-size: 16px;
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-regular);
 }
 
@@ -42,7 +42,7 @@
 /* Media queries para dispositivos móviles */
 @media (max-width: 768px) {
     .menu__title{
-        font-size: 2rem;
+        font-size: var(--font-size-l);
         line-height: 2.5rem;
     }
 
